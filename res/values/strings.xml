@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">BullsCows</string>
 
+    <!--MainFragment-->
+    <string name="main_profile">Profile</string>
+    <string name="main_company">Company</string>
+    <string name="main_sandbox">Sandbox</string>
+    <string name="main_settings">Settings</string>
+
     <string name="MainFragment">main_fragment</string>
 </resources>

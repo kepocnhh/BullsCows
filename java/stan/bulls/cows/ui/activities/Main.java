@@ -22,21 +22,36 @@ public class Main
     @Override
     protected void initViews()
     {
-        initList();
-    }
-
-    private void initList()
-    {
     }
 
     @Override
     protected void init()
     {
-        initRequest();
         addFragment(MainFragment.newInstance());
     }
 
-    private void initRequest()
+    //__________MAIN_FRAGMENT_________________________________
+    @Override
+    public void profile()
     {
+
+    }
+
+    @Override
+    public void company()
+    {
+
+    }
+
+    @Override
+    public void sandbox()
+    {
+
+    }
+
+    @Override
+    public void settings()
+    {
+
     }
 }

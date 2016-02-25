@@ -4,7 +4,23 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <Button
-        android:text="test"
-        android:layout_width="wrap_content"
+        android:id="@+id/main_profile"
+        android:text="@string/main_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/main_company"
+        android:text="@string/main_company"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/main_sandbox"
+        android:text="@string/main_sandbox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/main_settings"
+        android:text="@string/main_settings"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>
