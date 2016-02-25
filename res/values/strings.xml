@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BullsCows</string>
+
+    <string name="MainFragment">main_fragment</string>
+</resources>
