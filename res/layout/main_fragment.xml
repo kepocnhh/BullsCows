@@ -19,8 +19,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <Button
-        android:id="@+id/main_settings"
-        android:text="@string/main_settings"
+        android:id="@+id/main_shop"
+        android:text="@string/main_shop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/main_help"
+        android:text="@string/main_help"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>
