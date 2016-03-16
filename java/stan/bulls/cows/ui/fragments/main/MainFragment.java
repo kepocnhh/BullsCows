@@ -28,6 +28,14 @@ public class MainFragment
     protected void findViews(View v)
     {
         super.findViews(v);
+        v.findViewById(R.id.main_sandbox).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                getListener().sandbox();
+            }
+        });
         init();
     }
 

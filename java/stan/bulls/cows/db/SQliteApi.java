@@ -11,7 +11,7 @@ public class SQliteApi
     public static DatabaseHelper dbHelper;
     public static volatile SQLiteDatabase sdb;
     public static String DB_NAME = "bullscows";
-    public static int DB_VERSION = 1602251412;
+    public static int DB_VERSION = 1603161439;
 
     public static void createDb(Context context)
     {
@@ -31,28 +31,25 @@ public class SQliteApi
         sdb.endTransaction();
     }
 
-    // INSERT
-    /* ************************************************************************ */
-//    public static long insertPostSimple(ContentValues content)
-//    {
-//        return sdb.insertWithOnConflict(Tables.PostSimple.TABLE_NAME, null, content, SQLiteDatabase.CONFLICT_REPLACE);
-//    }
+    //____________________________INSERT
+    public static long insertGameTempOffer(ContentValues content)
+    {
+        return sdb.insertWithOnConflict(Tables.GameTemp.TABLE_NAME, null, content, SQLiteDatabase.CONFLICT_REPLACE);
+    }
 
-    // Clear table
-    /* ************************************************************************ */
-//    public static void clearPostSimple()
-//    {
-//        sdb.execSQL("drop table if exists " + Tables.PostSimple.TABLE_NAME);
-//        sdb.execSQL(Tables.PostSimple.CREATE_TABLE);
-//    }
+    //____________________________CLEAR_TABLE
+    public static void clearGameTemp()
+    {
+        sdb.execSQL("drop table if exists " + Tables.GameTemp.TABLE_NAME);
+        sdb.execSQL(Tables.GameTemp.createTable());
+    }
 
-    // GET ALL
-    /* ************************************************************************ */
-//    public static Cursor getPostSimple()
-//    {
-//        Cursor main = sdb.query(Tables.PostSimple.TABLE_NAME, null, null, null, null, null, null);
-//        return main;
-//    }
+    //____________________________GET_ALL
+    public static Cursor getGameTemp()
+    {
+        Cursor main = sdb.query(Tables.GameTemp.TABLE_NAME, null, null, null, null, null, null);
+        return main;
+    }
 
     // GET MANY BY PARAMS
     /* ************************************************************************ */
@@ -81,13 +78,13 @@ public class SQliteApi
     /* ************************************************************************ */
     public static void clearDB(SQLiteDatabase db)
     {
-//        db.execSQL("drop table if exists " + Tables.PostSimple.TABLE_NAME);
+        db.execSQL("drop table if exists " + Tables.GameTemp.TABLE_NAME);
     }
 
     // CREATE DB TABLES
     /* ************************************************************************ */
     public static void createDBTables(SQLiteDatabase db)
     {
-//        db.execSQL(Tables.PostSimple.CREATE_TABLE);
+        db.execSQL(Tables.GameTemp.createTable());
     }
 }

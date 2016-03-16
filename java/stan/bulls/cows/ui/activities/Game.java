@@ -1,10 +1,12 @@
 package stan.bulls.cows.ui.activities;
 
 import stan.bulls.cows.R;
+import stan.bulls.cows.listeners.fragments.game.IGameFragmentListener;
 import stan.bulls.cows.ui.fragments.game.GameFragment;
 
 public class Game
         extends StanActivity
+        implements IGameFragmentListener
 {
     //_______________VIEWS
 
