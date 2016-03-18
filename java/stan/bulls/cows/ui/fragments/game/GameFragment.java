@@ -10,6 +10,7 @@ import stan.bulls.cows.core.Offer;
 import stan.bulls.cows.db.ContentDriver;
 import stan.bulls.cows.db.SQliteApi;
 import stan.bulls.cows.listeners.fragments.game.IGameFragmentListener;
+import stan.bulls.cows.logic.Logic;
 import stan.bulls.cows.ui.adapters.game.OffersAdapter;
 import stan.bulls.cows.ui.fragments.StanFragment;
 
@@ -23,6 +24,7 @@ public class GameFragment
 
     //_______________FIELDS
     private OffersAdapter adapter;
+    private final String secret_value = "moloko";
 
     static public GameFragment newInstance()
     {
@@ -65,11 +67,11 @@ public class GameFragment
     private void addOffer()
     {
         String value = offer_value.getText().toString();
-        if(value.length() == 0)
+        if(value.length() != secret_value.length())
         {
             return;
         }
-        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(new Offer(value)));
+        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(Logic.checkCountBullsAndCows(value, secret_value)));
         adapter.swapCursor(SQliteApi.getGameTemp());
         offer_value.setText("");
     }

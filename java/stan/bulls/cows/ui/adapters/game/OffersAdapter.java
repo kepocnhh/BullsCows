@@ -27,6 +27,8 @@ public class OffersAdapter
     protected void initView(RecyclerView.ViewHolder h, int i)
     {
         getHolder(h).offer_value.setText(getString(Tables.GameTemp.offer_value_COLUMN));
+        getHolder(h).offer_bulls.setText(getString(Tables.GameTemp.offer_bulls_COLUMN));
+        getHolder(h).offer_cows.setText(getString(Tables.GameTemp.offer_cows_COLUMN));
     }
 
     OfferHolder getHolder(RecyclerView.ViewHolder holder)
