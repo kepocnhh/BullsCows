@@ -7,21 +7,20 @@ import android.view.View;
 import stan.bulls.cows.R;
 import stan.bulls.cows.db.Tables;
 import stan.bulls.cows.ui.adapters.StanRecyclerAdapter;
-import stan.bulls.cows.ui.holders.adapters.game.OfferHolder;
+import stan.bulls.cows.ui.holders.adapters.game.NumbersOfferHolder;
 
-public abstract class OffersAdapter
+public class NumbersOffersAdapter
         extends StanRecyclerAdapter
 {
-
-    public OffersAdapter(Context context, int l)
+    public NumbersOffersAdapter(Context context)
     {
-        super(context, l);
+        super(context, R.layout.numbers_offer_list_item);
     }
 
     @Override
     protected RecyclerView.ViewHolder initHolder(View v)
     {
-        return new OfferHolder(v);
+        return new NumbersOfferHolder(v);
     }
 
     @Override
@@ -32,8 +31,8 @@ public abstract class OffersAdapter
         getHolder(h).offer_cows.setText(getString(Tables.GameTemp.offer_cows_COLUMN));
     }
 
-    OfferHolder getHolder(RecyclerView.ViewHolder holder)
+    NumbersOfferHolder getHolder(RecyclerView.ViewHolder holder)
     {
-        return (OfferHolder) holder;
+        return (NumbersOfferHolder) holder;
     }
 }

@@ -1,39 +1,36 @@
 package stan.bulls.cows.ui.fragments.game;
 
+import android.database.Cursor;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import stan.bulls.cows.R;
 import stan.bulls.cows.core.Offer;
-import stan.bulls.cows.db.ContentDriver;
 import stan.bulls.cows.db.SQliteApi;
 import stan.bulls.cows.listeners.fragments.game.IGameFragmentListener;
-import stan.bulls.cows.logic.Logic;
-import stan.bulls.cows.ui.adapters.game.OffersAdapter;
+import stan.bulls.cows.ui.adapters.StanRecyclerAdapter;
 import stan.bulls.cows.ui.fragments.StanFragment;
 
-public class GameFragment
+public abstract class GameFragment
         extends StanFragment
 {
+    static public final String COUNT_KEY = "stan.bulls.cows.ui.fragments.game.GameFragment.count_key";
 
     //___________________VIEWS
     private RecyclerView offer_list;
-    private EditText offer_value;
+    protected EditText offer_value;
 
     //_______________FIELDS
-    private OffersAdapter adapter;
-    private final String secret_value = "moloko";
+    private StanRecyclerAdapter adapter;
+    protected Offer secret;
+    protected int count;
 
-    static public GameFragment newInstance()
+    public GameFragment(int lay, int id)
     {
-        return new GameFragment();
-    }
-
-    public GameFragment()
-    {
-        super(R.layout.game_fragment, R.string.GameFragment);
+        super(lay, id);
     }
 
     @Override
@@ -51,30 +48,33 @@ public class GameFragment
         offer_value = (EditText) v.findViewById(R.id.offer_value);
         offer_list = (RecyclerView) v.findViewById(R.id.offer_list);
         initList();
-        init();
+        initGameFragment();
     }
     private void initList()
     {
-        adapter = new OffersAdapter(getActivity());
+        adapter = createAdapter();
         offer_list.setLayoutManager(new LinearLayoutManager(getActivity()));
         offer_list.setAdapter(adapter);
     }
-    private void init()
+    protected abstract StanRecyclerAdapter createAdapter();
+    private void initGameFragment()
     {
+        init();
+        secret = createSecret();
+        Log.e("GameFragment", "createSecret - " + secret.getValue());
         SQliteApi.clearGameTemp();
     }
 
-    private void addOffer()
+    protected abstract void init();
+
+    protected void swapCursor(Cursor c)
     {
-        String value = offer_value.getText().toString();
-        if(value.length() != secret_value.length())
-        {
-            return;
-        }
-        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(Logic.checkCountBullsAndCows(value, secret_value)));
-        adapter.swapCursor(SQliteApi.getGameTemp());
-        offer_value.setText("");
+        adapter.swapCursor(c);
     }
+
+    protected abstract Offer createSecret();
+
+    protected abstract void addOffer();
 
     private IGameFragmentListener getListener()
     {

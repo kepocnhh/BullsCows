@@ -11,4 +11,6 @@
 
     <string name="MainFragment">main_fragment</string>
     <string name="GameFragment">game_fragment</string>
+    <string name="SandboxFragment">sandbox</string>
+    <string name="Numbers">numbers_game_fragment</string>
 </resources>

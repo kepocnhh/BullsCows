@@ -26,8 +26,19 @@ public class FragmentTransactionPattern
             fragmentManager.beginTransaction().add(id, f).commit();
         }
     }
+    public void addToBackStack(Fragment f,String tag)
+    {
+        fragmentManager.beginTransaction()
+                .replace(ID, f)
+                .addToBackStack(tag)
+                .commit();
+    }
     public void replace(Fragment f)
     {
         fragmentManager.beginTransaction().replace(ID, f).commit();
+    }
+    public void popBackStack()
+    {
+        fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 }

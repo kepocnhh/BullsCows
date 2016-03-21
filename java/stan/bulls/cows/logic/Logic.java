@@ -20,10 +20,13 @@ public class Logic
     }
     static public Offer checkCountBullsAndCows(String offer_value, String secret_value)
     {
+        return checkCountBullsAndCows(offer_value, secret_value.toCharArray());
+    }
+    static public Offer checkCountBullsAndCows(String offer_value, char[] secretCharArray)
+    {
         Offer offer = new Offer(offer_value);
         int length = offer_value.length();
         char[] offerCharArray = offer_value.toCharArray();
-        char[] secretCharArray = secret_value.toCharArray();
         int[] bulls = new int[length];
         int[] cows = new int[length];
         for(int i = 0; i < length; i++)

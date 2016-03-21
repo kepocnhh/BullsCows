@@ -4,11 +4,13 @@ import android.content.Intent;
 
 import stan.bulls.cows.R;
 import stan.bulls.cows.listeners.fragments.main.IMainFragmentListener;
+import stan.bulls.cows.listeners.fragments.main.ISandboxFragmentListener;
 import stan.bulls.cows.ui.fragments.main.MainFragment;
+import stan.bulls.cows.ui.fragments.main.SandboxFragment;
 
 public class Main
         extends StanActivity
-        implements IMainFragmentListener
+        implements IMainFragmentListener, ISandboxFragmentListener
 {
     //_______________VIEWS
 
@@ -19,6 +21,12 @@ public class Main
     public Main()
     {
         super(R.layout.main, R.id.main_frame);
+    }
+
+    @Override
+    protected void onActivityResult(int request, int result, Intent intent)
+    {
+        super.onActivityResult(request, result, intent);
     }
 
     @Override
@@ -48,12 +56,19 @@ public class Main
     @Override
     public void sandbox()
     {
-        startActivity(new Intent(this, Game.class));
+        addToBackStack(SandboxFragment.newInstance());
     }
 
     @Override
     public void settings()
     {
 
+    }
+
+    @Override
+    public void beginNumbersGame(int count, int amount)
+    {
+        popBackStack();
+        Game.startForNumbers(this, count, amount);
     }
 }

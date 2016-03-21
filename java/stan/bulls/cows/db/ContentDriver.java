@@ -10,7 +10,7 @@ public class ContentDriver
     static public ContentValues getContentValuesOfferForGameTemp(Offer offer)
     {
         ContentValues content = new ContentValues();
-        content.put(Tables.GameTemp.offer_value_COLUMN, offer.value);
+        content.put(Tables.GameTemp.offer_value_COLUMN, offer.getValue());
         content.put(Tables.GameTemp.offer_bulls_COLUMN, offer.bulls);
         content.put(Tables.GameTemp.offer_cows_COLUMN, offer.cows);
         return content;
