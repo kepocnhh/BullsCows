@@ -68,7 +68,7 @@ public class Main
     @Override
     public void beginNumbersGame(int count, int amount)
     {
-        popBackStack();
+//        popBackStack();
         Game.startForNumbers(this, count, amount);
     }
 }

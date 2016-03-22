@@ -17,9 +17,9 @@ public class Tables
         {
             return "create table if not exists " + TABLE_NAME + " (" +
                     BaseColumns._ID + " integer primary key autoincrement, " +
-                    offer_cows_COLUMN + " text" + "," +
+                    offer_cows_COLUMN + " integer" + "," +
                     offer_bulls_COLUMN + " integer" + "," +
-                    offer_value_COLUMN + " integer" +
+                    offer_value_COLUMN + " text" +
                     ");";
         }
     }

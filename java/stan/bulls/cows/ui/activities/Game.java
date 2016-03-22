@@ -1,15 +1,17 @@
 package stan.bulls.cows.ui.activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 
 import stan.bulls.cows.R;
-import stan.bulls.cows.listeners.fragments.game.IGameFragmentListener;
+import stan.bulls.cows.listeners.fragments.game.INumbersListener;
 import stan.bulls.cows.ui.fragments.game.Numbers;
 
 public class Game
         extends StanActivity
-        implements IGameFragmentListener
+        implements INumbersListener
 {
     static public final int GAME_REQUEST_CODE = 11;
     static public final int GAME_RESULT_ERROR_BADGAMETYPE_CODE = -1;
@@ -52,11 +54,28 @@ public class Game
             int count = getIntent().getIntExtra(Numbers.COUNT_KEY, -1);
             int amount = getIntent().getIntExtra(Numbers.AMOUNT_KEY, -1);
             addFragment(Numbers.newInstance(count, amount));
-        }
-        else
+        } else
         {
             setResult(GAME_RESULT_ERROR_BADGAMETYPE_CODE);
             finish();
         }
+    }
+
+    @Override
+    public void result()
+    {
+        new AlertDialog.Builder(this)
+                .setMessage(R.string.congratulations)
+                .setCancelable(false)
+                .setNegativeButton(R.string.ok, new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        dialog.cancel();
+                        finish();
+                    }
+                })
+                .create()
+                .show();
     }
 }

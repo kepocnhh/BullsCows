@@ -9,6 +9,7 @@ import stan.bulls.cows.R;
 import stan.bulls.cows.core.Offer;
 import stan.bulls.cows.db.ContentDriver;
 import stan.bulls.cows.db.SQliteApi;
+import stan.bulls.cows.listeners.fragments.game.INumbersListener;
 import stan.bulls.cows.logic.Logic;
 import stan.bulls.cows.ui.adapters.StanRecyclerAdapter;
 import stan.bulls.cows.ui.adapters.game.NumbersOffersAdapter;
@@ -75,8 +76,18 @@ public class Numbers
         {
             return;
         }
-        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(Logic.checkCountBullsAndCows(value, secret.getValue())));
+        Offer offer = Logic.checkCountBullsAndCows(value, secret.getValue());
+        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer));
         swapCursor(SQliteApi.getGameTemp());
+        if(offer.bulls == secret.getLenght())
+        {
+            getListener().result();
+        }
         offer_value.setText("");
+    }
+
+    private INumbersListener getListener()
+    {
+        return (INumbersListener) clickListener;
     }
 }

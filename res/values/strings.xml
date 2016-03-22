@@ -9,6 +9,10 @@
     <string name="main_help">Help</string>
     <string name="main_settings">Settings</string>
 
+    <!--GAME-->
+    <string name="congratulations">congratulations</string>
+    <string name="ok">ok</string>
+
     <string name="MainFragment">main_fragment</string>
     <string name="GameFragment">game_fragment</string>
     <string name="SandboxFragment">sandbox</string>
