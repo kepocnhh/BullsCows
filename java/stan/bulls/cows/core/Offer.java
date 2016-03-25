@@ -1,8 +1,8 @@
 package stan.bulls.cows.core;
 
-public class Offer
+public abstract class Offer
 {
-    private char[] offerCharArray;
+    private OfferElement[] offerElements;
     private String value;
     public int bulls;
     public int cows;
@@ -10,19 +10,29 @@ public class Offer
     public Offer(String v)
     {
         this.value = v;
-        this.offerCharArray = v.toCharArray();
+        setElementsOfferFromValue(this.value);
     }
 
     public String getValue()
     {
         return this.value;
     }
+    public void initOfferElementsFromSize(int i)
+    {
+        this.offerElements = new OfferElement[i];
+    }
     public int getLenght()
     {
-        return offerCharArray.length;
+        return this.offerElements.length;
     }
-    public char getItem(int i)
+    public OfferElement getOfferElement(int i)
     {
-        return offerCharArray[i];
+        return this.offerElements[i];
     }
+    public void setOfferElement(int i, OfferElement offerElement)
+    {
+        this.offerElements[i] = offerElement;
+    }
+
+    abstract protected void setElementsOfferFromValue(String value);
 }

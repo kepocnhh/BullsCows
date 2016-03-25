@@ -7,6 +7,7 @@ import java.util.Random;
 
 import stan.bulls.cows.R;
 import stan.bulls.cows.core.Offer;
+import stan.bulls.cows.core.number.NumberOffer;
 import stan.bulls.cows.db.ContentDriver;
 import stan.bulls.cows.db.SQliteApi;
 import stan.bulls.cows.listeners.fragments.game.INumbersListener;
@@ -66,7 +67,7 @@ public class Numbers
         {
             value += random.nextInt(amount+1)+"";
         }
-        return new Offer(value);
+        return new NumberOffer(value);
     }
 
     protected void addOffer()
@@ -76,7 +77,7 @@ public class Numbers
         {
             return;
         }
-        Offer offer = Logic.checkCountBullsAndCows(value, secret.getValue());
+        Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
         SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer));
         swapCursor(SQliteApi.getGameTemp());
         if(offer.bulls == secret.getLenght())
