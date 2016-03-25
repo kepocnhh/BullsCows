@@ -10,10 +10,12 @@ import stan.bulls.cows.core.Offer;
 import stan.bulls.cows.core.number.NumberOffer;
 import stan.bulls.cows.db.ContentDriver;
 import stan.bulls.cows.db.SQliteApi;
+import stan.bulls.cows.listeners.dialogs.game.IGameDialogListener;
 import stan.bulls.cows.listeners.fragments.game.INumbersListener;
 import stan.bulls.cows.logic.Logic;
 import stan.bulls.cows.ui.adapters.StanRecyclerAdapter;
 import stan.bulls.cows.ui.adapters.game.NumbersOffersAdapter;
+import stan.bulls.cows.ui.dialogs.game.numbers.NumbersAddOfferDialog;
 
 public class Numbers
         extends GameFragment
@@ -72,19 +74,30 @@ public class Numbers
 
     protected void addOffer()
     {
-        String value = offer_value.getText().toString();
-        if(value.length() != secret.getLenght())
+        NumbersAddOfferDialog.showNumbersAddOfferDialog(getActivity().getSupportFragmentManager(), new IGameDialogListener()
         {
-            return;
-        }
-        Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
-        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer));
-        swapCursor(SQliteApi.getGameTemp());
-        if(offer.bulls == secret.getLenght())
-        {
-            getListener().result();
-        }
-        offer_value.setText("");
+            @Override
+            public void addOffer(String value)
+            {
+                if(value.length() != secret.getLenght())
+                {
+                    return;
+                }
+                Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+                SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer));
+                swapCursor(SQliteApi.getGameTemp());
+                if(offer.bulls == secret.getLenght())
+                {
+                    getListener().result();
+                }
+            }
+
+            @Override
+            public void onDismiss()
+            {
+
+            }
+        });
     }
 
     private INumbersListener getListener()

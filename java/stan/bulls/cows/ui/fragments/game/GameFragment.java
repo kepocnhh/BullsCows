@@ -21,7 +21,6 @@ public abstract class GameFragment
 
     //___________________VIEWS
     private RecyclerView offer_list;
-    protected EditText offer_value;
 
     //_______________FIELDS
     private StanRecyclerAdapter adapter;
@@ -45,7 +44,6 @@ public abstract class GameFragment
                 addOffer();
             }
         });
-        offer_value = (EditText) v.findViewById(R.id.offer_value);
         offer_list = (RecyclerView) v.findViewById(R.id.offer_list);
         initList();
         initGameFragment();
