@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">@color/accent</color>
-    <color name="colorPrimaryDark">@color/accentDark</color>
-    <color name="colorAccent">@color/accent</color>
+    <color name="colorPrimary">@color/purple</color>
+    <color name="colorPrimaryDark">@color/purpledark</color>
+    <color name="colorAccent">@color/purple</color>
 
-    <color name="accentDark">#673ab7</color>
-    <color name="accent">#9c27b0</color>
+    <color name="purpledark">#512DA8</color>
+    <color name="purple">#9C27B0</color>
+    <color name="purplelight">#9575CD</color>
+    <color name="purpleverylight">#D1C4E9</color>
     <color name="white">#ffffff</color>
     <color name="darkgrey">#212121</color>
     <color name="black">#000000</color>

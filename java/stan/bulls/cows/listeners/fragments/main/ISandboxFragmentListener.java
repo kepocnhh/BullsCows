@@ -5,5 +5,7 @@ import stan.bulls.cows.listeners.fragments.IStanFragmentListener;
 public interface ISandboxFragmentListener
         extends IStanFragmentListener
 {
-    void beginNumbersGame(int count, int amount);
+    void beginNumbersEasyGame(int count);
+    void beginNumbersMediumGame(int count);
+    void beginNumbersHardGame(int count);
 }

@@ -66,9 +66,20 @@ public class Main
     }
 
     @Override
-    public void beginNumbersGame(int count, int amount)
+    public void beginNumbersEasyGame(int count)
     {
-//        popBackStack();
-        Game.startForNumbers(this, count, amount);
+        Game.startForNumbersEasy(this, count);
+    }
+
+    @Override
+    public void beginNumbersMediumGame(int count)
+    {
+
+    }
+
+    @Override
+    public void beginNumbersHardGame(int count)
+    {
+
     }
 }

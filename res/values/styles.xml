@@ -12,4 +12,11 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="NumbersElementButton" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">@color/white</item>
+    </style>
+    <style name="NumbersElementButtonBlock" parent="Theme.AppCompat.Light">
+        <item name="colorButtonNormal">@color/yellow</item>
+    </style>
+
 </resources>

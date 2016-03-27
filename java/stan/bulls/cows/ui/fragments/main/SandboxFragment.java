@@ -39,7 +39,7 @@ public class SandboxFragment
             @Override
             public void onClick(View view)
             {
-                getListener().beginNumbersGame(count, 1);
+                getListener().beginNumbersEasyGame(count);
             }
         });
         v.findViewById(R.id.game_count_dec).setOnClickListener(new View.OnClickListener()

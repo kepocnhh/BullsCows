@@ -19,15 +19,28 @@ import stan.bulls.cows.ui.dialogs.game.numbers.NumbersAddOfferDialog;
 
 public class Numbers
         extends GameFragment
+    implements IGameDialogListener
 {
     static public final String AMOUNT_KEY = "stan.bulls.cows.ui.fragments.game.Numbers.amount_key";
 
     //___________________VIEWS
 
     //_______________FIELDS
-    protected int amount;
+    private int amount;
 
-    static public Numbers newInstance(int count, int amount)
+    static public Numbers newInstanceEasy(int count)
+    {
+        return Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY);
+    }
+    static public Numbers newInstanceMedium(int count)
+    {
+        return Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM);
+    }
+    static public Numbers newInstanceHard(int count)
+    {
+        return Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD);
+    }
+    static private Numbers newInstance(int count, int amount)
     {
         Numbers fragment = new Numbers();
         Bundle bundle = fragment.getArguments();
@@ -74,34 +87,44 @@ public class Numbers
 
     protected void addOffer()
     {
-        NumbersAddOfferDialog.showNumbersAddOfferDialog(getActivity().getSupportFragmentManager(), new IGameDialogListener()
+        if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY)
         {
-            @Override
-            public void addOffer(String value)
-            {
-                if(value.length() != secret.getLenght())
-                {
-                    return;
-                }
-                Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
-                SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer));
-                swapCursor(SQliteApi.getGameTemp());
-                if(offer.bulls == secret.getLenght())
-                {
-                    getListener().result();
-                }
-            }
-
-            @Override
-            public void onDismiss()
-            {
-
-            }
-        });
+            NumbersAddOfferDialog.showNumbersAddOfferDialogEasy(getActivity().getSupportFragmentManager(), count, this);
+        }
+        else if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM)
+        {
+            NumbersAddOfferDialog.showNumbersAddOfferDialogMedium(getActivity().getSupportFragmentManager(), count, this);
+        }
+        else if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD)
+        {
+            NumbersAddOfferDialog.showNumbersAddOfferDialogHard(getActivity().getSupportFragmentManager(), count, this);
+        }
     }
 
     private INumbersListener getListener()
     {
         return (INumbersListener) clickListener;
+    }
+
+    @Override
+    public void addOffer(String value)
+    {
+        if(value.length() != secret.getLenght())
+        {
+            return;
+        }
+        Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer));
+        swapCursor(SQliteApi.getGameTemp());
+        if(offer.bulls == secret.getLenght())
+        {
+            getListener().result();
+        }
+    }
+
+    @Override
+    public void onDismiss()
+    {
+
     }
 }
