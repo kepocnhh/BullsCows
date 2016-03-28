@@ -3,6 +3,7 @@ package stan.bulls.cows.ui.dialogs;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,17 +14,29 @@ public abstract class StanDialog
         extends DialogFragment
 {
     protected IStanDialogListener listener;
+    private int lay;
+    private String dialogTag;
 
-    int lay;
+    public String getDialogTag()
+    {
+        return dialogTag;
+    }
 
-    public StanDialog(int l)
+    public StanDialog(int l, String tag)
     {
         this.lay = l;
+        this.dialogTag = tag;
     }
 
     public DialogFragment init(IStanDialogListener cL)
     {
         this.listener = cL;
+        return this;
+    }
+
+    public DialogFragment show(FragmentManager fragmentManager)
+    {
+        this.show(fragmentManager, getDialogTag());
         return this;
     }
 

@@ -89,15 +89,18 @@ public class Numbers
     {
         if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY)
         {
-            NumbersAddOfferDialog.showNumbersAddOfferDialogEasy(getActivity().getSupportFragmentManager(), count, this);
+            NumbersAddOfferDialog.createNumbersAddOfferDialogEasy(count, this)
+                    .show(getActivity().getSupportFragmentManager());
         }
         else if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM)
         {
-            NumbersAddOfferDialog.showNumbersAddOfferDialogMedium(getActivity().getSupportFragmentManager(), count, this);
+            NumbersAddOfferDialog.createNumbersAddOfferDialogMedium(count, this)
+                    .show(getActivity().getSupportFragmentManager());
         }
         else if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD)
         {
-            NumbersAddOfferDialog.showNumbersAddOfferDialogHard(getActivity().getSupportFragmentManager(), count, this);
+            NumbersAddOfferDialog.createNumbersAddOfferDialogHard(count, this)
+                    .show(getActivity().getSupportFragmentManager());
         }
     }
 

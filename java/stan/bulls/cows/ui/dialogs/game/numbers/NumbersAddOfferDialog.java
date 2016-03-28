@@ -17,37 +17,38 @@ public class NumbersAddOfferDialog
     static public final int AMOUNT_DIFFICULT_MEDIUM = 6;
     static public final int AMOUNT_DIFFICULT_HARD = 9;
 
-    static public void showNumbersAddOfferDialogEasy(FragmentManager fragmentManager, int count, IGameDialogListener listener)
+    static public NumbersAddOfferDialog createNumbersAddOfferDialogEasy(int count, IGameDialogListener listener)
     {
-        NumbersAddOfferDialog.showNumbersAddOfferDialog(fragmentManager, count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY, listener);
+        return NumbersAddOfferDialog.createNumbersAddOfferDialog(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY, listener);
     }
 
-    static public void showNumbersAddOfferDialogMedium(FragmentManager fragmentManager, int count, IGameDialogListener listener)
+    static public NumbersAddOfferDialog createNumbersAddOfferDialogMedium(int count, IGameDialogListener listener)
     {
-        NumbersAddOfferDialog.showNumbersAddOfferDialog(fragmentManager, count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM, listener);
+        return NumbersAddOfferDialog.createNumbersAddOfferDialog(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM, listener);
     }
 
-    static public void showNumbersAddOfferDialogHard(FragmentManager fragmentManager, int count, IGameDialogListener listener)
+    static public NumbersAddOfferDialog createNumbersAddOfferDialogHard(int count, IGameDialogListener listener)
     {
-        NumbersAddOfferDialog.showNumbersAddOfferDialog(fragmentManager, count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD, listener);
+        return NumbersAddOfferDialog.createNumbersAddOfferDialog(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD, listener);
     }
 
-    static private void showNumbersAddOfferDialog(FragmentManager fragmentManager, int amountDifficult, int count, IGameDialogListener listener)
+    static private NumbersAddOfferDialog createNumbersAddOfferDialog(int count, int amountDifficult, IGameDialogListener listener)
     {
         NumbersAddOfferDialog numbersAddOfferDialog = new NumbersAddOfferDialog();
         numbersAddOfferDialog.setCount(count);
         numbersAddOfferDialog.setAmountDifficult(amountDifficult);
         numbersAddOfferDialog.setCancelable(false);
-        numbersAddOfferDialog.init(listener).show(fragmentManager, "NumbersAddOfferDialog");
+        numbersAddOfferDialog.init(listener);
+        return numbersAddOfferDialog;
     }
 
     //_______________VIEWS
-    TextView offer_value;
-    Button number_element_0;
+    private TextView offer_value;
+    private Button number_element_0;
     //__123
-    Button number_element_1;
-    Button number_element_2;
-    Button number_element_3;
+    private Button number_element_1;
+    private Button number_element_2;
+    private Button number_element_3;
 
     //_______________FIELDS
     private int count;
@@ -78,7 +79,7 @@ public class NumbersAddOfferDialog
 
     public NumbersAddOfferDialog()
     {
-        super(R.layout.numbers_add_offer_dialog);
+        super(R.layout.numbers_add_offer_dialog, "NumbersAddOfferDialog");
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.StanDialog);
     }
 
