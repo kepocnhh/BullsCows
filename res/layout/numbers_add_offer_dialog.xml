@@ -97,6 +97,66 @@
                                 android:layout_height="wrap_content"/>
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/number_element_container_456"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/number_element_4"
+                                android:theme="@style/NumbersElementButton"
+                                android:textColor="@color/black"
+                                android:text="4"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"/>
+                            <Button
+                                android:id="@+id/number_element_5"
+                                android:theme="@style/NumbersElementButton"
+                                android:textColor="@color/black"
+                                android:text="5"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"/>
+                            <Button
+                                android:id="@+id/number_element_6"
+                                android:theme="@style/NumbersElementButton"
+                                android:textColor="@color/black"
+                                android:text="6"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/number_element_container_789"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <Button
+                                android:id="@+id/number_element_7"
+                                android:theme="@style/NumbersElementButton"
+                                android:textColor="@color/black"
+                                android:text="7"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"/>
+                            <Button
+                                android:id="@+id/number_element_8"
+                                android:theme="@style/NumbersElementButton"
+                                android:textColor="@color/black"
+                                android:text="8"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"/>
+                            <Button
+                                android:id="@+id/number_element_9"
+                                android:theme="@style/NumbersElementButton"
+                                android:textColor="@color/black"
+                                android:text="9"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">

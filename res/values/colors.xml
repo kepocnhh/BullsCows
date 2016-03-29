@@ -11,6 +11,8 @@
     <color name="white">#ffffff</color>
     <color name="darkgrey">#212121</color>
     <color name="black">#000000</color>
-    <color name="red">#ff0000</color>
-    <color name="yellow">#ffcc00</color>
+    <color name="orange">#FFC107</color>
+    <color name="red">#F44336</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="green">#4CAF50</color>
 </resources>

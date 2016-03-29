@@ -75,12 +75,12 @@ public class Main
     @Override
     public void beginNumbersMediumGame(int count)
     {
-
+        Game.startForNumbersMedium(this, count);
     }
 
     @Override
     public void beginNumbersHardGame(int count)
     {
-
+        Game.startForNumbersHard(this, count);
     }
 }

@@ -7,6 +7,7 @@ import java.util.Random;
 
 import stan.bulls.cows.R;
 import stan.bulls.cows.core.Offer;
+import stan.bulls.cows.core.game.difficults.NumbersDifficults;
 import stan.bulls.cows.core.number.NumberOffer;
 import stan.bulls.cows.db.ContentDriver;
 import stan.bulls.cows.db.SQliteApi;
@@ -76,17 +77,17 @@ public class Numbers
 
     protected void addOffer()
     {
-        if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY)
+        if(amount == NumbersDifficults.AMOUNT_DIFFICULT_EASY)
         {
             NumbersAddOfferDialog.createNumbersAddOfferDialogEasy(count, this)
                     .show(getActivity().getSupportFragmentManager());
         }
-        else if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM)
+        else if(amount == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM)
         {
             NumbersAddOfferDialog.createNumbersAddOfferDialogMedium(count, this)
                     .show(getActivity().getSupportFragmentManager());
         }
-        else if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD)
+        else if(amount == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
         {
             NumbersAddOfferDialog.createNumbersAddOfferDialogHard(count, this)
                     .show(getActivity().getSupportFragmentManager());

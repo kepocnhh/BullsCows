@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 
 import stan.bulls.cows.R;
+import stan.bulls.cows.core.game.difficults.NumbersDifficults;
 import stan.bulls.cows.listeners.fragments.game.INumbersListener;
-import stan.bulls.cows.ui.dialogs.game.numbers.NumbersAddOfferDialog;
 import stan.bulls.cows.ui.fragments.game.Numbers;
 
 public class Game
@@ -16,21 +16,22 @@ public class Game
 {
     static public final int GAME_REQUEST_CODE = 11;
     static public final int GAME_RESULT_ERROR_BADGAMETYPE_CODE = -1;
+    static public final int GAME_RESULT_ERROR_BADNUMBERSDIFFICULTS_CODE = -1;
 
     static public final String TYPE_GAME_KEY = "stan.bulls.cows.ui.activities.Game.type_game_key";
     static public final int GAME_NUMBERS = 0;
 
     static public void startForNumbersEasy(Activity activity, int count)
     {
-        Game.startForNumbers(activity, count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY);
+        Game.startForNumbers(activity, count, NumbersDifficults.AMOUNT_DIFFICULT_EASY);
     }
     static public void startForNumbersMedium(Activity activity, int count)
     {
-        Game.startForNumbers(activity, count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM);
+        Game.startForNumbers(activity, count, NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM);
     }
     static public void startForNumbersHard(Activity activity, int count)
     {
-        Game.startForNumbers(activity, count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD);
+        Game.startForNumbers(activity, count, NumbersDifficults.AMOUNT_DIFFICULT_HARD);
     }
     static private void startForNumbers(Activity activity, int count, int amount)
     {
@@ -66,17 +67,14 @@ public class Game
         {
             int count = getIntent().getIntExtra(Numbers.COUNT_KEY, -1);
             int amount = getIntent().getIntExtra(Numbers.AMOUNT_KEY, -1);
-            if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY)
+            if(amount == NumbersDifficults.AMOUNT_DIFFICULT_EASY || amount == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM || amount == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
             {
-                addFragment(Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY, this));
+                addFragment(Numbers.newInstance(count, amount, this));
             }
-            else if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM)
+            else
             {
-                addFragment(Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM, this));
-            }
-            else if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD)
-            {
-                addFragment(Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD, this));
+                setResult(GAME_RESULT_ERROR_BADNUMBERSDIFFICULTS_CODE);
+                finish();
             }
         } else
         {
