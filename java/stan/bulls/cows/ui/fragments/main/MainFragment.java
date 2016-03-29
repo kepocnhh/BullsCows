@@ -14,9 +14,11 @@ public class MainFragment
 
     //_______________FIELDS
 
-    static public MainFragment newInstance()
+    static public MainFragment newInstance(IMainFragmentListener l)
     {
-        return new MainFragment();
+        MainFragment fragment = new MainFragment();
+        fragment.listener = l;
+        return fragment;
     }
 
     public MainFragment()
@@ -45,6 +47,6 @@ public class MainFragment
 
     private IMainFragmentListener getListener()
     {
-        return (IMainFragmentListener) clickListener;
+        return (IMainFragmentListener) listener;
     }
 }

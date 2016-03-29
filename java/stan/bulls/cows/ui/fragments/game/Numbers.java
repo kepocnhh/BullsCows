@@ -28,25 +28,14 @@ public class Numbers
     //_______________FIELDS
     private int amount;
 
-    static public Numbers newInstanceEasy(int count)
-    {
-        return Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY);
-    }
-    static public Numbers newInstanceMedium(int count)
-    {
-        return Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM);
-    }
-    static public Numbers newInstanceHard(int count)
-    {
-        return Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD);
-    }
-    static private Numbers newInstance(int count, int amount)
+    static public Numbers newInstance(int count, int amount, INumbersListener l)
     {
         Numbers fragment = new Numbers();
         Bundle bundle = fragment.getArguments();
         bundle.putInt(COUNT_KEY, count);
         bundle.putInt(AMOUNT_KEY, amount);
         fragment.setArguments(bundle);
+        fragment.listener = l;
         return fragment;
     }
 
@@ -106,7 +95,7 @@ public class Numbers
 
     private INumbersListener getListener()
     {
-        return (INumbersListener) clickListener;
+        return (INumbersListener) listener;
     }
 
     @Override

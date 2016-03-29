@@ -76,6 +76,6 @@ public abstract class GameFragment
 
     private IGameFragmentListener getListener()
     {
-        return (IGameFragmentListener) clickListener;
+        return (IGameFragmentListener) listener;
     }
 }

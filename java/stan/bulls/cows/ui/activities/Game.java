@@ -68,15 +68,15 @@ public class Game
             int amount = getIntent().getIntExtra(Numbers.AMOUNT_KEY, -1);
             if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY)
             {
-                addFragment(Numbers.newInstanceEasy(count));
+                addFragment(Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_EASY, this));
             }
             else if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM)
             {
-                addFragment(Numbers.newInstanceMedium(count));
+                addFragment(Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_MEDIUM, this));
             }
             else if(amount == NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD)
             {
-                addFragment(Numbers.newInstanceHard(count));
+                addFragment(Numbers.newInstance(count, NumbersAddOfferDialog.AMOUNT_DIFFICULT_HARD, this));
             }
         } else
         {

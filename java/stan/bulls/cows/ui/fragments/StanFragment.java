@@ -21,7 +21,7 @@ public abstract class StanFragment
         return fragmentTag;
     }
 
-    protected IStanFragmentListener clickListener;
+    protected IStanFragmentListener listener;
 
     public StanFragment(int lay, int id)
     {
@@ -42,20 +42,7 @@ public abstract class StanFragment
     public void onAttach(Activity activity)
     {
         super.onAttach(activity);
-        clickListener = (IStanFragmentListener) activity;
         fragmentTag = getActivity().getResources().getString(fragmentTagId);
-    }
-
-    public void setVisibility(boolean visibility)
-    {
-        if(visibility)
-        {
-            container.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            container.setVisibility(View.INVISIBLE);
-        }
     }
 
     protected void findViews(View v)

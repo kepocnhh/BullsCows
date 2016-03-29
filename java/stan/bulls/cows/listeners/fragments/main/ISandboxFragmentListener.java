@@ -1,11 +1,8 @@
 package stan.bulls.cows.listeners.fragments.main;
 
-import stan.bulls.cows.listeners.fragments.IStanFragmentListener;
+import stan.bulls.cows.listeners.fragments.main.sandbox.INumbersSandboxFragmentListener;
 
 public interface ISandboxFragmentListener
-        extends IStanFragmentListener
+        extends INumbersSandboxFragmentListener
 {
-    void beginNumbersEasyGame(int count);
-    void beginNumbersMediumGame(int count);
-    void beginNumbersHardGame(int count);
 }

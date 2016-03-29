@@ -12,10 +12,12 @@
     <!--GAME-->
     <string name="congratulations">congratulations</string>
     <string name="ok">ok</string>
+    <string name="offer_count">Count elements of combination</string>
+    <string name="numbers_dialog_label">Add offer</string>
 
     <string name="MainFragment">main_fragment</string>
     <string name="GameFragment">game_fragment</string>
     <string name="SandboxFragment">sandbox</string>
     <string name="Numbers">numbers_game_fragment</string>
-    <string name="numbers_dialog_label">Add offer</string>
+    <string name="NumbersSandbox">numbers_sandbox</string>
 </resources>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import stan.bulls.cows.R;
 import stan.bulls.cows.listeners.fragments.main.IMainFragmentListener;
 import stan.bulls.cows.listeners.fragments.main.ISandboxFragmentListener;
+import stan.bulls.cows.ui.fragments.StanFragment;
 import stan.bulls.cows.ui.fragments.main.MainFragment;
 import stan.bulls.cows.ui.fragments.main.SandboxFragment;
 
@@ -37,7 +38,7 @@ public class Main
     @Override
     protected void init()
     {
-        addFragment(MainFragment.newInstance());
+        addFragment(MainFragment.newInstance(this));
     }
 
     //__________MAIN_FRAGMENT_________________________________
@@ -56,7 +57,7 @@ public class Main
     @Override
     public void sandbox()
     {
-        addToBackStack(SandboxFragment.newInstance());
+        addToBackStack(SandboxFragment.newInstance(this));
     }
 
     @Override
