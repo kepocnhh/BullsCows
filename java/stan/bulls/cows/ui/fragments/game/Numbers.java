@@ -20,7 +20,6 @@ import stan.bulls.cows.ui.dialogs.game.numbers.NumbersAddOfferDialog;
 
 public class Numbers
         extends GameFragment
-    implements IGameDialogListener
 {
     static public final String AMOUNT_KEY = "stan.bulls.cows.ui.fragments.game.Numbers.amount_key";
 
@@ -28,6 +27,31 @@ public class Numbers
 
     //_______________FIELDS
     private int amount;
+    private IGameDialogListener gameDialogListener = new IGameDialogListener()
+    {
+        @Override
+        public void addOffer(String value)
+        {
+            if(value.length() != secret.getLenght())
+            {
+                return;
+            }
+            Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+            SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer));
+            swapCursor(SQliteApi.getGameTemp());
+            smoothScrollToEnd();
+            if(offer.bulls == secret.getLenght())
+            {
+                getListener().result();
+            }
+        }
+
+        @Override
+        public void onDismiss()
+        {
+
+        }
+    };
 
     static public Numbers newInstance(int count, int amount, INumbersListener l)
     {
@@ -79,17 +103,17 @@ public class Numbers
     {
         if(amount == NumbersDifficults.AMOUNT_DIFFICULT_EASY)
         {
-            NumbersAddOfferDialog.createNumbersAddOfferDialogEasy(count, this)
+            NumbersAddOfferDialog.createNumbersAddOfferDialogEasy(count, gameDialogListener)
                     .show(getActivity().getSupportFragmentManager());
         }
         else if(amount == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM)
         {
-            NumbersAddOfferDialog.createNumbersAddOfferDialogMedium(count, this)
+            NumbersAddOfferDialog.createNumbersAddOfferDialogMedium(count, gameDialogListener)
                     .show(getActivity().getSupportFragmentManager());
         }
         else if(amount == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
         {
-            NumbersAddOfferDialog.createNumbersAddOfferDialogHard(count, this)
+            NumbersAddOfferDialog.createNumbersAddOfferDialogHard(count, gameDialogListener)
                     .show(getActivity().getSupportFragmentManager());
         }
     }
@@ -97,27 +121,5 @@ public class Numbers
     private INumbersListener getListener()
     {
         return (INumbersListener) listener;
-    }
-
-    @Override
-    public void addOffer(String value)
-    {
-        if(value.length() != secret.getLenght())
-        {
-            return;
-        }
-        Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
-        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer));
-        swapCursor(SQliteApi.getGameTemp());
-        if(offer.bulls == secret.getLenght())
-        {
-            getListener().result();
-        }
-    }
-
-    @Override
-    public void onDismiss()
-    {
-
     }
 }

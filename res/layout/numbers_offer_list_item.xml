@@ -6,21 +6,59 @@
     <TextView
         android:id="@+id/offer_value"
         android:text="awd"
+        android:textSize="18dp"
+        android:textColor="@color/black"
         android:gravity="center"
         android:layout_gravity="center_vertical"
-        android:layout_weight="1"
+        android:layout_weight="5"
         android:layout_width="0dp"
         android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/offer_bulls"
-        android:text="1"
+    <RelativeLayout
         android:layout_margin="6dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:id="@+id/offer_cows"
-        android:text="2"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/offer_bulls"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/bull_image"
+            android:text="2"
+            android:textSize="26dp"
+            android:textColor="@color/purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/bull_image"
+            android:background="@null"
+            android:paddingBottom="8dp"
+            android:paddingRight="8dp"
+            android:src="@drawable/bull"
+            android:adjustViewBounds="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_margin="6dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/offer_cows"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/cow_image"
+            android:text="2"
+            android:textSize="26dp"
+            android:textColor="@color/purple"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/cow_image"
+            android:background="@null"
+            android:paddingBottom="8dp"
+            android:paddingRight="8dp"
+            android:src="@drawable/cow"
+            android:adjustViewBounds="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 </LinearLayout>

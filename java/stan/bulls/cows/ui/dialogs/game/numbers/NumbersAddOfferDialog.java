@@ -34,7 +34,7 @@ public class NumbersAddOfferDialog
         NumbersAddOfferDialog numbersAddOfferDialog = new NumbersAddOfferDialog();
         numbersAddOfferDialog.setCount(count);
         numbersAddOfferDialog.setAmountDifficult(amountDifficult);
-        numbersAddOfferDialog.setCancelable(false);
+//        numbersAddOfferDialog.setCancelable(false);
         numbersAddOfferDialog.init(listener);
         return numbersAddOfferDialog;
     }
@@ -159,6 +159,8 @@ public class NumbersAddOfferDialog
         offer_value = (TextView) v.findViewById(R.id.offer_value);
         number_element_0 = (Button) v.findViewById(R.id.number_element_0);
         number_element_0.setOnClickListener(clickListener);
+        v.findViewById(R.id.number_element_container_456).setVisibility(View.GONE);
+        v.findViewById(R.id.number_element_container_789).setVisibility(View.GONE);
         if (amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_EASY || amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM || amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
         {
             v.findViewById(R.id.number_element_container_123).setVisibility(View.VISIBLE);

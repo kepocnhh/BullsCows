@@ -62,6 +62,10 @@ public abstract class GameFragment
         Log.e("GameFragment", "createSecret - " + secret.getValue());
         SQliteApi.clearGameTemp();
     }
+    protected void smoothScrollToEnd()
+    {
+        offer_list.smoothScrollToPosition(adapter.getItemCount() - 1);
+    }
 
     protected abstract void init();
 
