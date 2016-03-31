@@ -49,16 +49,40 @@ public class NumbersSandbox
         }
     };
 
-    static public NumbersSandbox newInstance(INumbersSandboxFragmentListener l)
+    static public NumbersSandbox newInstance(INumbersSandboxFragmentListener l, View begin_game)
     {
         NumbersSandbox fragment = new NumbersSandbox();
         fragment.listener = l;
+        fragment.setBeginGameOnClickListener(begin_game);
         return fragment;
     }
 
     public NumbersSandbox()
     {
         super(R.layout.numbers_sandbox, R.string.NumbersSandbox);
+    }
+
+    protected void setBeginGameOnClickListener(View begin_game)
+    {
+        begin_game.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_EASY)
+                {
+                    getListener().beginNumbersEasyGame(count);
+                }
+                else if(amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM)
+                {
+                    getListener().beginNumbersMediumGame(count);
+                }
+                else if(amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
+                {
+                    getListener().beginNumbersHardGame(count);
+                }
+            }
+        });
     }
 
     @Override
@@ -96,25 +120,6 @@ public class NumbersSandbox
             public void onStopTrackingTouch(SeekBar seekBar)
             {
 
-            }
-        });
-        v.findViewById(R.id.begin_game).setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                if(amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_EASY)
-                {
-                    getListener().beginNumbersEasyGame(count);
-                }
-                else if(amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM)
-                {
-                    getListener().beginNumbersMediumGame(count);
-                }
-                else if(amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
-                {
-                    getListener().beginNumbersHardGame(count);
-                }
             }
         });
         init();

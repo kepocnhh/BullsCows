@@ -18,6 +18,11 @@
     <string name="difficult_easy">Easy</string>
     <string name="empty_offers_list">The clock is ticking!</string>
 
+    <!--GAME_TYPES-->
+    <string name="numbers_game_type">Numbers</string>
+    <string name="word_game_type">Word</string>
+    <string name="error_game_type">Error game type</string>
+
     <string name="MainFragment">main_fragment</string>
     <string name="GameFragment">game_fragment</string>
     <string name="SandboxFragment">sandbox</string>
@@ -26,4 +31,7 @@
     <string name="difficult_medium">Medium</string>
     <string name="difficult_hard">Hard</string>
     <string name="combination_element_can_be">Combination element can be</string>
+    <string name="GameTypeFragment">game_type</string>
+    <string name="NumbersGameTypeFragment">numbers_game_type_fragment</string>
+    <string name="WordGameTypeFragment">word_game_type_fragment</string>
 </resources>
