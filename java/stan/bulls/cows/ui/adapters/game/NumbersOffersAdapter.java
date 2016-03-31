@@ -6,11 +6,10 @@ import android.view.View;
 
 import stan.bulls.cows.R;
 import stan.bulls.cows.db.Tables;
-import stan.bulls.cows.ui.adapters.StanRecyclerAdapter;
 import stan.bulls.cows.ui.holders.adapters.game.NumbersOfferHolder;
 
 public class NumbersOffersAdapter
-        extends StanRecyclerAdapter
+        extends OffersAdapter
 {
     public NumbersOffersAdapter(Context context)
     {

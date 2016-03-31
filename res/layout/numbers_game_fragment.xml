@@ -6,6 +6,20 @@
         android:id="@+id/offer_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <LinearLayout
+        android:id="@+id/empty_offers_list"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textSize="18dp"
+            android:textColor="@color/purple"
+            android:text="@string/empty_offers_list"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/add_offer"
         android:layout_width="wrap_content"

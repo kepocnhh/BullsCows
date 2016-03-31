@@ -1,5 +1,6 @@
 package stan.bulls.cows.ui.fragments.game;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,6 +25,7 @@ public class Numbers
     static public final String AMOUNT_KEY = "stan.bulls.cows.ui.fragments.game.Numbers.amount_key";
 
     //___________________VIEWS
+    View empty_offers_list;
 
     //_______________FIELDS
     private int amount;
@@ -38,7 +40,12 @@ public class Numbers
             }
             Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
             SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer));
-            swapCursor(SQliteApi.getGameTemp());
+            Cursor cursor = SQliteApi.getGameTemp();
+            if(cursor.getCount()>0)
+            {
+                empty_offers_list.setVisibility(View.GONE);
+            }
+            swapCursor(cursor);
             smoothScrollToEnd();
             if(offer.bulls == secret.getLenght())
             {
@@ -73,6 +80,7 @@ public class Numbers
     protected void findViews(View v)
     {
         super.findViews(v);
+        empty_offers_list = v.findViewById(R.id.empty_offers_list);
     }
     @Override
     protected StanRecyclerAdapter createAdapter()

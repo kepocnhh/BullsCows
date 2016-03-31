@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BullsCows</string>
+    <string name="empty_offers_list">Время пошло! Быстрее предлагайте свои варианты</string>
+</resources>

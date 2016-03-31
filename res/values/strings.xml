@@ -16,6 +16,7 @@
     <string name="numbers_dialog_label">Add offer</string>
     <string name="begin_game">Begin game</string>
     <string name="difficult_easy">Easy</string>
+    <string name="empty_offers_list">The clock is ticking!</string>
 
     <string name="MainFragment">main_fragment</string>
     <string name="GameFragment">game_fragment</string>
