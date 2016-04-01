@@ -2,6 +2,7 @@ package stan.bulls.cows.ui.fragments.main;
 
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -30,7 +31,6 @@ public class SandboxFragment
     //___________________VIEWS
     private View begin_game;
     ViewPager game_types_view_pager;
-    //    Toolbar coordinatorlayout_toolbar;
     CollapsingToolbarLayout coordinatorlayout_collapsing;
 
     //_______________FIELDS
@@ -48,11 +48,12 @@ public class SandboxFragment
         super.findViews(v);
         begin_game = v.findViewById(R.id.begin_game);
         game_types_view_pager = (ViewPager) v.findViewById(R.id.game_types_view_pager);
-        //        coordinatorlayout_toolbar = (Toolbar) v.findViewById(R.id.coordinatorlayout_toolbar);
         coordinatorlayout_collapsing = (CollapsingToolbarLayout) v.findViewById(R.id.coordinatorlayout_collapsing);
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(NumbersGameTypeFragment.newInstance());
         fragments.add(WordGameTypeFragment.newInstance());
+        coordinatorlayout_collapsing.setTitle(getActivity().getResources().getString(R.string.numbers_game_type));
+        clearOldFragments(getActivity().getSupportFragmentManager(), fragments);
         adapter = new GameTypePagerAdapter(getActivity().getSupportFragmentManager(), fragments);
         game_types_view_pager.setAdapter(adapter);
         game_types_view_pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
@@ -85,6 +86,25 @@ public class SandboxFragment
             }
         });
         init();
+    }
+
+    private void clearOldFragments(FragmentManager fm, List<Fragment> fragments)
+    {
+        for(int i=0; i<fragments.size(); i++)
+        {
+            for(int j=0; j<fm.getFragments().size(); j++)
+            {
+                if (fm.getFragments().get(j) instanceof StanFragment && fragments.get(i) instanceof StanFragment)
+                {
+                    if(!((StanFragment) fm.getFragments().get(j)).getFragmentTag().equals(getActivity().getResources().getString(R.string.MainFragment))
+                            && !((StanFragment) fm.getFragments().get(j)).getFragmentTag().equals(getActivity().getResources().getString(R.string.SandboxFragment))
+                            && !((StanFragment) fm.getFragments().get(j)).getFragmentTag().equals(getActivity().getResources().getString(R.string.NumbersSandbox)))
+                    {
+                        fm.beginTransaction().remove(fm.getFragments().get(j)).commit();
+                    }
+                }
+            }
+        }
     }
 
     private void init()
