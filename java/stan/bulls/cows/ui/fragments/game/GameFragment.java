@@ -45,6 +45,7 @@ public abstract class GameFragment
             }
         });
         offer_list = (RecyclerView) v.findViewById(R.id.offer_list);
+        offer_list.setVisibility(View.GONE);
         initList();
         initGameFragment();
     }
@@ -61,6 +62,10 @@ public abstract class GameFragment
         secret = createSecret();
         Log.e("GameFragment", "createSecret - " + secret.getValue());
         SQliteApi.clearGameTemp();
+    }
+    protected void showOfferList()
+    {
+        offer_list.setVisibility(View.VISIBLE);
     }
     protected void smoothScrollToEnd()
     {

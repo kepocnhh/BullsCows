@@ -16,7 +16,12 @@
     <string name="numbers_dialog_label">Add offer</string>
     <string name="begin_game">Begin game</string>
     <string name="difficult_easy">Easy</string>
-    <string name="empty_offers_list">The clock is ticking!</string>
+    <string name="difficult_medium">Medium</string>
+    <string name="difficult_hard">Hard</string>
+    <string name="combination_element_can_be">Combination element can be</string>
+    <string name="offers_list_submessage_begin_game">The clock is ticking!</string>
+    <string name="offers_list_submessage_empty">To start the game offer your first version</string>
+    <string name="seconds">sec</string>
 
     <!--GAME_TYPES-->
     <string name="numbers_game_type">Numbers</string>
@@ -28,9 +33,6 @@
     <string name="SandboxFragment">sandbox</string>
     <string name="Numbers">numbers_game_fragment</string>
     <string name="NumbersSandbox">numbers_sandbox</string>
-    <string name="difficult_medium">Medium</string>
-    <string name="difficult_hard">Hard</string>
-    <string name="combination_element_can_be">Combination element can be</string>
     <string name="GameTypeFragment">game_type</string>
     <string name="NumbersGameTypeFragment">numbers_game_type_fragment</string>
     <string name="WordGameTypeFragment">word_game_type_fragment</string>

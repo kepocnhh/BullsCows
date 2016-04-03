@@ -53,10 +53,11 @@ public abstract class OffersAdapter
     @Override
     public long getItemId(int position)
     {
-        if(position == getItemCount()-1)
+        if(getItemCount()>1 && position == getItemCount()-1)
         {
             return FOOTER_ID;
-        } else
+        }
+        else
         {
             return super.getItemId(position);
         }
@@ -68,7 +69,12 @@ public abstract class OffersAdapter
         if(mCursor == null)
         {
             return 0;
-        } else
+        }
+        else if(mCursor.getCount() == 1)
+        {
+            return mCursor.getCount();
+        }
+        else
         {
             return mCursor.getCount() + 1;
         }
@@ -77,7 +83,7 @@ public abstract class OffersAdapter
     @Override
     public int getItemViewType(int position)
     {
-        if(position == getItemCount()-1)
+        if(getItemCount()>1 && position == getItemCount()-1)
         {
             return FOOTER_TYPE;
         }

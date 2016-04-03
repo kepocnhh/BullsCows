@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">BullsCows</string>
-    <string name="empty_offers_list">Время пошло! Быстрее предлагайте свои варианты</string>
+    <string name="offers_list_submessage_begin_game">Время пошло! Быстрее предлагайте новые варианты</string>
+    <string name="offers_list_submessage_empty">Для начала игры предложите свой первый вариант</string>
 </resources>

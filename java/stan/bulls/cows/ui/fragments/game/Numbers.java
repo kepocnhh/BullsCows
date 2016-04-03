@@ -3,7 +3,9 @@ package stan.bulls.cows.ui.fragments.game;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
+import java.util.Date;
 import java.util.Random;
 
 import stan.bulls.cows.R;
@@ -25,10 +27,11 @@ public class Numbers
     static public final String AMOUNT_KEY = "stan.bulls.cows.ui.fragments.game.Numbers.amount_key";
 
     //___________________VIEWS
-    View empty_offers_list;
+    TextView offers_list_submessage;
 
     //_______________FIELDS
     private int amount;
+    private Date time;
     private IGameDialogListener gameDialogListener = new IGameDialogListener()
     {
         @Override
@@ -39,18 +42,34 @@ public class Numbers
                 return;
             }
             Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
-            SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer));
-            Cursor cursor = SQliteApi.getGameTemp();
-            if(cursor.getCount()>0)
+            String timeSpend;
+            if(time == null)
             {
-                empty_offers_list.setVisibility(View.GONE);
+                timeSpend = "0";
             }
+            else
+            {
+                timeSpend = (new Date().getTime() - time.getTime()) + "";
+            }
+            SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer, timeSpend));
+            Cursor cursor = SQliteApi.getGameTemp();
             swapCursor(cursor);
-            smoothScrollToEnd();
             if(offer.bulls == secret.getLenght())
             {
                 getListener().result();
+                return;
             }
+            if (cursor.getCount() == 1)
+            {
+                showOfferList();
+                offers_list_submessage.setText(R.string.offers_list_submessage_begin_game);
+            }
+            else if(cursor.getCount() == 2)
+            {
+                offers_list_submessage.setVisibility(View.GONE);
+            }
+            smoothScrollToEnd();
+            time = new Date();
         }
 
         @Override
@@ -80,7 +99,8 @@ public class Numbers
     protected void findViews(View v)
     {
         super.findViews(v);
-        empty_offers_list = v.findViewById(R.id.empty_offers_list);
+        offers_list_submessage = (TextView)v.findViewById(R.id.offers_list_submessage);
+        offers_list_submessage.setText(R.string.offers_list_submessage_empty);
     }
     @Override
     protected StanRecyclerAdapter createAdapter()
