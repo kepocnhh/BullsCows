@@ -27,7 +27,7 @@ public abstract class OffersAdapter
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-        if(viewType == FOOTER_TYPE)
+        if (viewType == FOOTER_TYPE)
         {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             View v = inflater.inflate(R.layout.offers_list_footer, parent, false);
@@ -44,7 +44,7 @@ public abstract class OffersAdapter
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int i)
     {
-        if(mCursor.moveToPosition(i))
+        if (mCursor.moveToPosition(i))
         {
             initView(holder, i);
         }
@@ -53,7 +53,7 @@ public abstract class OffersAdapter
     @Override
     public long getItemId(int position)
     {
-        if(getItemCount()>1 && position == getItemCount()-1)
+        if (getItemCount() > 2 && position == getItemCount() - 1)
         {
             return FOOTER_ID;
         }
@@ -66,11 +66,11 @@ public abstract class OffersAdapter
     @Override
     public int getItemCount()
     {
-        if(mCursor == null)
+        if (mCursor == null)
         {
             return 0;
         }
-        else if(mCursor.getCount() == 1)
+        else if (mCursor.getCount() < 3)
         {
             return mCursor.getCount();
         }
@@ -83,7 +83,7 @@ public abstract class OffersAdapter
     @Override
     public int getItemViewType(int position)
     {
-        if(getItemCount()>1 && position == getItemCount()-1)
+        if (getItemCount() > 2 && position == getItemCount() - 1)
         {
             return FOOTER_TYPE;
         }
