@@ -38,6 +38,14 @@ public class MainFragment
                 getListener().sandbox();
             }
         });
+        v.findViewById(R.id.main_profile).setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                getListener().profile();
+            }
+        });
         init();
     }
 

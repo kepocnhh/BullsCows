@@ -4,13 +4,15 @@ import android.content.Intent;
 
 import stan.bulls.cows.R;
 import stan.bulls.cows.listeners.fragments.main.IMainFragmentListener;
+import stan.bulls.cows.listeners.fragments.main.IProfileFragmentListener;
 import stan.bulls.cows.listeners.fragments.main.ISandboxFragmentListener;
 import stan.bulls.cows.ui.fragments.main.MainFragment;
+import stan.bulls.cows.ui.fragments.main.ProfileFragment;
 import stan.bulls.cows.ui.fragments.main.SandboxFragment;
 
 public class Main
         extends StanActivity
-        implements IMainFragmentListener, ISandboxFragmentListener
+        implements IMainFragmentListener, ISandboxFragmentListener, IProfileFragmentListener
 {
     //_______________VIEWS
 
@@ -44,7 +46,7 @@ public class Main
     @Override
     public void profile()
     {
-
+        addToBackStack(ProfileFragment.newInstance(this));
     }
 
     @Override

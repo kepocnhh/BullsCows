@@ -11,7 +11,7 @@ public class SQliteApi
     public static DatabaseHelper dbHelper;
     public static volatile SQLiteDatabase sdb;
     public static String DB_NAME = "bullscows";
-    public static int DB_VERSION = 1604032121;
+    public static int DB_VERSION = 1604032337;
 
     public static void createDb(Context context)
     {
@@ -47,8 +47,11 @@ public class SQliteApi
     //____________________________GET_ALL
     public static Cursor getGameTemp()
     {
-        Cursor main = sdb.query(Tables.GameTemp.TABLE_NAME, null, null, null, null, null, null);
-        return main;
+        return sdb.query(Tables.GameTemp.TABLE_NAME, null, null, null, null, null, null);
+    }
+    public static Cursor getStatisticsGames()
+    {
+        return sdb.query(Tables.StatisticsGames.TABLE_NAME, null, null, null, null, null, null);
     }
 
     // GET MANY BY PARAMS
@@ -79,6 +82,7 @@ public class SQliteApi
     public static void clearDB(SQLiteDatabase db)
     {
         db.execSQL("drop table if exists " + Tables.GameTemp.TABLE_NAME);
+        db.execSQL("drop table if exists " + Tables.StatisticsGames.TABLE_NAME);
     }
 
     // CREATE DB TABLES
@@ -86,5 +90,6 @@ public class SQliteApi
     public static void createDBTables(SQLiteDatabase db)
     {
         db.execSQL(Tables.GameTemp.createTable());
+        db.execSQL(Tables.StatisticsGames.createTable());
     }
 }
