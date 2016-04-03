@@ -23,7 +23,7 @@ public class MainFragment
 
     public MainFragment()
     {
-        super(R.layout.main_fragment, R.string.MainFragment);
+        super(R.layout.main_fragment);
     }
 
     @Override

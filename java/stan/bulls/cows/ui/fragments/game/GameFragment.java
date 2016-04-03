@@ -27,9 +27,9 @@ public abstract class GameFragment
     protected Offer secret;
     protected int count;
 
-    public GameFragment(int lay, int id)
+    public GameFragment(int lay)
     {
-        super(lay, id);
+        super(lay);
     }
 
     @Override

@@ -39,7 +39,7 @@ public class SandboxFragment
 
     public SandboxFragment()
     {
-        super(R.layout.sandbox_coordinator, R.string.SandboxFragment);
+        super(R.layout.sandbox_coordinator);
     }
 
     @Override
@@ -96,9 +96,9 @@ public class SandboxFragment
             {
                 if (fm.getFragments().get(j) instanceof StanFragment && fragments.get(i) instanceof StanFragment)
                 {
-                    if(!((StanFragment) fm.getFragments().get(j)).getFragmentTag().equals(getActivity().getResources().getString(R.string.MainFragment))
-                            && !((StanFragment) fm.getFragments().get(j)).getFragmentTag().equals(getActivity().getResources().getString(R.string.SandboxFragment))
-                            && !((StanFragment) fm.getFragments().get(j)).getFragmentTag().equals(getActivity().getResources().getString(R.string.NumbersSandbox)))
+                    if(!((StanFragment) fm.getFragments().get(j)).getFragmentTag().equals(MainFragment.class.toString())
+                            && !((StanFragment) fm.getFragments().get(j)).getFragmentTag().equals(SandboxFragment.class.toString())
+                            && !((StanFragment) fm.getFragments().get(j)).getFragmentTag().equals(NumbersSandbox.class.toString()))
                     {
                         fm.beginTransaction().remove(fm.getFragments().get(j)).commit();
                     }

@@ -18,7 +18,7 @@ public class WordGameTypeFragment
 
     public WordGameTypeFragment()
     {
-        super(R.layout.word_game_type_fragment, R.string.WordGameTypeFragment);
+        super(R.layout.word_game_type_fragment);
     }
 
     @Override

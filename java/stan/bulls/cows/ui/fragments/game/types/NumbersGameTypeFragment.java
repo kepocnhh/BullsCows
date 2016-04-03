@@ -18,7 +18,7 @@ public class NumbersGameTypeFragment
 
     public NumbersGameTypeFragment()
     {
-        super(R.layout.numbers_game_type_fragment, R.string.NumbersGameTypeFragment);
+        super(R.layout.numbers_game_type_fragment);
     }
 
     @Override

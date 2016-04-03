@@ -5,7 +5,6 @@ import android.content.Intent;
 import stan.bulls.cows.R;
 import stan.bulls.cows.listeners.fragments.main.IMainFragmentListener;
 import stan.bulls.cows.listeners.fragments.main.ISandboxFragmentListener;
-import stan.bulls.cows.ui.fragments.StanFragment;
 import stan.bulls.cows.ui.fragments.main.MainFragment;
 import stan.bulls.cows.ui.fragments.main.SandboxFragment;
 

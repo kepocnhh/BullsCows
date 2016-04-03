@@ -1,6 +1,5 @@
 package stan.bulls.cows.ui.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ public abstract class StanFragment
 {
     protected View container;
     private String fragmentTag;
-    private int fragmentTagId;
 
     public String getFragmentTag()
     {
@@ -23,12 +21,12 @@ public abstract class StanFragment
 
     protected IStanFragmentListener listener;
 
-    public StanFragment(int lay, int id)
+    public StanFragment(int lay)
     {
         Bundle args = new Bundle();
         args.putInt("layout", lay);
         setArguments(args);
-        fragmentTagId = id;
+        fragmentTag = this.getClass().toString();
     }
 
     @Override
@@ -38,16 +36,9 @@ public abstract class StanFragment
         findViews(v);
         return v;
     }
-    @Override
-    public void onAttach(Activity activity)
-    {
-        super.onAttach(activity);
-        fragmentTag = getActivity().getResources().getString(fragmentTagId);
-    }
 
     protected void findViews(View v)
     {
         container = v;
     }
-
 }

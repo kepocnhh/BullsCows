@@ -88,7 +88,7 @@ public class Numbers
 
     public Numbers()
     {
-        super(R.layout.numbers_game_fragment, R.string.Numbers);
+        super(R.layout.numbers_game_fragment);
     }
 
     @Override

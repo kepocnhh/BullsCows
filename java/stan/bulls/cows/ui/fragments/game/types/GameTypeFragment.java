@@ -6,8 +6,8 @@ public abstract class GameTypeFragment
         extends StanFragment
 {
 
-    public GameTypeFragment(int lay, int id)
+    public GameTypeFragment(int lay)
     {
-        super(lay, id);
+        super(lay);
     }
 }

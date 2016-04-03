@@ -5,7 +5,6 @@ import android.provider.BaseColumns;
 public class Tables
 {
 
-    //_________________________GAMETEMP
     public static class GameTemp
     {
         public static final String TABLE_NAME = "gametemp" + "_table";

@@ -27,13 +27,4 @@
     <string name="numbers_game_type">Numbers</string>
     <string name="word_game_type">Word</string>
     <string name="error_game_type">Error game type</string>
-
-    <string name="MainFragment">main_fragment</string>
-    <string name="GameFragment">game_fragment</string>
-    <string name="SandboxFragment">sandbox</string>
-    <string name="Numbers">numbers_game_fragment</string>
-    <string name="NumbersSandbox">numbers_sandbox</string>
-    <string name="GameTypeFragment">game_type</string>
-    <string name="NumbersGameTypeFragment">numbers_game_type_fragment</string>
-    <string name="WordGameTypeFragment">word_game_type_fragment</string>
 </resources>
