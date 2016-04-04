@@ -9,6 +9,20 @@
     <string name="main_help">Help</string>
     <string name="main_settings">Settings</string>
 
+    <!--PROFILE-->
+    <string name="statistics">Statistics</string>
+    <!--STATISTICS-->
+    <string name="gold_earned">Gold earned:</string>
+    <string name="gold_spent">Gold spent:</string>
+    <string name="games_played">Games played:</string>
+    <string name="wins">Wins:</string>
+    <string name="average_time">The average time of the game:</string>
+    <string name="shortest_game">The shortest game:</string>
+    <string name="longest_game">The longest game:</string>
+    <string name="average_number_offers">Average number of offers:</string>
+    <string name="least_offers">Least of all offers:</string>
+    <string name="most_offers">Most offers:</string>
+
     <!--GAME-->
     <string name="congratulations">congratulations</string>
     <string name="ok">ok</string>
@@ -27,5 +41,4 @@
     <string name="numbers_game_type">Numbers</string>
     <string name="word_game_type">Word</string>
     <string name="error_game_type">Error game type</string>
-    <string name="statistics">Statistics</string>
 </resources>
