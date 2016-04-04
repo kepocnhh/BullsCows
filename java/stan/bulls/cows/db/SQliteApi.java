@@ -11,7 +11,7 @@ public class SQliteApi
     public static DatabaseHelper dbHelper;
     public static volatile SQLiteDatabase sdb;
     public static String DB_NAME = "bullscows";
-    public static int DB_VERSION = 1604032337;
+    public static int DB_VERSION = 1604041858;
 
     public static void createDb(Context context)
     {
@@ -34,7 +34,11 @@ public class SQliteApi
     //____________________________INSERT
     public static long insertGameTempOffer(ContentValues content)
     {
-        return sdb.insertWithOnConflict(Tables.GameTemp.TABLE_NAME, null, content, SQLiteDatabase.CONFLICT_REPLACE);
+        return sdb.insert(Tables.GameTemp.TABLE_NAME, null, content);
+    }
+    public static long insertStatisticsGamesResultGame(ContentValues content)
+    {
+        return sdb.insert(Tables.StatisticsGames.TABLE_NAME, null, content);
     }
 
     //____________________________CLEAR_TABLE

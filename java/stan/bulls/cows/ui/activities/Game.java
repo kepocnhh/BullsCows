@@ -3,11 +3,17 @@ package stan.bulls.cows.ui.activities;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
 import stan.bulls.cows.R;
+import stan.bulls.cows.core.game.ResultGame;
 import stan.bulls.cows.core.game.difficults.NumbersDifficults;
+import stan.bulls.cows.db.ContentDriver;
+import stan.bulls.cows.db.SQliteApi;
+import stan.bulls.cows.listeners.dialogs.game.IResultGameDialogListener;
 import stan.bulls.cows.listeners.fragments.game.INumbersListener;
+import stan.bulls.cows.ui.dialogs.game.ResultGameDialog;
 import stan.bulls.cows.ui.fragments.game.Numbers;
 
 public class Game
@@ -84,20 +90,23 @@ public class Game
     }
 
     @Override
-    public void result()
+    public void result(ResultGame resultGame)
     {
-        new AlertDialog.Builder(this)
-                .setMessage(R.string.congratulations)
-                .setCancelable(false)
-                .setNegativeButton(R.string.ok, new DialogInterface.OnClickListener()
-                {
-                    public void onClick(DialogInterface dialog, int id)
-                    {
-                        dialog.cancel();
-                        finish();
-                    }
-                })
-                .create()
-                .show();
+        SQliteApi.insertStatisticsGamesResultGame(ContentDriver.getContentValuesResultGameForStatisticsGames(resultGame));
+        ResultGameDialog.createNumbersAddOfferDialog(new IResultGameDialogListener()
+        {
+            @Override
+            public void ok(DialogFragment dialogFragment)
+            {
+                dialogFragment.dismiss();
+                finish();
+            }
+
+            @Override
+            public void onDismiss()
+            {
+
+            }
+        }, resultGame).show(getSupportFragmentManager());
     }
 }

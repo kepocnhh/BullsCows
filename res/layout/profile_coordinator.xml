@@ -138,47 +138,11 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginBottom="8dp">
-
-                <LinearLayout
+                <include
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="12dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/games_played"
-                        android:textColor="@color/black"
-                        android:textSize="14dp"/>
-
-                    <TextView
-                        android:id="@+id/games_played"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:text="123"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wins"
-                        android:textColor="@color/black"
-                        android:textSize="14dp"/>
-
-                    <TextView
-                        android:id="@+id/wins"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:text="123"
-                        android:textColor="@color/black"
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
-                </LinearLayout>
+                    layout="@layout/games_played"/>
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"

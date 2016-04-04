@@ -6,6 +6,7 @@ import android.view.View;
 
 import stan.bulls.cows.R;
 import stan.bulls.cows.db.Tables;
+import stan.bulls.cows.helpers.TimeHelper;
 import stan.bulls.cows.ui.holders.adapters.game.NumbersOfferHolder;
 
 public class NumbersOffersAdapter
@@ -34,8 +35,7 @@ public class NumbersOffersAdapter
             getHolder(h).time_spend.setVisibility(View.VISIBLE);
             String time_spend = getString(Tables.GameTemp.Columns.time_spend);
             long milliseconds = Long.parseLong(time_spend);
-            String time = milliseconds / 1000 + " " + mContext.getResources().getString(R.string.seconds);
-            getHolder(h).time_spend.setText(time);
+            getHolder(h).time_spend.setText(TimeHelper.getSecondsStringWithSec(mContext, milliseconds));
         }
         getHolder(h).offer_value.setText(getString(Tables.GameTemp.Columns.offer_value));
         getHolder(h).offer_bulls.setText(getString(Tables.GameTemp.Columns.offer_bulls));

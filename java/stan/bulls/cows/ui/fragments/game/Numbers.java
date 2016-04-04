@@ -11,10 +11,12 @@ import java.util.Random;
 
 import stan.bulls.cows.R;
 import stan.bulls.cows.core.Offer;
+import stan.bulls.cows.core.game.ResultGame;
 import stan.bulls.cows.core.game.difficults.NumbersDifficults;
 import stan.bulls.cows.core.number.NumberOffer;
 import stan.bulls.cows.db.ContentDriver;
 import stan.bulls.cows.db.SQliteApi;
+import stan.bulls.cows.helpers.TimeHelper;
 import stan.bulls.cows.listeners.dialogs.game.IGameDialogListener;
 import stan.bulls.cows.listeners.fragments.game.INumbersListener;
 import stan.bulls.cows.logic.Logic;
@@ -33,6 +35,8 @@ public class Numbers
 
     //_______________FIELDS
     private int amount;
+    private long date;
+    private int amount_offers;
     private Date time;
     private Handler timer;
     private Runnable runnable;
@@ -58,9 +62,10 @@ public class Numbers
             SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer, timeSpend));
             Cursor cursor = SQliteApi.getGameTemp();
             swapCursor(cursor);
+            amount_offers++;
             if (offer.bulls == secret.getLenght())
             {
-                getListener().result();
+                endGame();
                 return;
             }
             refreshUIFromOffersCount(cursor.getCount());
@@ -112,6 +117,7 @@ public class Numbers
     {
         count = getArguments().getInt(COUNT_KEY);
         amount = getArguments().getInt(AMOUNT_KEY);
+        amount_offers = 0;
     }
 
     @Override
@@ -146,18 +152,18 @@ public class Numbers
     {
         if (count == 1)
         {
+            date = new Date().getTime();
             showOfferList();
             offers_list_submessage.setText(R.string.offers_list_submessage_begin_game);
             offers_list_timer.setVisibility(View.VISIBLE);
-            offers_list_timer.setText("0 " + getActivity().getResources().getString(R.string.seconds));
+            offers_list_timer.setText(TimeHelper.getZeroSecondsStringWithSec(getActivity()));
             timer = new Handler();
             runnable = new Runnable()
             {
                 @Override
                 public void run()
                 {
-                    String timeSpend = (new Date().getTime() - time.getTime()) / 1000 + " " + getActivity().getResources().getString(R.string.seconds);
-                    offers_list_timer.setText(timeSpend);
+                    offers_list_timer.setText(TimeHelper.getSecondsStringWithSec(getActivity(), TimeHelper.getTimeSpend(time.getTime())));
                     timer.postDelayed(this, 1000);
                 }
             };
@@ -165,6 +171,7 @@ public class Numbers
         }
         else if (count == 2)
         {
+            offers_list_timer.setText(TimeHelper.getZeroSecondsStringWithSec(getActivity()));
             offers_list_submessage.setVisibility(View.GONE);
         }
         else if (count == 3)
@@ -172,6 +179,23 @@ public class Numbers
             offers_list_timer.setVisibility(View.GONE);
             timer.removeCallbacks(runnable);
         }
+    }
+
+
+    private void endGame()
+    {
+        ResultGame resultGame = new ResultGame();
+        resultGame.date = date;
+        resultGame.game_type = 0;
+        resultGame.win = true;
+        resultGame.time_spend = TimeHelper.getTimeSpend(date);
+        resultGame.amount_offers = amount_offers;
+        resultGame.game_settings = "";
+        if (timer != null)
+        {
+            timer.removeCallbacks(runnable);
+        }
+        getListener().result(resultGame);
     }
 
     @Override

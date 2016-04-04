@@ -24,7 +24,7 @@
     <string name="most_offers">Most offers:</string>
 
     <!--GAME-->
-    <string name="congratulations">congratulations</string>
+    <string name="congratulations">Congratulations!</string>
     <string name="ok">ok</string>
     <string name="offer_count">Count elements of combination</string>
     <string name="numbers_dialog_label">Add offer</string>
@@ -36,6 +36,10 @@
     <string name="offers_list_submessage_begin_game">The clock is ticking!</string>
     <string name="offers_list_submessage_empty">To start the game offer your first version</string>
     <string name="seconds">sec</string>
+
+    <!--RESULTGAME-->
+    <string name="offers_made">Offers made:</string>
+    <string name="time_spend">Time spent:</string>
 
     <!--GAME_TYPES-->
     <string name="numbers_game_type">Numbers</string>

@@ -1,7 +1,6 @@
 package stan.bulls.cows.ui.dialogs.game.numbers;
 
 import android.app.DialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -105,7 +104,7 @@ public class NumbersAddOfferDialog
 
     public NumbersAddOfferDialog()
     {
-        super(R.layout.numbers_add_offer_dialog, "NumbersAddOfferDialog");
+        super(R.layout.numbers_add_offer_dialog, NumbersAddOfferDialog.class.getName());
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.StanDialog);
     }
 
