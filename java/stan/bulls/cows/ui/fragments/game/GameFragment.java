@@ -45,7 +45,6 @@ public abstract class GameFragment
             }
         });
         offer_list = (RecyclerView) v.findViewById(R.id.offer_list);
-        offer_list.setVisibility(View.GONE);
         initList();
         initGameFragment();
     }
@@ -59,13 +58,7 @@ public abstract class GameFragment
     private void initGameFragment()
     {
         init();
-        secret = createSecret();
-        Log.e("GameFragment", "createSecret - " + secret.getValue());
         SQliteApi.clearGameTemp();
-    }
-    protected void showOfferList()
-    {
-        offer_list.setVisibility(View.VISIBLE);
     }
     protected void smoothScrollToEnd()
     {
@@ -77,6 +70,11 @@ public abstract class GameFragment
     protected void swapCursor(Cursor c)
     {
         adapter.swapCursor(c);
+    }
+
+    protected void setSecret()
+    {
+        secret = createSecret();
     }
 
     protected abstract Offer createSecret();

@@ -3,6 +3,7 @@ package stan.bulls.cows.ui.fragments.game;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -45,11 +46,24 @@ public class Numbers
         @Override
         public void addOffer(String value)
         {
-            if (value.length() != secret.getLenght())
+            Offer offer;
+            if(date == 0)
             {
-                return;
+                setSecret();
+                offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+                if (offer.bulls == secret.getLenght())
+                {
+                    while(offer.bulls == secret.getLenght())
+                    {
+                        setSecret();
+                        offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+                    }
+                }
             }
-            Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+            else
+            {
+                offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+            }
             String timeSpend;
             if (time == null)
             {
@@ -129,6 +143,7 @@ public class Numbers
         {
             value += random.nextInt(amount + 1) + "";
         }
+        Log.e("GameFragment", "createSecret - " + value);
         return new NumberOffer(value);
     }
 
@@ -153,42 +168,46 @@ public class Numbers
         if (count == 1)
         {
             date = new Date().getTime();
-            showOfferList();
             offers_list_submessage.setText(R.string.offers_list_submessage_begin_game);
             offers_list_timer.setVisibility(View.VISIBLE);
-            offers_list_timer.setText(TimeHelper.getZeroSecondsStringWithSec(getActivity()));
             timer = new Handler();
-            runnable = new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    offers_list_timer.setText(TimeHelper.getSecondsStringWithSec(getActivity(), TimeHelper.getTimeSpend(time.getTime())));
-                    timer.postDelayed(this, 1000);
-                }
-            };
-            timer.postDelayed(runnable, 1000);
         }
         else if (count == 2)
         {
-            offers_list_timer.setText(TimeHelper.getZeroSecondsStringWithSec(getActivity()));
             offers_list_submessage.setVisibility(View.GONE);
         }
-        else if (count == 3)
-        {
-            offers_list_timer.setVisibility(View.GONE);
-            timer.removeCallbacks(runnable);
-        }
+        offers_list_timer.setText(TimeHelper.getZeroSecondsStringWithSec(getActivity()));
+        resetTimer();
     }
-
+    private void resetTimer()
+    {
+        timer.removeCallbacks(runnable);
+        runnable = new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                long timeSpend = TimeHelper.getTimeSpend(time.getTime());
+                if(timeSpend > TimeHelper.MAX_MILLISEC)
+                {
+                    offers_list_timer.setText(R.string.much);
+                    return;
+                }
+                offers_list_timer.setText(TimeHelper.getSecondsStringWithSec(getActivity(), timeSpend));
+                timer.postDelayed(this, TimeHelper.MILLISECS_IN_SEC);
+            }
+        };
+        timer.postDelayed(runnable, TimeHelper.MILLISECS_IN_SEC);
+    }
 
     private void endGame()
     {
+        offers_list_submessage.setVisibility(View.GONE);
         ResultGame resultGame = new ResultGame();
         resultGame.date = date;
+        resultGame.time_spend = TimeHelper.getTimeSpend(date);
         resultGame.game_type = 0;
         resultGame.win = true;
-        resultGame.time_spend = TimeHelper.getTimeSpend(date);
         resultGame.amount_offers = amount_offers;
         resultGame.game_settings = "";
         if (timer != null)
@@ -205,6 +224,15 @@ public class Numbers
         if (timer != null)
         {
             timer.removeCallbacks(runnable);
+        }
+    }
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        if (timer != null)
+        {
+            resetTimer();
         }
     }
 

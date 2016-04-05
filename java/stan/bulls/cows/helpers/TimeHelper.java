@@ -8,13 +8,16 @@ import stan.bulls.cows.R;
 
 public class TimeHelper
 {
+    static public final int MAX_MILLISEC = 999999;
+    static public final int MILLISECS_IN_SEC = 1000;
+
     static public long getTimeSpend(long time)
     {
         return new Date().getTime() - time;
     }
     static public String getSecondsStringWithSec(Context context, long time)
     {
-        return (time / 1000) + " " + context.getResources().getString(R.string.seconds);
+        return (time / MILLISECS_IN_SEC) + " " + context.getResources().getString(R.string.seconds);
     }
     static public String getZeroSecondsStringWithSec(Context context)
     {

@@ -16,6 +16,7 @@ public class ResultGameDialog
     static public ResultGameDialog createNumbersAddOfferDialog(IResultGameDialogListener listener, ResultGame resultGame)
     {
         ResultGameDialog dialog = new ResultGameDialog();
+        dialog.setCancelable(false);
         dialog.init(listener);
         dialog.resultGame = resultGame;
         return dialog;

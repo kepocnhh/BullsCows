@@ -33,7 +33,6 @@ public class NumbersAddOfferDialog
         NumbersAddOfferDialog numbersAddOfferDialog = new NumbersAddOfferDialog();
         numbersAddOfferDialog.setCount(count);
         numbersAddOfferDialog.setAmountDifficult(amountDifficult);
-//        numbersAddOfferDialog.setCancelable(false);
         numbersAddOfferDialog.init(listener);
         return numbersAddOfferDialog;
     }
