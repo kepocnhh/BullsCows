@@ -18,6 +18,7 @@ public abstract class OffersAdapter
     static public final int FOOTER_ID = 1603311710;
     static public final int FOOTER_TYPE = 0;
     static public final int OFFER_TYPE = 1;
+    static public final int OFFER_FIRST_TYPE = 2;
 
     public OffersAdapter(Context context, int l)
     {
@@ -33,13 +34,25 @@ public abstract class OffersAdapter
             View v = inflater.inflate(R.layout.offers_list_footer, parent, false);
             return initFooterHolder(v);
         }
+        else if (viewType == OFFER_FIRST_TYPE)
+        {
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            View v = inflater.inflate(getOfferFirstLayoutID(), parent, false);
+            return initOfferFirstHolder(v);
+        }
         return super.onCreateViewHolder(parent, viewType);
     }
+    protected abstract int getOfferFirstLayoutID();
 
     private RecyclerView.ViewHolder initFooterHolder(View v)
     {
         return new OffersFooterHolder(v);
     }
+    private RecyclerView.ViewHolder initOfferFirstHolder(View v)
+    {
+        return getOfferFirstHolder(v);
+    }
+    protected abstract RecyclerView.ViewHolder getOfferFirstHolder(View v);
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int i)
@@ -86,6 +99,10 @@ public abstract class OffersAdapter
         if (getItemCount() > 2 && position == getItemCount() - 1)
         {
             return FOOTER_TYPE;
+        }
+        else if(position == 0)
+        {
+            return OFFER_FIRST_TYPE;
         }
         return OFFER_TYPE;
     }

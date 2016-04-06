@@ -1,4 +1,4 @@
-package stan.bulls.cows.ui.holders.adapters.game;
+package stan.bulls.cows.ui.holders.adapters.game.numbers;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
