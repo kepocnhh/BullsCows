@@ -4,9 +4,9 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="12dp"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="12dp"/>-->
     <LinearLayout
         android:background="@color/purpleverylight"
         android:layout_width="match_parent"
