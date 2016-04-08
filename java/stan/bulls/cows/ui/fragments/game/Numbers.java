@@ -44,7 +44,7 @@ public class Numbers
     private int amount;
     private long date;
     private int amount_offers;
-    private int timeGame = 30000;
+    private int timeGame = 300000;
     private Date time;
     private Handler timerSpend;
     private Runnable runnableSpend;
