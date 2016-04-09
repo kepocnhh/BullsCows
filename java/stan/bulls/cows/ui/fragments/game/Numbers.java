@@ -2,6 +2,7 @@ package stan.bulls.cows.ui.fragments.game;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -38,45 +39,48 @@ public class Numbers
     //___________________VIEWS
     private TextView offers_list_submessage;
     private TextView offers_list_timer;
-//    private ProgressBar time_game;
+    //    private ProgressBar time_game;
+    private CircularProgressView time_game;
 
     //_______________FIELDS
     private int amount;
     private long date;
     private int amount_offers;
-    private int timeGame = 300000;
+    private long timeGame = TimeHelper.getMillisecsFromSec(30);
     private Date time;
-    private Handler timerSpend;
-    private Runnable runnableSpend;
-    private Handler timerGame;
-    private Runnable runnableGame;
+//    private Handler timerSpend;
+//    private Runnable runnableSpend;
+    private CountDownTimer timerAllGame;
+    private CountDownTimer timerOneOffer;
     private IGameDialogListener gameDialogListener = new IGameDialogListener()
     {
         @Override
         public void addOffer(String value)
         {
             Offer offer;
-            if(date == 0)
+            if (date == 0)
             {
                 setSecret();
                 offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
-                if(offer.bulls == secret.getLenght())
+                if (offer.bulls == secret.getLenght())
                 {
-                    while(offer.bulls == secret.getLenght())
+                    while (offer.bulls == secret.getLenght())
                     {
                         setSecret();
                         offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
                     }
                 }
-            } else
+            }
+            else
             {
                 offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
             }
             String timeSpend;
-            if(time == null)
+            if (time == null)
             {
                 timeSpend = "0";
-            } else
+            }
+            else
             {
                 timeSpend = (new Date().getTime() - time.getTime()) + "";
             }
@@ -84,9 +88,9 @@ public class Numbers
             Cursor cursor = SQliteApi.getGameTemp();
             swapCursor(cursor);
             amount_offers++;
-            if(offer.bulls == secret.getLenght())
+            if (offer.bulls == secret.getLenght())
             {
-                endGame();
+                endWinGame(true);
                 return;
             }
             refreshUIFromOffersCount(cursor.getCount());
@@ -121,6 +125,7 @@ public class Numbers
     protected void findViews(View v)
     {
         super.findViews(v);
+        time_game = (CircularProgressView) v.findViewById(R.id.time_game);
         offers_list_timer = (TextView) v.findViewById(R.id.offers_list_timer);
         offers_list_timer.setVisibility(View.GONE);
         offers_list_submessage = (TextView) v.findViewById(R.id.offers_list_submessage);
@@ -146,7 +151,7 @@ public class Numbers
     {
         String value = "";
         Random random = new Random();
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
             value += random.nextInt(amount + 1) + "";
         }
@@ -156,13 +161,15 @@ public class Numbers
 
     protected void addOffer()
     {
-        if(amount == NumbersDifficults.AMOUNT_DIFFICULT_EASY)
+        if (amount == NumbersDifficults.AMOUNT_DIFFICULT_EASY)
         {
             NumbersAddOfferDialog.createNumbersAddOfferDialogEasy(count, gameDialogListener).show(getActivity().getSupportFragmentManager());
-        } else if(amount == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM)
+        }
+        else if (amount == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM)
         {
             NumbersAddOfferDialog.createNumbersAddOfferDialogMedium(count, gameDialogListener).show(getActivity().getSupportFragmentManager());
-        } else if(amount == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
+        }
+        else if (amount == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
         {
             NumbersAddOfferDialog.createNumbersAddOfferDialogHard(count, gameDialogListener).show(getActivity().getSupportFragmentManager());
         }
@@ -170,81 +177,87 @@ public class Numbers
 
     private void refreshUIFromOffersCount(int count)
     {
-        if(count == 1)
+        if (count == 1)
         {
             date = new Date().getTime();
             offers_list_submessage.setText(R.string.offers_list_submessage_begin_game);
             offers_list_timer.setVisibility(View.VISIBLE);
-            timerSpend = new Handler();
-            timerGame = new Handler();
-            resetTimerGame();
-        } else if(count == 2)
+            resetTimerAllGame();
+        }
+        else if (count == 2)
         {
             offers_list_submessage.setVisibility(View.GONE);
         }
         offers_list_timer.setText(TimeHelper.getZeroSecondsStringWithSec(getActivity()));
-        resetTimerSpend();
+        resetTimerOneOffer();
     }
 
-    private void resetTimerSpend()
+    private void resetTimerOneOffer()
     {
-        timerSpend.removeCallbacks(runnableSpend);
-        runnableSpend = new Runnable()
+        if (timerOneOffer != null)
         {
-            @Override
-            public void run()
-            {
-                long timeSpend = TimeHelper.getTimeSpend(time.getTime());
-                if(timeSpend > TimeHelper.MAX_MILLISEC)
-                {
-                    offers_list_timer.setText(R.string.much);
-                    return;
-                }
-                offers_list_timer.setText(TimeHelper.getSecondsStringWithSec(getActivity(), timeSpend));
-                timerSpend.postDelayed(this, TimeHelper.MILLISECS_IN_SEC);
-            }
-        };
-        timerSpend.postDelayed(runnableSpend, TimeHelper.MILLISECS_IN_SEC);
-    }
-
-    private void resetTimerGame()
-    {
-        timerGame.removeCallbacks(runnableGame);
-        runnableGame = new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                long timeSpend = TimeHelper.getTimeSpend(date);
-                if(timeSpend > timeGame)
-                {
-                    ResultGame resultGame = new ResultGame();
-                    resultGame.win = false;
-                    getListener().result(resultGame);
-                    return;
-                }
-                timerGame.postDelayed(this, 2 * TimeHelper.MILLISECS_IN_SEC);
-            }
-        };
-        timerGame.postDelayed(runnableGame, 2 * TimeHelper.MILLISECS_IN_SEC);
-    }
-
-    public static void setProgressBarAnimationDuration(ProgressBar progressBar, int duration)
-    {
-        try
-        {
-            Field mCursorDrawableRes = ProgressBar.class.getDeclaredField("mDuration");
-            mCursorDrawableRes.setAccessible(true);
-            mCursorDrawableRes.setInt(progressBar, duration);
-        } catch(Exception e)
-        {
-            Log.e("setAnimationDuration", e.getMessage());
+            timerOneOffer.cancel();
         }
+        timerOneOffer = new CountDownTimer(TimeHelper.MAX_MILLISEC, TimeHelper.getMillisecsFromSec(1))
+        {
+            @Override
+            public void onTick(long millisUntilFinished)
+            {
+                offers_list_timer.setText(TimeHelper.getSecondsStringWithSec(getActivity(), TimeHelper.getTimeSpend(time.getTime())));
+            }
+
+            @Override
+            public void onFinish()
+            {
+                offers_list_timer.setText(R.string.much);
+            }
+        }.start();
+    }
+    private void resetTimerAllGame()
+    {
+        if (timerAllGame != null)
+        {
+            timerAllGame.cancel();
+        }
+        timerAllGame = new CountDownTimer(timeGame - TimeHelper.getTimeSpend(date), TimeHelper.getMillisecsFromSec(2))
+        {
+            @Override
+            public void onTick(long millisUntilFinished)
+            {
+            }
+
+            @Override
+            public void onFinish()
+            {
+                endWinGame(false);
+            }
+        }.start();
     }
 
-    private void endGame()
+    private void endWinGame(boolean win)
     {
         offers_list_submessage.setVisibility(View.GONE);
+        if (timerOneOffer != null)
+        {
+            timerOneOffer.cancel();
+            timerOneOffer = null;
+        }
+        if (timerAllGame != null)
+        {
+            timerAllGame.cancel();
+            timerAllGame = null;
+        }
+        if(win)
+        {
+            getListener().result(endWinGame());
+        }
+        else
+        {
+            getListener().result(endLostGame());
+        }
+    }
+    private ResultGame endWinGame()
+    {
         ResultGame resultGame = new ResultGame();
         resultGame.date = date;
         resultGame.time_spend = TimeHelper.getTimeSpend(date);
@@ -252,24 +265,26 @@ public class Numbers
         resultGame.win = true;
         resultGame.amount_offers = amount_offers;
         resultGame.game_settings = "";
-        if(timerSpend != null)
-        {
-            timerSpend.removeCallbacks(runnableSpend);
-        }
-        getListener().result(resultGame);
+        return resultGame;
+    }
+    private ResultGame endLostGame()
+    {
+        ResultGame resultGame = new ResultGame();
+        resultGame.win = false;
+        return resultGame;
     }
 
     @Override
     public void onStop()
     {
         super.onStop();
-        if(timerSpend != null)
+        if (timerOneOffer != null)
         {
-            timerSpend.removeCallbacks(runnableSpend);
+            timerOneOffer.cancel();
         }
-        if(timerGame != null)
+        if (timerAllGame != null)
         {
-            timerGame.removeCallbacks(runnableGame);
+            timerAllGame.cancel();
         }
     }
 
@@ -277,13 +292,15 @@ public class Numbers
     public void onStart()
     {
         super.onStart();
-        if(timerSpend != null)
+        if (timerOneOffer != null)
         {
-            resetTimerSpend();
+            timerOneOffer.cancel();
+            resetTimerOneOffer();
         }
-        if(timerGame != null)
+        if (timerAllGame != null)
         {
-            //            resetTimerGame();
+            timerAllGame.cancel();
+            resetTimerAllGame();
         }
     }
 
