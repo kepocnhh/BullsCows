@@ -3,16 +3,18 @@ package stan.bulls.cows.ui.fragments.game;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.RotateAnimation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
-import com.github.rahatarmanahmed.cpv.CircularProgressViewListener;
 
-import java.lang.reflect.Field;
 import java.util.Date;
 import java.util.Random;
 
@@ -39,17 +41,22 @@ public class Numbers
     //___________________VIEWS
     private TextView offers_list_submessage;
     private TextView offers_list_timer;
-    //    private ProgressBar time_game;
     private CircularProgressView time_game;
+    private CardView attempts_left_card;
+    private TextView attempts_left_number;
+    private View attempts_left;
+    private View attempts_left_and_offers_list_timer;
+    private CardView offers_list_timer_card;
+    private ImageView time_circle;
+    private View time_frame;
 
     //_______________FIELDS
     private int amount;
     private long date;
     private int amount_offers;
-    private long timeGame = TimeHelper.getMillisecsFromSec(30);
+    private long timeGame = TimeHelper.getMillisecsFromSec(120);
+    private int attemptsLeftNumber = 10;
     private Date time;
-//    private Handler timerSpend;
-//    private Runnable runnableSpend;
     private CountDownTimer timerAllGame;
     private CountDownTimer timerOneOffer;
     private IGameDialogListener gameDialogListener = new IGameDialogListener()
@@ -82,19 +89,24 @@ public class Numbers
             }
             else
             {
-                timeSpend = (new Date().getTime() - time.getTime()) + "";
+                timeSpend = TimeHelper.getTimeSpend(time.getTime()) + "";
             }
             SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer, timeSpend));
             Cursor cursor = SQliteApi.getGameTemp();
             swapCursor(cursor);
             amount_offers++;
+            refreshUIFromOffersCount(cursor.getCount());
+            smoothScrollToEnd();
+            if(attemptsLeftNumber - cursor.getCount() == 0)
+            {
+                endWinGame(false);
+                return;
+            }
             if (offer.bulls == secret.getLenght())
             {
                 endWinGame(true);
                 return;
             }
-            refreshUIFromOffersCount(cursor.getCount());
-            smoothScrollToEnd();
             time = new Date();
         }
 
@@ -124,12 +136,18 @@ public class Numbers
     @Override
     protected void findViews(View v)
     {
-        super.findViews(v);
+        attempts_left_card = (CardView) v.findViewById(R.id.attempts_left_card);
+        attempts_left_number = (TextView) v.findViewById(R.id.attempts_left_number);
+        attempts_left = v.findViewById(R.id.attempts_left);
+        offers_list_timer_card = (CardView) v.findViewById(R.id.offers_list_timer_card);
+        attempts_left_and_offers_list_timer = v.findViewById(R.id.attempts_left_and_offers_list_timer);
+        time_circle = (ImageView) v.findViewById(R.id.time_circle);
         time_game = (CircularProgressView) v.findViewById(R.id.time_game);
+        time_frame = v.findViewById(R.id.time_frame);
         offers_list_timer = (TextView) v.findViewById(R.id.offers_list_timer);
-        offers_list_timer.setVisibility(View.GONE);
         offers_list_submessage = (TextView) v.findViewById(R.id.offers_list_submessage);
         offers_list_submessage.setText(R.string.offers_list_submessage_empty);
+        super.findViews(v);
     }
 
     @Override
@@ -144,6 +162,19 @@ public class Numbers
         count = getArguments().getInt(COUNT_KEY);
         amount = getArguments().getInt(AMOUNT_KEY);
         amount_offers = 0;
+//        attempts_left_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.white));
+        attempts_left.setVisibility(View.INVISIBLE);
+//        offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.white));
+        offers_list_timer.setVisibility(View.INVISIBLE);
+        attempts_left_and_offers_list_timer.setVisibility(View.INVISIBLE);
+//        time_circle.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.circle_white));
+        time_frame.setVisibility(View.INVISIBLE);
+        initProgress();
+    }
+    private void initProgress()
+    {
+        time_game.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_around_center_point));
+        time_game.setMaxProgress(timeGame);
     }
 
     @Override
@@ -181,7 +212,10 @@ public class Numbers
         {
             date = new Date().getTime();
             offers_list_submessage.setText(R.string.offers_list_submessage_begin_game);
-            offers_list_timer.setVisibility(View.VISIBLE);
+            offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
+            attempts_left_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
+            animateTimeCircle();
+            time_circle.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.circle_green));
             resetTimerAllGame();
         }
         else if (count == 2)
@@ -189,7 +223,65 @@ public class Numbers
             offers_list_submessage.setVisibility(View.GONE);
         }
         offers_list_timer.setText(TimeHelper.getZeroSecondsStringWithSec(getActivity()));
+        attempts_left_number.setText(attemptsLeftNumber - count+"");
         resetTimerOneOffer();
+    }
+    private void animateAttemptsLeftAndOffersListTimer()
+    {
+        attempts_left_and_offers_list_timer.setVisibility(View.VISIBLE);
+        Animation an = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_from_x);
+        an.setAnimationListener(new Animation.AnimationListener()
+        {
+            @Override
+            public void onAnimationStart(Animation animation)
+            {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation)
+            {
+                offers_list_timer.setVisibility(View.VISIBLE);
+                attempts_left.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation)
+            {
+
+            }
+        });
+        attempts_left_and_offers_list_timer.startAnimation(an);
+    }
+    private void animateTimeCircle()
+    {
+        time_frame.setVisibility(View.VISIBLE);
+        Animation an = new RotateAnimation(270.0f, 360.0f, time_frame.getPivotX(), time_frame.getPivotY() + time_frame.getHeight());
+        an.setDuration(1000);               // duration in ms
+        an.setRepeatCount(0);                // -1 = infinite repeated
+        an.setRepeatMode(Animation.REVERSE); // reverses each repeat
+        an.setFillAfter(false);               // keep rotation after animation
+        an.setAnimationListener(new Animation.AnimationListener()
+        {
+            @Override
+            public void onAnimationStart(Animation animation)
+            {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation)
+            {
+                animateAttemptsLeftAndOffersListTimer();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation)
+            {
+
+            }
+        });
+        time_frame.setAnimation(an);
     }
 
     private void resetTimerOneOffer()
@@ -219,16 +311,18 @@ public class Numbers
         {
             timerAllGame.cancel();
         }
-        timerAllGame = new CountDownTimer(timeGame - TimeHelper.getTimeSpend(date), TimeHelper.getMillisecsFromSec(2))
+        timerAllGame = new CountDownTimer(timeGame - TimeHelper.getTimeSpend(date), TimeHelper.getMillisecsFromSec(1))
         {
             @Override
             public void onTick(long millisUntilFinished)
             {
+                time_game.setProgress(timeGame - millisUntilFinished);
             }
 
             @Override
             public void onFinish()
             {
+                time_game.setProgress(timeGame);
                 endWinGame(false);
             }
         }.start();

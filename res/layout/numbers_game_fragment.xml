@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:card_view="http://schemas.android.com/tools"
              android:background="@color/white"
              android:layout_width="match_parent"
              android:layout_height="match_parent">
@@ -8,15 +9,12 @@
         android:id="@+id/offer_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-    <!--<ProgressBar-->
+    <!--<com.github.rahatarmanahmed.cpv.CircularProgressView-->
         <!--android:id="@+id/time_game"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"/>-->
-    <com.github.rahatarmanahmed.cpv.CircularProgressView
-        android:id="@+id/time_game"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        app:cpv_indeterminate="false"/>
+        <!--android:layout_width="46dp"-->
+        <!--android:layout_height="46dp"-->
+        <!--android:layout_margin="5dp"-->
+        <!--app:cpv_indeterminate="false"/>-->
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -40,21 +38,141 @@
             android:layout_width="0px"
             android:layout_height="0dp"/>
     </LinearLayout>
-    <TextView
-        android:id="@+id/offers_list_timer"
-        android:background="@drawable/circle_white"
+    <LinearLayout
         android:layout_gravity="bottom"
-        android:textSize="22dp"
-        android:textColor="@color/purple"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="112dp">
+        <View
+            android:layout_width="48dp"
+            android:layout_height="0px"/>
+        <LinearLayout
+            android:id="@+id/attempts_left_and_offers_list_timer"
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.CardView
+                android:id="@+id/offers_list_timer_card"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <TextView
+                    android:id="@+id/offers_list_timer"
+                    android:layout_marginRight="8dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:text="asdasd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:id="@+id/attempts_left_card"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <LinearLayout
+                    android:id="@+id/attempts_left"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:layout_gravity="center_vertical|end"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
+                        android:text="@string/attempts_left"
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:paddingRight="8dp"
+                        android:layout_marginLeft="4dp"
+                        android:id="@+id/attempts_left_number"
+                        android:layout_gravity="center_vertical|end"
+                        android:textSize="20dp"
+                        android:textColor="@color/white"
+                        android:text="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+        <View
+            android:layout_width="96dp"
+            android:layout_height="0px"/>
+    </LinearLayout>
+    <FrameLayout
+        android:layout_gravity="bottom|end"
+        android:layout_width="112dp"
+        android:layout_height="112dp">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/add_offer"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_white_24dp"/>
+    </FrameLayout>
+    <!--<FrameLayout-->
+        <!--android:layout_gravity="center|bottom"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:layout_width="144dp"-->
+        <!--android:layout_height="96dp">-->
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="48dp">-->
+            <!--<TextView-->
+                <!--android:id="@+id/offers_list_timer"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:textSize="22dp"-->
+                <!--android:textColor="@color/purple"-->
+                <!--android:text="asdasd"-->
+                <!--android:gravity="center"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
+        <!--</android.support.v7.widget.CardView>-->
+    <!--</FrameLayout>-->
+    <FrameLayout
+        android:id="@+id/time_frame"
+        android:layout_gravity="bottom"
         android:layout_margin="8dp"
         android:layout_width="96dp"
-        android:layout_height="96dp"/>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_offer"
-        android:layout_gravity="bottom|end"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_add_white_24dp"/>
+        android:layout_height="96dp">
+        <ImageView
+            android:id="@+id/time_circle"
+            android:src="@drawable/circle_green"
+            android:adjustViewBounds="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <com.github.rahatarmanahmed.cpv.CircularProgressView
+            android:id="@+id/time_game"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            app:cpv_color="@color/white"
+            app:cpv_indeterminate="false"/>
+    </FrameLayout>
+    <!--<ImageView-->
+        <!--android:id="@+id/time_circle"-->
+        <!--android:src="@drawable/circle_green"-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:layout_width="96dp"-->
+        <!--android:layout_height="96dp"/>-->
+    <!--<com.github.rahatarmanahmed.cpv.CircularProgressView-->
+        <!--android:id="@+id/time_game"-->
+        <!--android:layout_gravity="bottom"-->
+        <!--android:layout_margin="8dp"-->
+        <!--android:padding="8dp"-->
+        <!--android:layout_width="96dp"-->
+        <!--android:layout_height="96dp"-->
+        <!--app:cpv_color="@color/white"-->
+        <!--app:cpv_indeterminate="false"/>-->
 </FrameLayout>
