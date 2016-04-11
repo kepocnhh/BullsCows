@@ -25,7 +25,6 @@ public abstract class GameFragment
     //_______________FIELDS
     private StanRecyclerAdapter adapter;
     protected Offer secret;
-    protected int count;
 
     public GameFragment(int lay)
     {

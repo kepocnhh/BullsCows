@@ -21,7 +21,9 @@ import java.util.Random;
 import stan.bulls.cows.R;
 import stan.bulls.cows.core.Offer;
 import stan.bulls.cows.core.game.ResultGame;
+import stan.bulls.cows.core.game.boosters.DefaultBooster;
 import stan.bulls.cows.core.game.difficults.NumbersDifficults;
+import stan.bulls.cows.core.game.settings.numbers.NumbersGameSettings;
 import stan.bulls.cows.core.number.NumberOffer;
 import stan.bulls.cows.db.ContentDriver;
 import stan.bulls.cows.db.SQliteApi;
@@ -51,10 +53,12 @@ public class Numbers
     private View time_frame;
 
     //_______________FIELDS
-    private int amount;
+//    private int amount;
+//    private int count;
+    private NumbersGameSettings gameSettings;
     private long date;
     private int amount_offers;
-    private long timeGame = TimeHelper.getMillisecsFromSec(120);
+//    private long timeGame = TimeHelper.getMillisecsFromSec(120);
     private int attemptsLeftNumber = 10;
     private Date time;
     private CountDownTimer timerAllGame;
@@ -97,14 +101,14 @@ public class Numbers
             amount_offers++;
             refreshUIFromOffersCount(cursor.getCount());
             smoothScrollToEnd();
-            if(attemptsLeftNumber - cursor.getCount() == 0)
-            {
-                endWinGame(false);
-                return;
-            }
             if (offer.bulls == secret.getLenght())
             {
                 endWinGame(true);
+                return;
+            }
+            if(attemptsLeftNumber - cursor.getCount() == 0)
+            {
+                endWinGame(false);
                 return;
             }
             time = new Date();
@@ -159,22 +163,20 @@ public class Numbers
     @Override
     protected void init()
     {
-        count = getArguments().getInt(COUNT_KEY);
-        amount = getArguments().getInt(AMOUNT_KEY);
+        gameSettings = new NumbersGameSettings(new DefaultBooster(), TimeHelper.getMillisecsFromSec(120), getArguments().getInt(COUNT_KEY), getArguments().getInt(AMOUNT_KEY));
+//        count = getArguments().getInt(COUNT_KEY);
+//        amount = getArguments().getInt(AMOUNT_KEY);
         amount_offers = 0;
-//        attempts_left_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.white));
         attempts_left.setVisibility(View.INVISIBLE);
-//        offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.white));
         offers_list_timer.setVisibility(View.INVISIBLE);
         attempts_left_and_offers_list_timer.setVisibility(View.INVISIBLE);
-//        time_circle.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.circle_white));
         time_frame.setVisibility(View.INVISIBLE);
         initProgress();
     }
     private void initProgress()
     {
         time_game.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_around_center_point));
-        time_game.setMaxProgress(timeGame);
+        time_game.setMaxProgress(gameSettings.timeGame);
     }
 
     @Override
@@ -182,9 +184,9 @@ public class Numbers
     {
         String value = "";
         Random random = new Random();
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < gameSettings.count; i++)
         {
-            value += random.nextInt(amount + 1) + "";
+            value += random.nextInt(gameSettings.amount + 1) + "";
         }
         Log.e("GameFragment", "createSecret - " + value);
         return new NumberOffer(value);
@@ -192,17 +194,17 @@ public class Numbers
 
     protected void addOffer()
     {
-        if (amount == NumbersDifficults.AMOUNT_DIFFICULT_EASY)
+        if (gameSettings.amount == NumbersDifficults.AMOUNT_DIFFICULT_EASY)
         {
-            NumbersAddOfferDialog.createNumbersAddOfferDialogEasy(count, gameDialogListener).show(getActivity().getSupportFragmentManager());
+            NumbersAddOfferDialog.createNumbersAddOfferDialogEasy(gameSettings.count, gameDialogListener).show(getActivity().getSupportFragmentManager());
         }
-        else if (amount == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM)
+        else if (gameSettings.amount == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM)
         {
-            NumbersAddOfferDialog.createNumbersAddOfferDialogMedium(count, gameDialogListener).show(getActivity().getSupportFragmentManager());
+            NumbersAddOfferDialog.createNumbersAddOfferDialogMedium(gameSettings.count, gameDialogListener).show(getActivity().getSupportFragmentManager());
         }
-        else if (amount == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
+        else if (gameSettings.amount == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
         {
-            NumbersAddOfferDialog.createNumbersAddOfferDialogHard(count, gameDialogListener).show(getActivity().getSupportFragmentManager());
+            NumbersAddOfferDialog.createNumbersAddOfferDialogHard(gameSettings.count, gameDialogListener).show(getActivity().getSupportFragmentManager());
         }
     }
 
@@ -311,18 +313,18 @@ public class Numbers
         {
             timerAllGame.cancel();
         }
-        timerAllGame = new CountDownTimer(timeGame - TimeHelper.getTimeSpend(date), TimeHelper.getMillisecsFromSec(1))
+        timerAllGame = new CountDownTimer(gameSettings.timeGame - TimeHelper.getTimeSpend(date), TimeHelper.getMillisecsFromSec(1))
         {
             @Override
             public void onTick(long millisUntilFinished)
             {
-                time_game.setProgress(timeGame - millisUntilFinished);
+                time_game.setProgress(gameSettings.timeGame - millisUntilFinished);
             }
 
             @Override
             public void onFinish()
             {
-                time_game.setProgress(timeGame);
+                time_game.setProgress(gameSettings.timeGame);
                 endWinGame(false);
             }
         }.start();
