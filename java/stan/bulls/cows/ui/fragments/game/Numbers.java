@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,12 +52,9 @@ public class Numbers
     private View time_frame;
 
     //_______________FIELDS
-//    private int amount;
-//    private int count;
     private NumbersGameSettings gameSettings;
     private long date;
-    private int amount_offers;
-//    private long timeGame = TimeHelper.getMillisecsFromSec(120);
+    private int offersCount;
     private int attemptsLeftNumber = 10;
     private Date time;
     private CountDownTimer timerAllGame;
@@ -68,50 +64,7 @@ public class Numbers
         @Override
         public void addOffer(String value)
         {
-            Offer offer;
-            if (date == 0)
-            {
-                setSecret();
-                offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
-                if (offer.bulls == secret.getLenght())
-                {
-                    while (offer.bulls == secret.getLenght())
-                    {
-                        setSecret();
-                        offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
-                    }
-                }
-            }
-            else
-            {
-                offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
-            }
-            String timeSpend;
-            if (time == null)
-            {
-                timeSpend = "0";
-            }
-            else
-            {
-                timeSpend = TimeHelper.getTimeSpend(time.getTime()) + "";
-            }
-            SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer, timeSpend));
-            Cursor cursor = SQliteApi.getGameTemp();
-            swapCursor(cursor);
-            amount_offers++;
-            refreshUIFromOffersCount(cursor.getCount());
-            smoothScrollToEnd();
-            if (offer.bulls == secret.getLenght())
-            {
-                endWinGame(true);
-                return;
-            }
-            if(attemptsLeftNumber - cursor.getCount() == 0)
-            {
-                endWinGame(false);
-                return;
-            }
-            time = new Date();
+            newOffer(value);
         }
 
         @Override
@@ -163,15 +116,17 @@ public class Numbers
     @Override
     protected void init()
     {
-        gameSettings = new NumbersGameSettings(new DefaultBooster(), TimeHelper.getMillisecsFromSec(120), getArguments().getInt(COUNT_KEY), getArguments().getInt(AMOUNT_KEY));
-//        count = getArguments().getInt(COUNT_KEY);
-//        amount = getArguments().getInt(AMOUNT_KEY);
-        amount_offers = 0;
+        gameSettings = new NumbersGameSettings(new DefaultBooster(), initTimeGame(), getArguments().getInt(COUNT_KEY), getArguments().getInt(AMOUNT_KEY));
+        offersCount = 0;
         attempts_left.setVisibility(View.INVISIBLE);
         offers_list_timer.setVisibility(View.INVISIBLE);
         attempts_left_and_offers_list_timer.setVisibility(View.INVISIBLE);
         time_frame.setVisibility(View.INVISIBLE);
         initProgress();
+    }
+    private long initTimeGame()
+    {
+        return TimeHelper.getMillisecsFromSec(120);
     }
     private void initProgress()
     {
@@ -207,18 +162,67 @@ public class Numbers
             NumbersAddOfferDialog.createNumbersAddOfferDialogHard(gameSettings.count, gameDialogListener).show(getActivity().getSupportFragmentManager());
         }
     }
+    private void newOffer(String value)
+    {
+        Offer offer;
+        String timeSpend;
+        if (checkBeginGame())
+        {
+            date = new Date().getTime();
+            timeSpend = "0";
+            offer = setSecretFromNewOffer(value);
+            resetTimerAllGame();
+        }
+        else
+        {
+            timeSpend = TimeHelper.getTimeSpend(time.getTime()) + "";
+            offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+        }
+        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer, timeSpend));
+        swapCursor(SQliteApi.getGameTemp());
+        offersCount++;
+        refreshUIFromOffersCount(offersCount);
+        resetTimerOneOffer();
+        if (checkWin(offer))
+        {
+            endWinGame(true);
+            return;
+        }
+        if(checkLoseAttemptsNoLeft(offersCount))
+        {
+            endWinGame(false);
+            return;
+        }
+        time = new Date();
+    }
+    private Offer setSecretFromNewOffer(String value)
+    {
+        setSecret();
+        Offer offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+        if (checkWin(offer))
+        {
+            while (checkWin(offer))
+            {
+                setSecret();
+                offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+            }
+        }
+        return offer;
+    }
+    private boolean checkBeginGame()
+    {
+        return date == 0 && time == null;
+    }
 
     private void refreshUIFromOffersCount(int count)
     {
         if (count == 1)
         {
-            date = new Date().getTime();
             offers_list_submessage.setText(R.string.offers_list_submessage_begin_game);
             offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
             attempts_left_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
             animateTimeCircle();
             time_circle.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.circle_green));
-            resetTimerAllGame();
         }
         else if (count == 2)
         {
@@ -226,7 +230,7 @@ public class Numbers
         }
         offers_list_timer.setText(TimeHelper.getZeroSecondsStringWithSec(getActivity()));
         attempts_left_number.setText(attemptsLeftNumber - count+"");
-        resetTimerOneOffer();
+        smoothScrollToEnd();
     }
     private void animateAttemptsLeftAndOffersListTimer()
     {
@@ -330,6 +334,14 @@ public class Numbers
         }.start();
     }
 
+    private boolean checkWin(Offer offer)
+    {
+        return offer.bulls == secret.getLenght();
+    }
+    private boolean checkLoseAttemptsNoLeft(int offersCount)
+    {
+        return attemptsLeftNumber == offersCount;
+    }
     private void endWinGame(boolean win)
     {
         offers_list_submessage.setVisibility(View.GONE);
@@ -359,7 +371,7 @@ public class Numbers
         resultGame.time_spend = TimeHelper.getTimeSpend(date);
         resultGame.game_type = 0;
         resultGame.win = true;
-        resultGame.amount_offers = amount_offers;
+        resultGame.amount_offers = offersCount;
         resultGame.game_settings = "";
         return resultGame;
     }
