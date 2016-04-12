@@ -116,17 +116,14 @@ public class Numbers
     @Override
     protected void init()
     {
-        gameSettings = new NumbersGameSettings(new DefaultBooster(), initTimeGame(), getArguments().getInt(COUNT_KEY), getArguments().getInt(AMOUNT_KEY));
+        gameSettings = new NumbersGameSettings(new DefaultBooster(), getArguments().getInt(COUNT_KEY), getArguments().getInt(AMOUNT_KEY));
+        Log.e("NumbersGameSettings","timeGame = " + gameSettings.timeGame + "\tamount = " + gameSettings.amount + "\tcount = " + gameSettings.count);
         offersCount = 0;
         attempts_left.setVisibility(View.INVISIBLE);
         offers_list_timer.setVisibility(View.INVISIBLE);
         attempts_left_and_offers_list_timer.setVisibility(View.INVISIBLE);
         time_frame.setVisibility(View.INVISIBLE);
         initProgress();
-    }
-    private long initTimeGame()
-    {
-        return TimeHelper.getMillisecsFromSec(120);
     }
     private void initProgress()
     {

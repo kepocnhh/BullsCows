@@ -2,14 +2,13 @@ package stan.bulls.cows.core.game.settings;
 
 import stan.bulls.cows.core.game.boosters.Booster;
 
-public class GameSettings
+public abstract class GameSettings
 {
     public Booster booster;
     public long timeGame;
 
-    public GameSettings(Booster b, long tg)
+    public GameSettings(Booster b)
     {
         this.booster = b;
-        this.timeGame = tg;
     }
 }
