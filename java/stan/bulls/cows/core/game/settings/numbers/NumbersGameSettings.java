@@ -2,6 +2,7 @@ package stan.bulls.cows.core.game.settings.numbers;
 
 import stan.bulls.cows.core.game.boosters.Booster;
 import stan.bulls.cows.core.game.settings.GameSettings;
+import stan.bulls.cows.core.game.settings.SettingStatuses;
 import stan.bulls.cows.helpers.TimeHelper;
 
 public class NumbersGameSettings
@@ -20,9 +21,21 @@ public class NumbersGameSettings
 
     private void initTimeGame()
     {
+        if(booster != null)
+        {
+            if(booster.timeGameStatus == SettingStatuses.NOT_INTEREST)
+            {
+                return;
+            }
+        }
+        else
+        {
+            return;
+        }
         int temp = this.count + this.amount;
         temp *= 2;
         temp += 4 * (this.count - 3);
         this.timeGame = TimeHelper.getMillisecsFromSec(temp * 10);
+        this.timeGame = TimeHelper.getMillisecsFromSec(12);
     }
 }

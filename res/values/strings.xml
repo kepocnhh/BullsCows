@@ -47,4 +47,5 @@
     <string name="error_game_type">Error game type</string>
     <string name="much">much</string>
     <string name="attempts_left">Attempts left:</string>
+    <string name="time_is_over">Time is over</string>
 </resources>

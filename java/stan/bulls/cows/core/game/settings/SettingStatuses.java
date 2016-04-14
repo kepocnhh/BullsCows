@@ -2,7 +2,7 @@ package stan.bulls.cows.core.game.settings;
 
 public class SettingStatuses
 {
-    static public final int NOT_INTEREST = 0;
+    static public final int NOT_INTEREST = -1;
 
     static public final int REWARD = 1;
     static public final int NEUTRAL = 2;

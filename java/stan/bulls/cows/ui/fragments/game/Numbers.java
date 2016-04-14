@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.rahatarmanahmed.cpv.CircularProgressView;
+import com.github.rahatarmanahmed.cpv.CircularProgressViewListener;
 
 import java.util.Date;
 import java.util.Random;
@@ -22,6 +23,7 @@ import stan.bulls.cows.core.Offer;
 import stan.bulls.cows.core.game.ResultGame;
 import stan.bulls.cows.core.game.boosters.DefaultBooster;
 import stan.bulls.cows.core.game.difficults.NumbersDifficults;
+import stan.bulls.cows.core.game.settings.SettingStatuses;
 import stan.bulls.cows.core.game.settings.numbers.NumbersGameSettings;
 import stan.bulls.cows.core.number.NumberOffer;
 import stan.bulls.cows.db.ContentDriver;
@@ -50,6 +52,7 @@ public class Numbers
     private CardView offers_list_timer_card;
     private ImageView time_circle;
     private View time_frame;
+    private View time_is_over;
 
     //_______________FIELDS
     private NumbersGameSettings gameSettings;
@@ -123,9 +126,9 @@ public class Numbers
         offers_list_timer.setVisibility(View.INVISIBLE);
         attempts_left_and_offers_list_timer.setVisibility(View.INVISIBLE);
         time_frame.setVisibility(View.INVISIBLE);
-        initProgress();
+        initTimeGameProgress();
     }
-    private void initProgress()
+    private void initTimeGameProgress()
     {
         time_game.startAnimation(AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_around_center_point));
         time_game.setMaxProgress(gameSettings.timeGame);
@@ -218,8 +221,14 @@ public class Numbers
             offers_list_submessage.setText(R.string.offers_list_submessage_begin_game);
             offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
             attempts_left_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
-            animateTimeCircle();
-            time_circle.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.circle_green));
+            if(gameSettings.booster.timeGameStatus != SettingStatuses.NOT_INTEREST)
+            {
+                refreshTimeCircle(R.drawable.circle_green);
+            }
+            else
+            {
+
+            }
         }
         else if (count == 2)
         {
@@ -229,61 +238,66 @@ public class Numbers
         attempts_left_number.setText(attemptsLeftNumber - count+"");
         smoothScrollToEnd();
     }
-    private void animateAttemptsLeftAndOffersListTimer()
+    private void refreshTimeCircle(int drawableId)
+    {
+        animateTimeCircle(new Animation.AnimationListener()
+        {
+            @Override
+            public void onAnimationStart(Animation animation)
+            {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation)
+            {
+                animateAttemptsLeftAndOffersListTimer(new Animation.AnimationListener()
+                {
+                    @Override
+                    public void onAnimationStart(Animation animation)
+                    {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation)
+                    {
+                        offers_list_timer.setVisibility(View.VISIBLE);
+                        attempts_left.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation)
+                    {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation)
+            {
+
+            }
+        });
+        time_circle.setImageDrawable(getActivity().getResources().getDrawable(drawableId));
+    }
+    private void animateAttemptsLeftAndOffersListTimer(Animation.AnimationListener listener)
     {
         attempts_left_and_offers_list_timer.setVisibility(View.VISIBLE);
         Animation an = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_from_x);
-        an.setAnimationListener(new Animation.AnimationListener()
-        {
-            @Override
-            public void onAnimationStart(Animation animation)
-            {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation)
-            {
-                offers_list_timer.setVisibility(View.VISIBLE);
-                attempts_left.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation)
-            {
-
-            }
-        });
+        an.setAnimationListener(listener);
         attempts_left_and_offers_list_timer.startAnimation(an);
     }
-    private void animateTimeCircle()
+    private void animateTimeCircle(Animation.AnimationListener listener)
     {
         time_frame.setVisibility(View.VISIBLE);
         Animation an = new RotateAnimation(270.0f, 360.0f, time_frame.getPivotX(), time_frame.getPivotY() + time_frame.getHeight());
-        an.setDuration(1000);               // duration in ms
+        an.setDuration(500);               // duration in ms
         an.setRepeatCount(0);                // -1 = infinite repeated
         an.setRepeatMode(Animation.REVERSE); // reverses each repeat
         an.setFillAfter(false);               // keep rotation after animation
-        an.setAnimationListener(new Animation.AnimationListener()
-        {
-            @Override
-            public void onAnimationStart(Animation animation)
-            {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation)
-            {
-                animateAttemptsLeftAndOffersListTimer();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation)
-            {
-
-            }
-        });
+        an.setAnimationListener(listener);
         time_frame.setAnimation(an);
     }
 
@@ -312,21 +326,122 @@ public class Numbers
     {
         if (timerAllGame != null)
         {
+            if(gameSettings.timeGameStatus == SettingStatuses.NOT_INTEREST)
+            {
+                time_frame.setVisibility(View.INVISIBLE);
+                timerAllGame = null;
+                return;
+            }
             timerAllGame.cancel();
         }
-        timerAllGame = new CountDownTimer(gameSettings.timeGame - TimeHelper.getTimeSpend(date), TimeHelper.getMillisecsFromSec(1))
+        long time = getTimeFromGameStatus();
+        if(time <= 0)
+        {
+            recheckTimeFromGameStatus(time * -1);
+            resetTimerAllGame();
+            return;
+        }
+        setAndStartAllGameTimer(time);
+    }
+    private long getTimeFromGameStatus()
+    {
+        if(gameSettings.booster.timeGameStatus == SettingStatuses.REWARD)
+        {
+            time_circle.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.circle_green));
+            return gameSettings.timeGame - TimeHelper.getTimeSpend(date);
+        }
+        else if(gameSettings.booster.timeGameStatus == SettingStatuses.NEUTRAL)
+        {
+            if(gameSettings.timeGameStatus == SettingStatuses.REWARD)
+            {
+                time_circle.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.circle_green));
+                return gameSettings.timeGame/4*3 - TimeHelper.getTimeSpend(date);
+            }
+            else
+            {
+                time_circle.setImageDrawable(getActivity().getResources().getDrawable(R.drawable.circle_orange));
+                return gameSettings.timeGame - TimeHelper.getTimeSpend(date);
+            }
+        }
+        return -1;
+    }
+    private void recheckTimeFromGameStatus(long time)
+    {
+        if(gameSettings.booster.timeGameStatus == SettingStatuses.REWARD)
+        {
+            gameSettings.timeGameStatus = SettingStatuses.NOT_INTEREST;
+            time_frame.setVisibility(View.INVISIBLE);
+        }
+        else if(gameSettings.booster.timeGameStatus == SettingStatuses.NEUTRAL)
+        {
+            if(time + gameSettings.timeGame/4*3 >= gameSettings.timeGame)
+            {
+                gameSettings.timeGameStatus = SettingStatuses.NOT_INTEREST;
+                time_game.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                gameSettings.timeGameStatus = SettingStatuses.NEUTRAL;
+            }
+        }
+    }
+    private void setAndStartAllGameTimer(long time)
+    {
+        timerAllGame = new CountDownTimer(time + 500, 100)
         {
             @Override
             public void onTick(long millisUntilFinished)
             {
-                time_game.setProgress(gameSettings.timeGame - millisUntilFinished);
+                time_game.setProgress(TimeHelper.getTimeSpend(date));
             }
 
             @Override
             public void onFinish()
             {
-                time_game.setProgress(gameSettings.timeGame);
-                endWinGame(false);
+                if(gameSettings.timeGameStatus == SettingStatuses.MULCT)
+                {
+                    time_game.setProgress(TimeHelper.getTimeSpend(gameSettings.timeGame));
+                    gameSettings.timeGameStatus = SettingStatuses.NOT_INTEREST;
+                    endWinGame(false);
+                }
+                else if(gameSettings.timeGameStatus == gameSettings.booster.timeGameStatus)
+                {
+                    gameSettings.timeGameStatus = SettingStatuses.NOT_INTEREST;
+                    time_game.addListener(new CircularProgressViewListener()
+                    {
+                        @Override
+                        public void onProgressUpdate(float currentProgress)
+                        {
+
+                        }
+
+                        @Override
+                        public void onProgressUpdateEnd(float currentProgress)
+                        {
+                            time_game.clearAnimation();
+                            time_game.setVisibility(View.INVISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationReset()
+                        {
+
+                        }
+
+                        @Override
+                        public void onModeChanged(boolean isIndeterminate)
+                        {
+
+                        }
+                    });
+                    time_game.setProgress(TimeHelper.getTimeSpend(gameSettings.timeGame));
+                }
+                else
+                {
+                    time_game.setProgress(TimeHelper.getTimeSpend(date));
+                    gameSettings.timeGameStatus = SettingStatuses.getNextStatus(gameSettings.timeGameStatus);
+                    resetTimerAllGame();
+                }
             }
         }.start();
     }

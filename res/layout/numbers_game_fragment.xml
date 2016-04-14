@@ -149,6 +149,16 @@
             android:adjustViewBounds="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+        <TextView
+            android:id="@+id/time_is_over"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/time_is_over"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
         <com.github.rahatarmanahmed.cpv.CircularProgressView
             android:id="@+id/time_game"
             android:layout_gravity="center"
