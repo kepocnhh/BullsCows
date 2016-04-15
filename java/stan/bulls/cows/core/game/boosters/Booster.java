@@ -1,6 +1,13 @@
 package stan.bulls.cows.core.game.boosters;
 
+import stan.bulls.cows.core.game.settings.Statuses;
+
 public class Booster
 {
-    public int timeGameStatus;
+    public Statuses statuses;
+
+    public Booster()
+    {
+        statuses = new Statuses();
+    }
 }

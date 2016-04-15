@@ -7,6 +7,7 @@ public class SettingStatuses
     static public final int REWARD = 1;
     static public final int NEUTRAL = 2;
     static public final int MULCT = 3;
+    static public final int END_GAME = 4;
 
     static public int getNextStatus(int status)
     {
@@ -17,6 +18,10 @@ public class SettingStatuses
         else if(status == SettingStatuses.NEUTRAL)
         {
             return SettingStatuses.MULCT;
+        }
+        else if(status == SettingStatuses.MULCT)
+        {
+            return SettingStatuses.END_GAME;
         }
         else
         {

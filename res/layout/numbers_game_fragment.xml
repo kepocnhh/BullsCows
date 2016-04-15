@@ -49,16 +49,16 @@
             android:id="@+id/attempts_left_and_offers_list_timer"
             android:layout_margin="8dp"
             android:orientation="vertical"
+            android:gravity="center_vertical"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
             <android.support.v7.widget.CardView
                 android:id="@+id/offers_list_timer_card"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
                 android:layout_width="match_parent"
-                android:layout_height="0dp">
+                android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/offers_list_timer"
                     android:layout_marginRight="8dp"
@@ -71,11 +71,10 @@
             </android.support.v7.widget.CardView>
             <android.support.v7.widget.CardView
                 android:id="@+id/attempts_left_card"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_weight="1"
+                android:layout_marginBottom="6dp"
+                android:layout_marginTop="6dp"
                 android:layout_width="match_parent"
-                android:layout_height="0dp">
+                android:layout_height="wrap_content">
                 <LinearLayout
                     android:id="@+id/attempts_left"
                     android:layout_width="match_parent"

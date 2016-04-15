@@ -23,7 +23,7 @@ public class NumbersGameSettings
     {
         if(booster != null)
         {
-            if(booster.timeGameStatus == SettingStatuses.NOT_INTEREST)
+            if(booster.statuses.timeGameStatus == SettingStatuses.NOT_INTEREST)
             {
                 return;
             }
@@ -36,6 +36,6 @@ public class NumbersGameSettings
         temp *= 2;
         temp += 4 * (this.count - 3);
         this.timeGame = TimeHelper.getMillisecsFromSec(temp * 10);
-        this.timeGame = TimeHelper.getMillisecsFromSec(12);
+//        this.timeGame = TimeHelper.getMillisecsFromSec(12);
     }
 }
