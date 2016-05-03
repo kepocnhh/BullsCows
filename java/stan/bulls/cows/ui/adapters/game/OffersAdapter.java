@@ -19,6 +19,7 @@ public abstract class OffersAdapter
     static public final int FOOTER_TYPE = 0;
     static public final int OFFER_TYPE = 1;
     static public final int OFFER_FIRST_TYPE = 2;
+    static public final int OFFERS_BEGIN_COUNT = 1;
 
     public OffersAdapter(Context context, int l)
     {
@@ -66,7 +67,7 @@ public abstract class OffersAdapter
     @Override
     public long getItemId(int position)
     {
-        if (getItemCount() > 2 && position == getItemCount() - 1)
+        if (getItemCount() > OFFERS_BEGIN_COUNT && position == getItemCount() - 1)
         {
             return FOOTER_ID;
         }
@@ -83,7 +84,7 @@ public abstract class OffersAdapter
         {
             return 0;
         }
-        else if (mCursor.getCount() < 3)
+        else if (mCursor.getCount() < OFFERS_BEGIN_COUNT+1)
         {
             return mCursor.getCount();
         }
@@ -96,7 +97,7 @@ public abstract class OffersAdapter
     @Override
     public int getItemViewType(int position)
     {
-        if (getItemCount() > 2 && position == getItemCount() - 1)
+        if (getItemCount() > OFFERS_BEGIN_COUNT && position == getItemCount() - 1)
         {
             return FOOTER_TYPE;
         }

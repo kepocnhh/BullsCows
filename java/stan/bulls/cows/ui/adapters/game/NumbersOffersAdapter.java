@@ -54,10 +54,11 @@ public class NumbersOffersAdapter
     }
     private void initOffer(NumbersOfferHolder holder)
     {
-        holder.time_spend.setVisibility(View.VISIBLE);
+//        holder.time_spend.setVisibility(View.VISIBLE);
         String time_spend = getString(Tables.GameTemp.Columns.time_spend);
         long milliseconds = Long.parseLong(time_spend);
-        holder.time_spend.setText(TimeHelper.getSecondsStringWithSec(mContext, milliseconds));
+//        holder.time_spend.setText(TimeHelper.getSecondsStringWithSec(mContext, milliseconds));
+        holder.time_icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.clock_green));
         holder.offer_value.setText(getString(Tables.GameTemp.Columns.offer_value));
         holder.offer_bulls.setText(getString(Tables.GameTemp.Columns.offer_bulls));
         holder.offer_cows.setText(getString(Tables.GameTemp.Columns.offer_cows));

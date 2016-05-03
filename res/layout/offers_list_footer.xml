@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<View xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="112dp"/>
+              android:layout_height="112dp">
+    <View
+        android:background="@color/purplelight"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+    <!--<ImageView-->
+        <!--android:adjustViewBounds="true"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:src="@drawable/shadow_down"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+</FrameLayout>
