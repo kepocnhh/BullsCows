@@ -76,13 +76,17 @@ public class NumbersOffersAdapter
         }
         if(mCursor.getInt(mCursor.getColumnIndex(Tables.GameTemp.Columns.quality)) == 1)
         {
-            holder.quality_icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.correct_white));
-            holder.quality_frame.setBackgroundColor(mContext.getResources().getColor(R.color.green));
+            holder.quality_good_frame.setVisibility(View.VISIBLE);
+            holder.quality_bad_frame.setVisibility(View.GONE);
+//            holder.quality_icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.correct_white));
+//            holder.quality_frame.setBackgroundColor(mContext.getResources().getColor(R.color.darkgrey));
         }
         else
         {
-            holder.quality_icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.quality_white));
-            holder.quality_frame.setBackgroundColor(mContext.getResources().getColor(R.color.red));
+            holder.quality_good_frame.setVisibility(View.GONE);
+            holder.quality_bad_frame.setVisibility(View.VISIBLE);
+//            holder.quality_icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.quality_white));
+//            holder.quality_frame.setBackgroundColor(mContext.getResources().getColor(R.color.red));
         }
         holder.offer_value.setText(getString(Tables.GameTemp.Columns.offer_value));
         holder.offer_bulls.setText(getString(Tables.GameTemp.Columns.offer_bulls));

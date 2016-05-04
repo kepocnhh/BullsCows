@@ -45,6 +45,7 @@ public class Numbers
     static public final String AMOUNT_KEY = "stan.bulls.cows.ui.fragments.game.Numbers.amount_key";
 
     //___________________VIEWS
+    private View arrow;
     private TextView offers_list_submessage;
     private TextView offers_list_timer;
     private CircularProgressView time_game;
@@ -110,6 +111,7 @@ public class Numbers
         time_frame = v.findViewById(R.id.time_frame);
         time_is_over = v.findViewById(R.id.time_is_over);
         offers_list_timer = (TextView) v.findViewById(R.id.offers_list_timer);
+        arrow = v.findViewById(R.id.arrow);
         offers_list_submessage = (TextView) v.findViewById(R.id.offers_list_submessage);
         offers_list_submessage.setText(R.string.offers_list_submessage_empty);
         super.findViews(v);
@@ -441,6 +443,7 @@ public class Numbers
     {
         if (count == 1)
         {
+            arrow.setVisibility(View.INVISIBLE);
             offers_list_submessage.setText(R.string.offers_list_submessage_begin_game);
             if(gameSettings.booster.statuses.timeGameStatus == SettingStatuses.NOT_INTEREST)
             {

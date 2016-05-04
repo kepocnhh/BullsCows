@@ -126,17 +126,16 @@
                 <!--android:layout_height="match_parent"/>-->
         <!--</FrameLayout>-->
         <FrameLayout
-            android:id="@+id/quality_frame"
-            android:background="@color/green"
+            android:id="@+id/quality_good_frame"
+            android:background="@color/darkgrey"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
-            <ImageView
-                android:id="@+id/quality_icon"
-                android:src="@drawable/correct_white"
-                android:scaleType="center"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+            <!--<ImageView-->
+                <!--android:src="@drawable/correct_white"-->
+                <!--android:scaleType="center"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"/>-->
             <ImageView
                 android:src="@drawable/shadow_right"
                 android:scaleType="fitXY"
@@ -148,6 +147,63 @@
                 android:layout_gravity="right"
                 android:layout_width="6dp"
                 android:layout_height="match_parent"/>
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/quality_bad_frame"
+            android:background="@color/darkgrey"
+            android:padding="1dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/quality"
+                android:src="@drawable/quality_white"
+                android:background="@color/red"
+                android:scaleType="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/inshdeep"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <!--<ImageView-->
+                <!--android:src="@drawable/shadow_down"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="6dp"/>-->
+            <!--<ImageView-->
+                <!--android:src="@drawable/shadow_up"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="6dp"/>-->
+            <!--<ImageView-->
+                <!--android:src="@drawable/shadow_right"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:layout_width="6dp"-->
+                <!--android:layout_height="match_parent"/>-->
+            <!--<ImageView-->
+                <!--android:src="@drawable/shadow_left"-->
+                <!--android:scaleType="fitXY"-->
+                <!--android:layout_gravity="right"-->
+                <!--android:layout_width="6dp"-->
+                <!--android:layout_height="match_parent"/>-->
+            <!--<View-->
+                <!--android:background="@color/darkgrey"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1px"/>-->
+            <!--<View-->
+                <!--android:background="@color/darkgrey"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1px"/>-->
+            <!--<View-->
+            <!--android:background="@drawable/shdw_l"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:layout_width="6dp"-->
+            <!--android:layout_height="match_parent"/>-->
         </FrameLayout>
         <LinearLayout
             android:layout_width="112dp"
