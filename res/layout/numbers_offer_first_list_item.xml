@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:background="@color/purplelight"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
@@ -8,28 +9,38 @@
         android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="56dp">
-        <View
-            android:layout_width="56dp"
+        <ImageView
+            android:src="@drawable/shadow_right"
+            android:scaleType="fitXY"
+            android:layout_width="6dp"
             android:layout_height="match_parent"/>
-        <android.support.v7.widget.CardView
-            app:cardBackgroundColor="@color/purplelight"
-            app:cardUseCompatPadding="true"
-            android:layout_margin="3dp"
-            android:layout_weight="2"
+        <View
+            android:layout_width="50dp"
+            android:layout_height="0px"/>
+        <TextView
+            android:id="@+id/offer_value"
+            android:text="awd"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/offer_value"
-                android:text="awd"
-                android:textSize="18dp"
-                android:textColor="@color/black"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </android.support.v7.widget.CardView>
-        <LinearLayout
+            android:layout_height="match_parent"/>
+        <FrameLayout
             android:layout_weight="1"
             android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/shadow_left"
+                android:scaleType="fitXY"
+                android:layout_gravity="right"
+                android:layout_width="6dp"
+                android:layout_height="match_parent"/>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="112dp"
             android:layout_height="match_parent">
             <FrameLayout
                 android:background="@color/darkgrey"
@@ -46,6 +57,7 @@
                     style="@style/NumbersElementBullsCowsImage"/>
             </FrameLayout>
             <FrameLayout
+                android:background="@color/white"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent">
@@ -61,13 +73,13 @@
         </LinearLayout>
     </LinearLayout>
 
-    <!--<ImageView-->
-        <!--android:layout_gravity="bottom"-->
-        <!--android:adjustViewBounds="true"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:src="@drawable/shadow_up"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"/>-->
+    <ImageView
+        android:layout_gravity="bottom"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/shadow_up"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"/>
     <!--<LinearLayout-->
         <!--android:orientation="vertical"-->
         <!--android:layout_gravity="bottom"-->
@@ -84,9 +96,9 @@
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="1px"/>-->
     <!--</LinearLayout>-->
-    <View
-        android:background="@color/purplelight"
-        android:layout_width="match_parent"
-        android:layout_height="1px"/>
+    <!--<View-->
+        <!--android:background="@color/purplelight"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"/>-->
 
-</LinearLayout>
+</FrameLayout>

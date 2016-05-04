@@ -8,10 +8,19 @@ import stan.bulls.cows.core.game.ResultGame;
 public class ContentDriver
 {
     //__________________________________GET_CONTENT_VALUES
-    static public ContentValues getContentValuesOfferForGameTemp(Offer offer, String timeSpend)
+//    static public ContentValues getContentValuesOfferForGameTemp(Offer offer, String timeSpend)
+    static public ContentValues getContentValuesOfferForGameTemp(Offer offer, int timeSpend, boolean quality)
     {
         ContentValues content = new ContentValues();
         content.put(Tables.GameTemp.Columns.time_spend, timeSpend);
+        if(quality)
+        {
+            content.put(Tables.GameTemp.Columns.quality, 1);
+        }
+        else
+        {
+            content.put(Tables.GameTemp.Columns.quality, 0);
+        }
         content.put(Tables.GameTemp.Columns.offer_value, offer.getValue());
         content.put(Tables.GameTemp.Columns.offer_bulls, offer.bulls);
         content.put(Tables.GameTemp.Columns.offer_cows, offer.cows);

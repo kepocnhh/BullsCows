@@ -23,11 +23,13 @@ import stan.bulls.cows.core.Offer;
 import stan.bulls.cows.core.game.ResultGame;
 import stan.bulls.cows.core.game.boosters.DefaultBooster;
 import stan.bulls.cows.core.game.difficults.NumbersDifficults;
+import stan.bulls.cows.core.game.settings.GameSettings;
 import stan.bulls.cows.core.game.settings.SettingStatuses;
 import stan.bulls.cows.core.game.settings.numbers.NumbersGameSettings;
 import stan.bulls.cows.core.number.NumberOffer;
 import stan.bulls.cows.db.ContentDriver;
 import stan.bulls.cows.db.SQliteApi;
+import stan.bulls.cows.db.Tables;
 import stan.bulls.cows.helpers.AllGameTimeHelper;
 import stan.bulls.cows.helpers.TimeHelper;
 import stan.bulls.cows.listeners.dialogs.game.IGameDialogListener;
@@ -59,6 +61,7 @@ public class Numbers
     private NumbersGameSettings gameSettings;
     private long date;
     private int offersCount;
+    private int qualityCount;
     private int attemptsLeftNumber = 10;
     private Date time;
     private CountDownTimer timerAllGame;
@@ -124,6 +127,7 @@ public class Numbers
         gameSettings = new NumbersGameSettings(new DefaultBooster(), getArguments().getInt(COUNT_KEY), getArguments().getInt(AMOUNT_KEY));
         Log.e("NumbersGameSettings","timeGame = " + gameSettings.timeGame + "\tamount = " + gameSettings.amount + "\tcount = " + gameSettings.count);
         offersCount = 0;
+        qualityCount = 0;
         attempts_left.setVisibility(View.INVISIBLE);
         offers_list_timer.setVisibility(View.INVISIBLE);
         attempts_left_and_offers_list_timer.setVisibility(View.INVISIBLE);
@@ -168,11 +172,13 @@ public class Numbers
     private void newOffer(String value)
     {
         Offer offer;
-        String timeSpend;
+//        String timeSpend;
+        int timeSpend = 0;
+        boolean quality = true;
         if (checkBeginGame())
         {
             date = new Date().getTime();
-            timeSpend = "0";
+//            timeSpend = "0";
             offer = setSecretFromNewOffer(value);
             if(gameSettings.booster.statuses.timeGameStatus != SettingStatuses.NOT_INTEREST)
             {
@@ -181,13 +187,28 @@ public class Numbers
         }
         else
         {
-            timeSpend = TimeHelper.getTimeSpend(time.getTime()) + "";
+//            timeSpend = TimeHelper.getTimeSpend(time.getTime()) + "";
+            if(gameSettings.booster.statuses.timeOneOfferStatus != SettingStatuses.NOT_INTEREST)
+            {
+                timeSpend = getTimeOneOfferFromGameStatus(gameSettings, TimeHelper.getTimeSpend(time.getTime()));
+                changeTimeOneStatusFromTimeSpend(timeSpend);
+            }
             offer = Logic.checkCountBullsAndCows(new NumberOffer(value), secret);
+            if(gameSettings.booster.statuses.qualityOfferCountStatus != SettingStatuses.NOT_INTEREST)
+            {
+                quality = checkQualityOffer(offer);
+                if(!quality)
+                {
+                    qualityCount++;
+                }
+                changeQualityOfferStatusFromQualityCount(qualityCount);
+            }
         }
-        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer, timeSpend));
+        SQliteApi.insertGameTempOffer(ContentDriver.getContentValuesOfferForGameTemp(offer, timeSpend, quality));
         swapCursor(SQliteApi.getGameTemp());
         offersCount++;
         refreshUIFromOffersCount(offersCount);
+        time = new Date();
         resetTimerOneOffer();
         if (checkWin(offer))
         {
@@ -197,7 +218,205 @@ public class Numbers
         {
             endWinGame(false);
         }
-        time = new Date();
+        else if(gameSettings.statuses.timeOneOfferStatus == SettingStatuses.END_GAME)
+        {
+            endWinGame(false);
+        }
+        else if(gameSettings.statuses.qualityOfferCountStatus == SettingStatuses.END_GAME)
+        {
+            endWinGame(false);
+        }
+    }
+    private void changeQualityOfferStatusFromQualityCount(int qualityCount)
+    {
+        if(gameSettings.booster.statuses.qualityOfferCountStatus == SettingStatuses.NEUTRAL)
+        {
+            if(gameSettings.statuses.qualityOfferCountStatus == SettingStatuses.REWARD)
+            {
+                if(qualityCount > gameSettings.qualityOfferCount)
+                {
+                    gameSettings.setNextQualityOfferCountStatus();
+                }
+            }
+        }
+        else if(gameSettings.booster.statuses.qualityOfferCountStatus == SettingStatuses.MULCT)
+        {
+            if(gameSettings.statuses.qualityOfferCountStatus == SettingStatuses.REWARD)
+            {
+                if(qualityCount > gameSettings.qualityOfferCount)
+                {
+                    gameSettings.setNextQualityOfferCountStatus();
+                    gameSettings.setNextQualityOfferCountStatus();
+                }
+            }
+            else if(gameSettings.statuses.qualityOfferCountStatus == SettingStatuses.NEUTRAL)
+            {
+                if(qualityCount > gameSettings.qualityOfferCount)
+                {
+                    gameSettings.setNextQualityOfferCountStatus();
+                }
+            }
+        }
+        else if(gameSettings.booster.statuses.qualityOfferCountStatus == SettingStatuses.END_GAME)
+        {
+            if(gameSettings.statuses.qualityOfferCountStatus == SettingStatuses.REWARD)
+            {
+                if(qualityCount > gameSettings.qualityOfferCount)
+                {
+                    gameSettings.setNextQualityOfferCountStatus();
+                    gameSettings.setNextQualityOfferCountStatus();
+                    gameSettings.setNextQualityOfferCountStatus();
+                }
+            }
+            else if(gameSettings.statuses.qualityOfferCountStatus == SettingStatuses.NEUTRAL)
+            {
+                if(qualityCount > gameSettings.qualityOfferCount)
+                {
+                    gameSettings.setNextQualityOfferCountStatus();
+                    gameSettings.setNextQualityOfferCountStatus();
+                }
+            }
+            else if(gameSettings.statuses.qualityOfferCountStatus == SettingStatuses.MULCT)
+            {
+                if(qualityCount > gameSettings.qualityOfferCount)
+                {
+                    gameSettings.setNextQualityOfferCountStatus();
+                }
+            }
+        }
+    }
+    private boolean checkQualityOffer(Offer offer)
+    {
+        Cursor cursor = SQliteApi.getGameTemp();
+        if(cursor != null && cursor.getCount() > 0)
+        {
+            Log.e("getGameTemp", cursor.getCount() + "");
+            while(!cursor.isClosed() && cursor.moveToNext())
+            {
+                int offer_bulls = cursor.getInt(cursor.getColumnIndex(Tables.GameTemp.Columns.offer_bulls));
+                int offer_cows = cursor.getInt(cursor.getColumnIndex(Tables.GameTemp.Columns.offer_cows));
+                Offer offerFromBase = Logic.checkCountBullsAndCows(new NumberOffer(cursor.getString(cursor.getColumnIndex(Tables.GameTemp.Columns.offer_value))), offer);
+                if(offer_bulls != offerFromBase.bulls
+                        || offer_cows != offerFromBase.cows)
+                {
+                    return false;
+                }
+            }
+            cursor.close();
+        }
+        return true;
+    }
+    private void changeTimeOneStatusFromTimeSpend(int timeSpend)
+    {
+        if(gameSettings.booster.statuses.timeOneOfferStatus == SettingStatuses.NEUTRAL)
+        {
+            if(gameSettings.statuses.timeOneOfferStatus == SettingStatuses.REWARD)
+            {
+                if(timeSpend == SettingStatuses.NEUTRAL)
+                {
+                    gameSettings.setNextTimeOneOfferStatus();
+                }
+            }
+        }
+        else if(gameSettings.booster.statuses.timeOneOfferStatus == SettingStatuses.MULCT)
+        {
+            if(gameSettings.statuses.timeOneOfferStatus == SettingStatuses.REWARD)
+            {
+                if(timeSpend == SettingStatuses.NEUTRAL)
+                {
+                    gameSettings.setNextTimeOneOfferStatus();
+                }
+                else if(timeSpend == SettingStatuses.MULCT)
+                {
+                    gameSettings.setNextTimeOneOfferStatus();
+                    gameSettings.setNextTimeOneOfferStatus();
+                }
+            }
+            else if(gameSettings.statuses.timeOneOfferStatus == SettingStatuses.NEUTRAL)
+            {
+                if(timeSpend == SettingStatuses.MULCT)
+                {
+                    gameSettings.setNextTimeOneOfferStatus();
+                }
+            }
+        }
+        else if(gameSettings.booster.statuses.timeOneOfferStatus == SettingStatuses.END_GAME)
+        {
+            if(gameSettings.statuses.timeOneOfferStatus == SettingStatuses.REWARD)
+            {
+                if(timeSpend == SettingStatuses.NEUTRAL)
+                {
+                    gameSettings.setNextTimeOneOfferStatus();
+                }
+                else if(timeSpend == SettingStatuses.MULCT)
+                {
+                    gameSettings.setNextTimeOneOfferStatus();
+                    gameSettings.setNextTimeOneOfferStatus();
+                }
+                else if(timeSpend == SettingStatuses.END_GAME)
+                {
+                    gameSettings.setNextTimeOneOfferStatus();
+                    gameSettings.setNextTimeOneOfferStatus();
+                    gameSettings.setNextTimeOneOfferStatus();
+                }
+            }
+            else if(gameSettings.statuses.timeOneOfferStatus == SettingStatuses.NEUTRAL)
+            {
+                if(timeSpend == SettingStatuses.MULCT)
+                {
+                    gameSettings.setNextTimeOneOfferStatus();
+                }
+                else if(timeSpend == SettingStatuses.END_GAME)
+                {
+                    gameSettings.setNextTimeOneOfferStatus();
+                    gameSettings.setNextTimeOneOfferStatus();
+                }
+            }
+            else if(gameSettings.statuses.timeOneOfferStatus == SettingStatuses.MULCT)
+            {
+                if(timeSpend == SettingStatuses.END_GAME)
+                {
+                    gameSettings.setNextTimeOneOfferStatus();
+                }
+            }
+        }
+    }
+    private int getTimeOneOfferFromGameStatus(GameSettings gameSettings, long timeOneOffer)
+    {
+        if(gameSettings.booster.statuses.timeOneOfferStatus == SettingStatuses.NEUTRAL)
+        {
+            if(timeOneOffer > gameSettings.timeOneOffer)
+            {
+                return 2;
+            }
+        }
+        else if(gameSettings.booster.statuses.timeOneOfferStatus == SettingStatuses.MULCT)
+        {
+            if(timeOneOffer > gameSettings.timeOneOffer)
+            {
+                return 3;
+            }
+            else if(timeOneOffer > gameSettings.timeOneOffer/4*3)
+            {
+                return 2;
+            }
+        }
+        else if(gameSettings.booster.statuses.timeOneOfferStatus == SettingStatuses.END_GAME)
+        {
+            if(timeOneOffer > gameSettings.timeOneOffer)
+            {
+                return 4;
+            }
+            else if(timeOneOffer > gameSettings.timeOneOffer/6*3 + gameSettings.timeOneOffer/6*2)
+            {
+                return 3;
+            }
+            else if(timeOneOffer > gameSettings.timeOneOffer/6*3)
+            {
+                return 2;
+            }
+        }
+        return 1;
     }
     private Offer setSecretFromNewOffer(String value)
     {
@@ -333,11 +552,35 @@ public class Numbers
 
     private void resetTimerOneOffer()
     {
+        refreshTimerOneOfferCardFromTimeGameStatus(gameSettings.statuses.timeOneOfferStatus);
         if (timerOneOffer != null)
         {
             timerOneOffer.cancel();
         }
-        timerOneOffer = new CountDownTimer(TimeHelper.MAX_MILLISEC, 500)
+        setAndStartTimerOneOffer(gameSettings.timeOneOffer - TimeHelper.getTimeSpend(time.getTime()));
+    }
+    private void refreshTimerOneOfferCardFromTimeGameStatus(int status)
+    {
+        if(status == SettingStatuses.END_GAME)
+        {
+            offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.red));
+        }
+        else if(status == SettingStatuses.MULCT)
+        {
+            offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.red));
+        }
+        else if(status == SettingStatuses.NEUTRAL)
+        {
+            offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.orange));
+        }
+        else if(status == SettingStatuses.REWARD)
+        {
+            offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
+        }
+    }
+    private void setAndStartTimerOneOffer(long timeOneOffer)
+    {
+        timerOneOffer = new CountDownTimer(timeOneOffer + 500, 100)
         {
             @Override
             public void onTick(long millisUntilFinished)
@@ -349,6 +592,9 @@ public class Numbers
             public void onFinish()
             {
                 offers_list_timer.setText(R.string.much);
+                int timeSpend = getTimeOneOfferFromGameStatus(gameSettings, TimeHelper.getTimeSpend(time.getTime()));
+                changeTimeOneStatusFromTimeSpend(timeSpend);
+                refreshTimerOneOfferCardFromTimeGameStatus(gameSettings.statuses.timeOneOfferStatus);
             }
         }.start();
     }

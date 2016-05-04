@@ -9,6 +9,7 @@ public class DefaultBooster
     {
         this.statuses.timeGameStatus = SettingStatuses.NEUTRAL;
         this.statuses.attemptsLeftStatus = SettingStatuses.REWARD;
-        this.statuses.timeOneOfferStatus = SettingStatuses.REWARD;
+        this.statuses.timeOneOfferStatus = SettingStatuses.NEUTRAL;
+        this.statuses.qualityOfferCountStatus = SettingStatuses.NEUTRAL;
     }
 }

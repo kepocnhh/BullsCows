@@ -10,6 +10,7 @@ public class Tables
         public static final String TABLE_NAME = "gametemp" + "_table";
         public static class Columns
         {
+            public static final String quality = "quality";
             public static final String time_spend = "time_spend";
             public static final String offer_bulls = "offer_bulls";
             public static final String offer_cows = "offer_cows";
@@ -20,7 +21,9 @@ public class Tables
         {
             return "create table if not exists " + TABLE_NAME + " (" +
                     BaseColumns._ID + " integer primary key autoincrement, " +
-                    Columns.time_spend + " text" + "," +
+                    //Columns.time_spend + " text" + "," +
+                    Columns.quality + " integer" + "," +
+                    Columns.time_spend + " integer" + "," +
                     Columns.offer_bulls + " integer" + "," +
                     Columns.offer_cows + " integer" + "," +
                     Columns.offer_value + " text" +

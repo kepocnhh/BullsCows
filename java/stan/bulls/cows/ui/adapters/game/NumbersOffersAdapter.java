@@ -55,10 +55,35 @@ public class NumbersOffersAdapter
     private void initOffer(NumbersOfferHolder holder)
     {
 //        holder.time_spend.setVisibility(View.VISIBLE);
-        String time_spend = getString(Tables.GameTemp.Columns.time_spend);
-        long milliseconds = Long.parseLong(time_spend);
-//        holder.time_spend.setText(TimeHelper.getSecondsStringWithSec(mContext, milliseconds));
-        holder.time_icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.clock_green));
+//        String time_spend = getString(Tables.GameTemp.Columns.time_spend);
+        int time_spend = mCursor.getInt(mCursor.getColumnIndex(Tables.GameTemp.Columns.time_spend));
+        holder.clock_frame.setVisibility(View.VISIBLE);
+        if(time_spend == 0)
+        {
+            holder.clock_frame.setVisibility(View.INVISIBLE);
+        }
+        else if(time_spend == 1)
+        {
+            holder.clock_frame.setBackgroundColor(mContext.getResources().getColor(R.color.green));
+        }
+        else if(time_spend == 2)
+        {
+            holder.clock_frame.setBackgroundColor(mContext.getResources().getColor(R.color.orange));
+        }
+        else if(time_spend == 3)
+        {
+            holder.clock_frame.setBackgroundColor(mContext.getResources().getColor(R.color.red));
+        }
+        if(mCursor.getInt(mCursor.getColumnIndex(Tables.GameTemp.Columns.quality)) == 1)
+        {
+            holder.quality_icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.correct_white));
+            holder.quality_frame.setBackgroundColor(mContext.getResources().getColor(R.color.green));
+        }
+        else
+        {
+            holder.quality_icon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.quality_white));
+            holder.quality_frame.setBackgroundColor(mContext.getResources().getColor(R.color.red));
+        }
         holder.offer_value.setText(getString(Tables.GameTemp.Columns.offer_value));
         holder.offer_bulls.setText(getString(Tables.GameTemp.Columns.offer_bulls));
         holder.offer_cows.setText(getString(Tables.GameTemp.Columns.offer_cows));
