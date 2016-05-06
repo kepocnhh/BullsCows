@@ -19,7 +19,7 @@ public abstract class OffersAdapter
     static public final int FOOTER_TYPE = 0;
     static public final int OFFER_TYPE = 1;
     static public final int OFFER_FIRST_TYPE = 2;
-    static public final int OFFERS_BEGIN_COUNT = 1;
+    static public final int OFFERS_BEGIN_COUNT = 0;
 
     public OffersAdapter(Context context, int l)
     {
