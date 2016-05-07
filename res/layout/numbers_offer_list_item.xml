@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@color/greydark"
               android:layout_width="match_parent"
               android:layout_height="56dp">
         <LinearLayout
+            android:background="@color/greylight"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
@@ -11,13 +11,25 @@
                 android:layout_width="56dp"
                 android:layout_height="match_parent">
                 <FrameLayout
-                    android:id="@+id/clock_frame"
-                    android:background="@color/green"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent">
                     <ImageView
+                        android:layout_gravity="bottom"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/shadow_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="6dp"/>
+                    <ImageView
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/shadow_down"
+                        android:layout_width="match_parent"
+                        android:layout_height="6dp"/>
+                    <ImageView
                         android:id="@+id/time_icon"
+                        android:background="@color/green"
                         android:src="@drawable/clock_white"
                         android:scaleType="center"
                         android:layout_width="match_parent"
@@ -39,11 +51,31 @@
                     android:layout_width="4dp"
                     android:layout_height="match_parent"/>
             </LinearLayout>
-            <include
+            <FrameLayout
                 android:layout_weight="3"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                layout="@layout/numbers_offer_value_view"/>
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/offer_value"
+                    android:text="awd"
+                    android:textSize="18dp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <ImageView
+                    android:src="@drawable/shadow_right"
+                    android:scaleType="fitXY"
+                    android:layout_width="6dp"
+                    android:layout_height="match_parent"/>
+                <ImageView
+                    android:src="@drawable/shadow_left"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="right"
+                    android:layout_width="6dp"
+                    android:layout_height="match_parent"/>
+            </FrameLayout>
             <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -53,6 +85,7 @@
                     android:layout_width="4dp"
                     android:layout_height="match_parent"/>
                 <FrameLayout
+                    android:background="@color/greydark"
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent">

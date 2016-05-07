@@ -4,14 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.BaseColumns;
 
 public class SQliteApi
 {
     public static DatabaseHelper dbHelper;
     public static volatile SQLiteDatabase sdb;
     public static String DB_NAME = "bullscows";
-    public static int DB_VERSION = 1604041858;
+    public static int DB_VERSION = 1605072314;
 
     public static void createDb(Context context)
     {

@@ -3,10 +3,10 @@
               android:layout_width="match_parent"
               android:layout_height="56dp">
     <LinearLayout
+        android:background="@color/greylight"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <FrameLayout
-            android:background="@color/grey"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">

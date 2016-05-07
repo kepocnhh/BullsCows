@@ -12,6 +12,8 @@ public class NumbersOfferFirstHolder
     public TextView offer_value;
     public TextView offer_bulls;
     public TextView offer_cows;
+    public View bulls_frame;
+    public View cows_frame;
 
     public NumbersOfferFirstHolder(View v)
     {
@@ -19,5 +21,7 @@ public class NumbersOfferFirstHolder
         offer_value = (TextView)v.findViewById(R.id.offer_value);
         offer_bulls = (TextView)v.findViewById(R.id.offer_bulls);
         offer_cows = (TextView)v.findViewById(R.id.offer_cows);
+        bulls_frame = v.findViewById(R.id.bulls_frame);
+        cows_frame = v.findViewById(R.id.cows_frame);
     }
 }

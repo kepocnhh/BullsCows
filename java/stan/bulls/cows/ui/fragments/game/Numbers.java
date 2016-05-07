@@ -63,7 +63,7 @@ public class Numbers
     private long date;
     private int offersCount;
     private int qualityCount;
-    private int attemptsLeftNumber = 10;
+    private int attemptsLeftNumber = 20;
     private Date time;
     private CountDownTimer timerAllGame;
     private CountDownTimer timerOneOffer;
