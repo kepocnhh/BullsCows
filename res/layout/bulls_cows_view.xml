@@ -3,18 +3,19 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
     <View
-        android:background="@color/darkgrey"
-        android:layout_width="6dp"
+        android:background="@color/greydark"
+        android:layout_width="4dp"
         android:layout_height="wrap_content"/>
     <FrameLayout
-        android:background="@color/darkgrey"
+        android:background="@color/greydark"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent">
         <TextView
             android:id="@+id/offer_bulls"
             android:text="2"
-            style="@style/NumbersElementBullsCowsText"/>
+            style="@style/NumbersElementBullsCowsText"
+            android:textColor="@color/white"/>
         <ImageView
             android:id="@+id/bull_image"
             android:src="@drawable/bull_white"
@@ -33,48 +34,17 @@
         <TextView
             android:id="@+id/offer_cows"
             android:text="2"
-            style="@style/NumbersElementBullsCowsText"/>
+            style="@style/NumbersElementBullsCowsText"
+            android:textColor="@color/purple"/>
         <ImageView
             android:id="@+id/cow_image"
-            android:src="@drawable/cow_black"
+            android:src="@drawable/cow_purple"
             style="@style/NumbersElementBullsCowsImage"/>
+        <ImageView
+            android:src="@drawable/shadow_left"
+            android:layout_gravity="right"
+            android:scaleType="fitXY"
+            android:layout_width="6dp"
+            android:layout_height="match_parent"/>
     </FrameLayout>
-    <!--<android.support.v7.widget.CardView-->
-        <!--android:layout_margin="6dp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
-            <!--<ImageView-->
-                <!--android:layout_gravity="center"-->
-                <!--android:layout_margin="6dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:src="@drawable/cow_black"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"/>-->
-            <!--<LinearLayout-->
-                <!--android:orientation="vertical"-->
-                <!--android:layout_weight="2"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content">-->
-                <!--<TextView-->
-                    <!--android:text="dropboxlink"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"/>-->
-                <!--<TextView-->
-                    <!--android:text="onedrivelink"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"/>-->
-                <!--<TextView-->
-                    <!--android:text="githublink"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"/>-->
-                <!--<TextView-->
-                    <!--android:text="otherlink"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"/>-->
-            <!--</LinearLayout>-->
-        <!--</LinearLayout>-->
-    <!--</android.support.v7.widget.CardView>-->
 </LinearLayout>

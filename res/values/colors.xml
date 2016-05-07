@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">@color/purple</color>
-    <color name="colorPrimaryDark">@color/purpledark</color>
+    <color name="colorPrimaryDark">@color/purpledeep</color>
     <color name="colorAccent">@color/purple</color>
 
-    <color name="purpledark">#512DA8</color>
+    <color name="purpledark">#4A148C</color>
+    <color name="purpledeep">#512DA8</color>
     <color name="purple">#9C27B0</color>
     <color name="purplelight">#9575CD</color>
     <color name="purpleverylight">#D1C4E9</color>
     <color name="white">#ffffff</color>
-    <color name="darkgrey">#212121</color>
+    <color name="greylight">#505050</color>
+    <color name="grey">#353535</color>
+    <color name="greydark">#202020</color>
     <color name="black">#000000</color>
     <color name="orange">#FFC107</color>
     <color name="red">#F44336</color>
     <color name="yellow">#FFEB3B</color>
     <color name="green">#4CAF50</color>
+    <color name="greenlight">#68efad</color>
 </resources>
