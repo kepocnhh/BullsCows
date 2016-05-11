@@ -38,7 +38,7 @@
                     android:textColor="@color/white"/>
                 <ImageView
                     android:id="@+id/bull_image"
-                    android:src="@drawable/bull_white"
+                    android:src="@drawable/bull_purple"
                     style="@style/NumbersElementBullsCowsImage"/>
             </FrameLayout>
             <FrameLayout
@@ -54,7 +54,7 @@
                     android:textColor="@color/purple"/>
                 <ImageView
                     android:id="@+id/cow_image"
-                    android:src="@drawable/cow_purple"
+                    android:src="@drawable/cow_black"
                     style="@style/NumbersElementBullsCowsImage"/>
             </FrameLayout>
         </LinearLayout>

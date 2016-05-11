@@ -7,6 +7,12 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_light"
     android:fitsSystemWindows="true">
+    <ImageView
+        android:adjustViewBounds="true"
+        android:src="@drawable/greyback"
+        android:scaleType="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/coordinatorlayout_appbar"
@@ -40,10 +46,20 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <FrameLayout
-            android:id="@+id/sandbox_frame"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content">
+            <FrameLayout
+                android:id="@+id/sandbox_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/shadow_down"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"/>
+        </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
     <FrameLayout
         android:layout_gravity="bottom|end"
