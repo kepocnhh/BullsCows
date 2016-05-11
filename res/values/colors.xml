@@ -12,6 +12,7 @@
     <color name="white">#ffffff</color>
     <color name="greylight">#505050</color>
     <color name="grey">#353535</color>
+    <color name="greyd">#252525</color>
     <color name="greydark">#202020</color>
     <color name="black">#000000</color>
     <color name="orange">#FFC107</color>

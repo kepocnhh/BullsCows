@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:padding="16dp"
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
+    <View
+        android:layout_width="0px"
+        android:layout_height="16dp"/>
+    <ImageView
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/shadow_up"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"/>
+    <View
+        android:background="@color/greydark"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            layout="@layout/change_count_cardview"/>
+            layout="@layout/change_count_ll_greydark"/>
+    <View
+        android:background="@color/greydark"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
         <include
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/change_difficult_numbers_amount_cardview"/>
+            layout="@layout/change_difficult_numbers_amount_linearlayout_greydark"/>
+    <View
+        android:background="@color/greydark"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"/>
+    <ImageView
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/shadow_down"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"/>
 </LinearLayout>
