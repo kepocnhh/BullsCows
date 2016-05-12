@@ -46,6 +46,7 @@ public class Numbers
 
     //___________________VIEWS
     private View arrow;
+    private View offers_list_submessage_ll;
     private TextView offers_list_submessage;
     private TextView offers_list_timer;
     private CircularProgressView time_game;
@@ -112,6 +113,7 @@ public class Numbers
         time_is_over = v.findViewById(R.id.time_is_over);
         offers_list_timer = (TextView) v.findViewById(R.id.offers_list_timer);
         arrow = v.findViewById(R.id.arrow);
+        offers_list_submessage_ll = v.findViewById(R.id.offers_list_submessage_ll);
         offers_list_submessage = (TextView) v.findViewById(R.id.offers_list_submessage);
         offers_list_submessage.setText(R.string.offers_list_submessage_empty);
         super.findViews(v);
@@ -480,7 +482,7 @@ public class Numbers
         }
         else if (count == 2)
         {
-            offers_list_submessage.setVisibility(View.GONE);
+            offers_list_submessage_ll.setVisibility(View.GONE);
         }
         offers_list_timer.setText(TimeHelper.getZeroSecondsStringWithSec(getActivity()));
         attempts_left_number.setText(attemptsLeftNumber - count + "");
@@ -727,7 +729,7 @@ public class Numbers
     }
     private void endWinGame(boolean win)
     {
-        offers_list_submessage.setVisibility(View.GONE);
+        offers_list_submessage_ll.setVisibility(View.GONE);
         if (timerOneOffer != null)
         {
             timerOneOffer.cancel();

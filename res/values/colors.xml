@@ -20,4 +20,7 @@
     <color name="yellow">#FFEB3B</color>
     <color name="green">#4CAF50</color>
     <color name="greenlight">#68efad</color>
+
+
+    <color name="numbers_offer_value_color">@color/purplelight</color>
 </resources>
