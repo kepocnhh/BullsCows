@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="56dp">
+    <FrameLayout
+        android:id="@+id/bulls_frame"
+        android:background="@color/greydark"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/offer_bulls"
+            android:text="2"
+            style="@style/NumbersElementBullsCowsText"
+            android:textColor="@color/white"/>
+        <ImageView
+            android:id="@+id/bull_image"
+            android:src="@drawable/bull_purple"
+            style="@style/NumbersElementBullsCowsImage"/>
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/cows_frame"
+        android:background="@color/white"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/offer_cows"
+            android:text="2"
+            style="@style/NumbersElementBullsCowsText"
+            android:textColor="@color/purple"/>
+        <ImageView
+            android:id="@+id/cow_image"
+            android:src="@drawable/cow_black"
+            style="@style/NumbersElementBullsCowsImage"/>
+    </FrameLayout>
+</LinearLayout>

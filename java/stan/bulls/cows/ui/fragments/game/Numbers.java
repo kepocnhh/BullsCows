@@ -116,6 +116,7 @@ public class Numbers
         offers_list_submessage_ll = v.findViewById(R.id.offers_list_submessage_ll);
         offers_list_submessage = (TextView) v.findViewById(R.id.offers_list_submessage);
         offers_list_submessage.setText(R.string.offers_list_submessage_empty);
+        arrow.startAnimation(animateArrow());
         super.findViews(v);
     }
 
@@ -538,6 +539,18 @@ public class Numbers
 
             }
         });
+    }
+    private Animation animateArrow()
+    {
+//        Animation an = new RotateAnimation(360.0f, 180.0f,
+//                arrow.getPivotX() + arrow.getWidth(),
+//                arrow.getPivotY() + arrow.getHeight());
+//        an.setDuration(2000);               // duration in ms
+//        an.setRepeatCount(0);                // -1 = infinite repeated
+//        an.setRepeatMode(Animation.REVERSE); // reverses each repeat
+//        an.setFillAfter(false);               // keep rotation after animation
+        Animation an = AnimationUtils.loadAnimation(getActivity(), R.anim.rotate_arrow);
+        return an;
     }
     private Animation animateTimeCircle()
     {

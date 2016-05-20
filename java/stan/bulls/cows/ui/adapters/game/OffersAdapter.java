@@ -32,7 +32,7 @@ public abstract class OffersAdapter
         if (viewType == FOOTER_TYPE)
         {
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            View v = inflater.inflate(R.layout.offers_list_footer, parent, false);
+            View v = inflater.inflate(getOffersFooterLayoutID(), parent, false);
             return initFooterHolder(v);
         }
         else if (viewType == OFFER_FIRST_TYPE)
@@ -44,6 +44,7 @@ public abstract class OffersAdapter
         return super.onCreateViewHolder(parent, viewType);
     }
     protected abstract int getOfferFirstLayoutID();
+    protected abstract int getOffersFooterLayoutID();
 
     private RecyclerView.ViewHolder initFooterHolder(View v)
     {

@@ -23,4 +23,5 @@
 
 
     <color name="numbers_offer_value_color">@color/purplelight</color>
+    <color name="numbers_offer_value_color_light">@color/white</color>
 </resources>

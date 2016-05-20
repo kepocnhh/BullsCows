@@ -18,7 +18,7 @@ public class NumbersOffersAdapter
 
     public NumbersOffersAdapter(Context context)
     {
-        super(context, R.layout.numbers_offer_list_item);
+        super(context, R.layout.numbers_offer_list_item_light);
         animLast = -1;
     }
 
@@ -35,7 +35,13 @@ public class NumbersOffersAdapter
     @Override
     protected int getOfferFirstLayoutID()
     {
-        return R.layout.numbers_offer_first_list_item;
+        return R.layout.numbers_offer_first_list_item_light;
+    }
+
+    @Override
+    protected int getOffersFooterLayoutID()
+    {
+        return R.layout.numbers_offers_list_footer_light;
     }
 
     @Override

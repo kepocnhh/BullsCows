@@ -59,7 +59,8 @@ public class NumbersSandbox
 
     public NumbersSandbox()
     {
-        super(R.layout.numbers_sandbox);
+//        super(R.layout.numbers_sandbox);
+        super(R.layout.numbers_sandbox_light);
     }
 
     protected void setBeginGameOnClickListener(View begin_game)

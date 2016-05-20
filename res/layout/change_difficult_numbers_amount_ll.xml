@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@color/white"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <LinearLayout
+        android:padding="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/difficult_easy_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:cardBackgroundColor="@color/green"
+                app:cardUseCompatPadding="true">
+
+                <TextView
+                    style="@style/DifficultText"
+                    android:text="@string/difficult_easy"/>
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/difficult_easy"
+                style="@style/DifficultButton"
+                android:text="@string/difficult_easy"
+                android:textColor="@color/green"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/difficult_medium_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:cardBackgroundColor="@color/orange"
+                app:cardUseCompatPadding="true">
+
+                <TextView
+                    style="@style/DifficultText"
+                    android:text="@string/difficult_medium"/>
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/difficult_medium"
+                style="@style/DifficultButton"
+                android:text="@string/difficult_medium"
+                android:textColor="@color/orange"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/difficult_hard_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                app:cardBackgroundColor="@color/red"
+                app:cardUseCompatPadding="true">
+
+                <TextView
+                    style="@style/DifficultText"
+                    android:text="@string/difficult_hard"/>
+            </android.support.v7.widget.CardView>
+
+            <Button
+                android:id="@+id/difficult_hard"
+                style="@style/DifficultButton"
+                android:text="@string/difficult_hard"
+                android:textColor="@color/red"/>
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:padding="6dp"
+        android:layout_margin="6dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:text="@string/combination_element_can_be"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/black"
+                android:text="from"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="@color/purple"
+                android:textSize="26dp"
+                android:text="0"
+                android:padding="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="@color/black"
+                android:text="to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/game_max_amount_text"
+                android:textColor="@color/purple"
+                android:textSize="26dp"
+                android:padding="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
