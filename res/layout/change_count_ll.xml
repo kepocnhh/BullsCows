@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/greydark"
     android:orientation="vertical"
     android:padding="6dp">
 
@@ -19,7 +19,7 @@
             android:layout_weight="3"
             android:gravity="center"
             android:text="@string/offer_count"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="16dp"/>
 
         <TextView
@@ -37,6 +37,5 @@
         android:id="@+id/game_count_seek"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:padding="6dp"/>
+        android:layout_margin="12dp"/>
 </LinearLayout>

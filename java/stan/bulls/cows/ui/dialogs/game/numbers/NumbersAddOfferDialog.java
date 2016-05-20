@@ -189,6 +189,7 @@ public class NumbersAddOfferDialog
             number_element_8.setOnClickListener(clickListener);
             number_element_9.setOnClickListener(clickListener);
         }
+        changeOfferValue("");
     }
 
     private IGameDialogListener getListener()
