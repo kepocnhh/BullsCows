@@ -19,9 +19,13 @@ public class TimeHelper
     {
         return new Date().getTime() - time;
     }
+    static public String getSecondsString(long time)
+    {
+        return (time / MILLISECS_IN_SEC) + "";
+    }
     static public String getSecondsStringWithSec(Context context, long time)
     {
-        return (time / MILLISECS_IN_SEC) + " " + context.getResources().getString(R.string.seconds);
+        return getSecondsString(time) + " " + context.getResources().getString(R.string.seconds);
     }
     static public String getZeroSecondsStringWithSec(Context context)
     {

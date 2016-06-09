@@ -50,11 +50,15 @@ public class Numbers
     private TextView offers_list_submessage;
     private TextView offers_list_timer;
     private CircularProgressView time_game;
-    private CardView attempts_left_card;
+    //private CardView attempts_left_card;
+    private View attempts_left_ll;
     private TextView attempts_left_number;
-    private View attempts_left;
-    private View attempts_left_and_offers_list_timer;
-    private CardView offers_list_timer_card;
+    //private View attempts_left;
+    //private View attempts_left_and_offers_list_timer;
+    private View game_tracking;
+    //private CardView offers_list_timer_card;
+    private View offers_list_timer_ll;
+
     private ImageView time_circle;
     private View time_frame;
     private View time_is_over;
@@ -102,11 +106,14 @@ public class Numbers
     @Override
     protected void findViews(View v)
     {
-        attempts_left_card = (CardView) v.findViewById(R.id.attempts_left_card);
+        //attempts_left_card = (CardView) v.findViewById(R.id.attempts_left_card);
+        attempts_left_ll = v.findViewById(R.id.attempts_left_ll);
         attempts_left_number = (TextView) v.findViewById(R.id.attempts_left_number);
-        attempts_left = v.findViewById(R.id.attempts_left);
-        offers_list_timer_card = (CardView) v.findViewById(R.id.offers_list_timer_card);
-        attempts_left_and_offers_list_timer = v.findViewById(R.id.attempts_left_and_offers_list_timer);
+        //attempts_left = v.findViewById(R.id.attempts_left);
+        //offers_list_timer_card = (CardView) v.findViewById(R.id.offers_list_timer_card);
+        offers_list_timer_ll = v.findViewById(R.id.offers_list_timer_ll);
+        //attempts_left_and_offers_list_timer = v.findViewById(R.id.attempts_left_and_offers_list_timer);
+        game_tracking = v.findViewById(R.id.game_tracking);
         time_circle = (ImageView) v.findViewById(R.id.time_circle);
         time_game = (CircularProgressView) v.findViewById(R.id.time_game);
         time_frame = v.findViewById(R.id.time_frame);
@@ -133,9 +140,9 @@ public class Numbers
         Log.e("NumbersGameSettings","timeGame = " + gameSettings.timeGame + "\tamount = " + gameSettings.amount + "\tcount = " + gameSettings.count);
         offersCount = 0;
         qualityCount = 0;
-        attempts_left.setVisibility(View.INVISIBLE);
+        //attempts_left.setVisibility(View.INVISIBLE);
         offers_list_timer.setVisibility(View.INVISIBLE);
-        attempts_left_and_offers_list_timer.setVisibility(View.INVISIBLE);
+        game_tracking.setVisibility(View.INVISIBLE);
         time_frame.setVisibility(View.INVISIBLE);
         time_is_over.setVisibility(View.INVISIBLE);
         initTimeGameProgress();
@@ -460,19 +467,23 @@ public class Numbers
             {
                 if(gameSettings.booster.statuses.attemptsLeftStatus == SettingStatuses.NOT_INTEREST)
                 {
-                    attempts_left_card.setVisibility(View.GONE);
+                    //attempts_left_card.setVisibility(View.GONE);
+                    attempts_left_ll.setVisibility(View.GONE);
                 }
                 else
                 {
-                    attempts_left_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
+                    //attempts_left_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
+                    attempts_left_number.setTextColor(getActivity().getResources().getColor(R.color.green));
                 }
                 if(gameSettings.booster.statuses.timeOneOfferStatus == SettingStatuses.NOT_INTEREST)
                 {
-                    offers_list_timer_card.setVisibility(View.GONE);
+                    offers_list_timer_ll.setVisibility(View.GONE);
                 }
                 else
                 {
-                    offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
+
+                    //offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
+                    offers_list_timer.setTextColor(getActivity().getResources().getColor(R.color.green));
                 }
                 initAndAnimateTimeCircleWithAttemptsLeftAndOffersListTimer();
             }
@@ -485,7 +496,7 @@ public class Numbers
         {
             offers_list_submessage_ll.setVisibility(View.GONE);
         }
-        offers_list_timer.setText(TimeHelper.getZeroSecondsStringWithSec(getActivity()));
+        offers_list_timer.setText("0");
         attempts_left_number.setText(attemptsLeftNumber - count + "");
         smoothScrollToEnd();
     }
@@ -520,9 +531,9 @@ public class Numbers
                     @Override
                     public void onAnimationEnd(Animation animation)
                     {
-                        attempts_left_and_offers_list_timer.setVisibility(View.VISIBLE);
+                        game_tracking.setVisibility(View.VISIBLE);
                         offers_list_timer.setVisibility(View.VISIBLE);
-                        attempts_left.setVisibility(View.VISIBLE);
+                        //attempts_left.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -565,7 +576,7 @@ public class Numbers
     {
         Animation an = AnimationUtils.loadAnimation(getActivity(), R.anim.scale_from_x);
         an.setAnimationListener(listener);
-        attempts_left_and_offers_list_timer.startAnimation(an);
+        game_tracking.startAnimation(an);
     }
 
     private void resetTimerOneOffer()
@@ -581,19 +592,19 @@ public class Numbers
     {
         if(status == SettingStatuses.END_GAME)
         {
-            offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.red));
+            offers_list_timer.setTextColor(getActivity().getResources().getColor(R.color.red));
         }
         else if(status == SettingStatuses.MULCT)
         {
-            offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.red));
+            offers_list_timer.setTextColor(getActivity().getResources().getColor(R.color.red));
         }
         else if(status == SettingStatuses.NEUTRAL)
         {
-            offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.orange));
+            offers_list_timer.setTextColor(getActivity().getResources().getColor(R.color.orange));
         }
         else if(status == SettingStatuses.REWARD)
         {
-            offers_list_timer_card.setCardBackgroundColor(getActivity().getResources().getColor(R.color.green));
+            offers_list_timer.setTextColor(getActivity().getResources().getColor(R.color.green));
         }
     }
     private void setAndStartTimerOneOffer(long timeOneOffer)
@@ -603,7 +614,7 @@ public class Numbers
             @Override
             public void onTick(long millisUntilFinished)
             {
-                offers_list_timer.setText(TimeHelper.getSecondsStringWithSec(getActivity(), TimeHelper.getTimeSpend(time.getTime())));
+                offers_list_timer.setText(TimeHelper.getSecondsString(TimeHelper.getTimeSpend(time.getTime())));
             }
 
             @Override
@@ -753,6 +764,8 @@ public class Numbers
             timerAllGame.cancel();
             timerAllGame = null;
         }
+        time_game.clearAnimation();
+        time_game.setVisibility(View.INVISIBLE);
         if(win)
         {
             getListener().result(endWinGame());
