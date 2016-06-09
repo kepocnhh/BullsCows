@@ -39,11 +39,12 @@ public class NumbersAddOfferDialog
 
     //_______________VIEWS
     private TextView offer_value;
-    private Button number_element_0;
+    private View add_offer;
+    private View number_element_0;
     //__123
-    private Button number_element_1;
-    private Button number_element_2;
-    private Button number_element_3;
+    private View number_element_1;
+    private View number_element_2;
+    private View number_element_3;
     //__456
     private Button number_element_4;
     private Button number_element_5;
@@ -103,7 +104,7 @@ public class NumbersAddOfferDialog
 
     public NumbersAddOfferDialog()
     {
-        super(R.layout.numbers_add_offer_dialog, NumbersAddOfferDialog.class.getName());
+        super(R.layout.numbers_add_offer_dialog_cardview, NumbersAddOfferDialog.class.getName());
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.StanDialog);
     }
 
@@ -119,11 +120,25 @@ public class NumbersAddOfferDialog
 
     private void addElement(int e)
     {
-        if (offerValue.length() < count)
+        if(offerValue.length() < count)
         {
             changeOfferValue(offerValue + e);
         }
+        checkReady();
     }
+
+    private void checkReady()
+    {
+        if(offerValue.length() < count)
+        {
+            add_offer.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            add_offer.setVisibility(View.VISIBLE);
+        }
+    }
+
     private void changeOfferValue(String newOfferValue)
     {
         offerValue = newOfferValue;
@@ -133,7 +148,8 @@ public class NumbersAddOfferDialog
     @Override
     protected void realize(View v)
     {
-        v.findViewById(R.id.add_offer).setOnClickListener(new View.OnClickListener()
+        add_offer = v.findViewById(R.id.add_offer);
+        add_offer.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -152,19 +168,20 @@ public class NumbersAddOfferDialog
             public void onClick(View v)
             {
                 changeOfferValue("");
+                checkReady();
             }
         });
         offer_value = (TextView) v.findViewById(R.id.offer_value);
-        number_element_0 = (Button) v.findViewById(R.id.number_element_0);
+        number_element_0 = v.findViewById(R.id.number_element_0);
         number_element_0.setOnClickListener(clickListener);
         v.findViewById(R.id.number_element_container_456).setVisibility(View.GONE);
         v.findViewById(R.id.number_element_container_789).setVisibility(View.GONE);
         if (amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_EASY || amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_MEDIUM || amountDifficult == NumbersDifficults.AMOUNT_DIFFICULT_HARD)
         {
             v.findViewById(R.id.number_element_container_123).setVisibility(View.VISIBLE);
-            number_element_1 = (Button) v.findViewById(R.id.number_element_1);
-            number_element_2 = (Button) v.findViewById(R.id.number_element_2);
-            number_element_3 = (Button) v.findViewById(R.id.number_element_3);
+            number_element_1 = v.findViewById(R.id.number_element_1);
+            number_element_2 = v.findViewById(R.id.number_element_2);
+            number_element_3 = v.findViewById(R.id.number_element_3);
             number_element_1.setOnClickListener(clickListener);
             number_element_2.setOnClickListener(clickListener);
             number_element_3.setOnClickListener(clickListener);
@@ -190,6 +207,7 @@ public class NumbersAddOfferDialog
             number_element_9.setOnClickListener(clickListener);
         }
         changeOfferValue("");
+        checkReady();
     }
 
     private IGameDialogListener getListener()

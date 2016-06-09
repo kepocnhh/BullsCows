@@ -9,13 +9,9 @@
     android:fitsSystemWindows="true">
     <ImageView
         android:adjustViewBounds="true"
+        android:alpha="0.15"
         android:src="@drawable/ulimateback"
         android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <View
-        android:alpha="0.5"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
@@ -47,16 +43,6 @@
                 app:layout_collapseMode="pin"/>
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <!--<ImageView-->
-            <!--android:adjustViewBounds="true"-->
-            <!--android:scaleType="fitXY"-->
-            <!--android:src="@drawable/shadow_down"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="16dp"/>-->
-    <!--</RelativeLayout>-->
     <android.support.v4.widget.NestedScrollView
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"

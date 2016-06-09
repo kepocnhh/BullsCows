@@ -13,10 +13,6 @@
                 android:scaleType="center"
                 android:layout_width="56dp"
                 android:layout_height="match_parent"/>
-            <View
-                android:background="@color/purple"
-                android:layout_width="1px"
-                android:layout_height="match_parent"/>
             <TextView
                 android:background="@color/white"
                 android:id="@+id/offer_value"
@@ -40,10 +36,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>
             </FrameLayout>
-            <View
-                android:background="@color/purple"
-                android:layout_width="1px"
-                android:layout_height="match_parent"/>
         </LinearLayout>
         <include
             android:layout_width="112dp"

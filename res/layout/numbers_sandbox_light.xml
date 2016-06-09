@@ -3,13 +3,6 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="16dp"/>
-    <View
-        android:background="@color/purple"
-        android:layout_width="match_parent"
-        android:layout_height="1px"/>
     <include
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +19,4 @@
         android:background="@color/purple"
         android:layout_width="match_parent"
         android:layout_height="1px"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="16dp"/>
 </LinearLayout>

@@ -21,6 +21,7 @@
             android:gravity="center_vertical"
             android:text="@string/numbers_dialog_label"/>
     </FrameLayout>
+
     <View
         android:background="@color/purple"
         android:layout_width="match_parent"
@@ -63,31 +64,52 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
-            <Button
+            <ImageButton
                 android:id="@+id/number_element_1"
-                android:theme="@style/NumbersElementButton"
-                android:textColor="@color/black"
-                android:text="1"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-            <Button
+                android:src="@drawable/number_1"
+                android:layout_marginRight="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:theme="@style/NumbersElementButton"/>
+            <!--<Button-->
+                <!--android:id="@+id/number_element_1"-->
+                <!--android:theme="@style/NumbersElementButton"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:text="1"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"/>-->
+            <ImageButton
                 android:id="@+id/number_element_2"
-                android:theme="@style/NumbersElementButton"
-                android:textColor="@color/black"
-                android:text="2"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
-            <Button
+                android:src="@drawable/number_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:theme="@style/NumbersElementButton"/>
+            <!--<Button-->
+                <!--android:id="@+id/number_element_2"-->
+                <!--android:theme="@style/NumbersElementButton"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:text="2"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"/>-->
+            <ImageButton
                 android:id="@+id/number_element_3"
-                android:theme="@style/NumbersElementButton"
-                android:textColor="@color/black"
-                android:text="3"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"/>
+                android:src="@drawable/number_3"
+                android:layout_marginLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:theme="@style/NumbersElementButton"/>
+            <!--<Button-->
+                <!--android:id="@+id/number_element_3"-->
+                <!--android:theme="@style/NumbersElementButton"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:text="3"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"/>-->
         </LinearLayout>
         <LinearLayout
             android:id="@+id/number_element_container_456"
@@ -217,38 +239,50 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/number_element_container_0"
+            android:gravity="center_horizontal"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="horizontal">
-            <View
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="0px"/>
-            <Button
-                android:id="@+id/number_element_0"
-                android:theme="@style/NumbersElementButton"
-                android:textColor="@color/black"
-                android:text="0"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
             <!--<View-->
                 <!--android:layout_weight="1"-->
                 <!--android:layout_width="0dp"-->
                 <!--android:layout_height="0px"/>-->
-            <Button
-                android:id="@+id/add_offer"
-                android:layout_gravity="right"
-                android:textColor="@color/purple"
-                android:text="ok"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+            <ImageButton
+                android:id="@+id/number_element_0"
+                android:src="@drawable/number_0"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:theme="@style/Theme.AppCompat.Light"
-                style="@style/Widget.AppCompat.Button.Borderless"/>
+                android:theme="@style/NumbersElementButton"/>
+            <!--<Button-->
+                <!--android:id="@+id/number_element_0"-->
+                <!--android:theme="@style/NumbersElementButton"-->
+                <!--android:textColor="@color/black"-->
+                <!--android:text="0"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"/>-->
+            <!--<View-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="0px"/>-->
         </LinearLayout>
     </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/add_offer"
+            android:layout_marginRight="24dp"
+            android:layout_gravity="right"
+            android:textColor="@color/purple"
+            android:text="ok"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:theme="@style/Theme.AppCompat.Light"
+            style="@style/Widget.AppCompat.Button.Borderless"/>
+    </FrameLayout>
     <View
         android:background="@color/purple"
         android:layout_width="match_parent"

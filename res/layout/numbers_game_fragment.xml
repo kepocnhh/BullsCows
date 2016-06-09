@@ -5,13 +5,9 @@
              android:layout_height="match_parent">
     <ImageView
         android:adjustViewBounds="true"
+        android:alpha="0.15"
         android:src="@drawable/purplegameback"
         android:scaleType="centerCrop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <View
-        android:alpha="0.5"
-        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
     <ImageView
