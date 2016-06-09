@@ -57,4 +57,31 @@ public class Tables
                     ");";
         }
     }
+
+    public static class GoldTransactions
+    {
+        public static final String TABLE_NAME = "goldtransactions" + "_table";
+        public static class EarnedTypes
+        {
+            public static final int game = 0;
+        }
+        public static class Columns
+        {
+            public static final String date = "date";
+            public static final String earned_type = "earned_type";
+            public static final String game_id = "game_id";
+            public static final String gold = "gold";
+        }
+
+        public static String createTable()
+        {
+            return "create table if not exists " + TABLE_NAME + " (" +
+                    BaseColumns._ID + " integer primary key autoincrement, " +
+                    Columns.date + " text" + "," +
+                    Columns.earned_type + " integer" + "," +
+                    Columns.game_id + " integer" + "," +
+                    Columns.gold + " integer" +
+                    ");";
+        }
+    }
 }

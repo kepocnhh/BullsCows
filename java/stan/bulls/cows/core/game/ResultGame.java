@@ -7,5 +7,6 @@ public class ResultGame
     public String game_settings;
     public boolean win;
     public int amount_offers;
+    public int gold_earned;
     public long time_spend;
 }

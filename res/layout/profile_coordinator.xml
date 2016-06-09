@@ -95,22 +95,38 @@
                     android:layout_margin="12dp"
                     android:orientation="vertical">
 
-                    <TextView
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_gravity="center"
+                        android:gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/gold_earned"
-                        android:textColor="@color/black"
-                        android:textSize="14dp"/>
-
-                    <TextView
-                        android:id="@+id/gold_earned"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:text="123"
-                        android:textColor="@color/orange"
-                        android:textSize="16dp"
-                        android:textStyle="bold"/>
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gold_earned"
+                            android:textColor="@color/black"
+                            android:textSize="14dp"/>
+                        <LinearLayout
+                            android:gravity="bottom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:src="@drawable/coins"
+                                android:adjustViewBounds="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:id="@+id/gold_earned"
+                                android:layout_marginLeft="6dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="123"
+                                android:textColor="@color/orange"
+                                android:textSize="16dp"
+                                android:textStyle="bold"/>
+                        </LinearLayout>
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="wrap_content"

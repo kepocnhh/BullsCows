@@ -25,20 +25,21 @@ public class ResultGameDialog
     //_______________VIEWS
     TextView amount_offers;
     TextView time_spend;
+    TextView gold_earned;
 
     //_______________FIELDS
     private ResultGame resultGame;
 
     public ResultGameDialog()
     {
-        super(R.layout.result_game_dialog, ResultGameDialog.class.getName());
+        super(R.layout.result_game_dialog_cardview, ResultGameDialog.class.getName());
         setStyle(DialogFragment.STYLE_NO_TITLE, R.style.StanDialog);
     }
 
     @Override
     protected void realize(View v)
     {
-        v.findViewById(R.id.add_offer).setOnClickListener(new View.OnClickListener()
+        v.findViewById(R.id.result_ok).setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -46,10 +47,12 @@ public class ResultGameDialog
                 getListener().ok(ResultGameDialog.this);
             }
         });
+        gold_earned = (TextView) v.findViewById(R.id.gold_earned);
+        gold_earned.setText(resultGame.gold_earned + "");
         amount_offers = (TextView) v.findViewById(R.id.amount_offers);
         time_spend = (TextView) v.findViewById(R.id.time_spend);
         amount_offers.setText(resultGame.amount_offers + "");
-        time_spend.setText(TimeHelper.getSecondsStringWithSec(getActivity(), resultGame.time_spend));
+        time_spend.setText(TimeHelper.getSecondsString(resultGame.time_spend));
     }
 
     private IResultGameDialogListener getListener()

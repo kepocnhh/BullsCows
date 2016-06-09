@@ -1,16 +1,18 @@
 package stan.bulls.cows.ui.activities;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.provider.BaseColumns;
 import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import stan.bulls.cows.R;
 import stan.bulls.cows.core.game.ResultGame;
 import stan.bulls.cows.core.game.difficults.NumbersDifficults;
 import stan.bulls.cows.db.ContentDriver;
 import stan.bulls.cows.db.SQliteApi;
+import stan.bulls.cows.db.Tables;
 import stan.bulls.cows.listeners.dialogs.game.IResultGameDialogListener;
 import stan.bulls.cows.listeners.fragments.game.INumbersListener;
 import stan.bulls.cows.ui.dialogs.game.ResultGameDialog;
@@ -93,6 +95,11 @@ public class Game
     public void result(ResultGame resultGame)
     {
         SQliteApi.insertStatisticsGamesResultGame(ContentDriver.getContentValuesResultGameForStatisticsGames(resultGame));
+        Cursor cursor = SQliteApi.getGameFromDate(resultGame.date + "");
+        cursor.moveToFirst();
+        int gameId = cursor.getInt(cursor.getColumnIndex(BaseColumns._ID));
+        cursor.close();
+        SQliteApi.insertGoldEarnedTrans(ContentDriver.getContentValuesGoldEarnedFromGame(resultGame, gameId));
         ResultGameDialog.createNumbersAddOfferDialog(new IResultGameDialogListener()
         {
             @Override
@@ -101,7 +108,6 @@ public class Game
                 dialogFragment.dismiss();
                 finish();
             }
-
             @Override
             public void onDismiss()
             {

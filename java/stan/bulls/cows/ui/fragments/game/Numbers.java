@@ -3,7 +3,6 @@ package stan.bulls.cows.ui.fragments.game;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -50,13 +49,9 @@ public class Numbers
     private TextView offers_list_submessage;
     private TextView offers_list_timer;
     private CircularProgressView time_game;
-    //private CardView attempts_left_card;
     private View attempts_left_ll;
     private TextView attempts_left_number;
-    //private View attempts_left;
-    //private View attempts_left_and_offers_list_timer;
     private View game_tracking;
-    //private CardView offers_list_timer_card;
     private View offers_list_timer_ll;
 
     private ImageView time_circle;
@@ -68,7 +63,7 @@ public class Numbers
     private long date;
     private int offersCount;
     private int qualityCount;
-    private int attemptsLeftNumber = 20;
+    private int attemptsLeftNumber = 10;
     private Date time;
     private CountDownTimer timerAllGame;
     private CountDownTimer timerOneOffer;
@@ -106,13 +101,9 @@ public class Numbers
     @Override
     protected void findViews(View v)
     {
-        //attempts_left_card = (CardView) v.findViewById(R.id.attempts_left_card);
         attempts_left_ll = v.findViewById(R.id.attempts_left_ll);
         attempts_left_number = (TextView) v.findViewById(R.id.attempts_left_number);
-        //attempts_left = v.findViewById(R.id.attempts_left);
-        //offers_list_timer_card = (CardView) v.findViewById(R.id.offers_list_timer_card);
         offers_list_timer_ll = v.findViewById(R.id.offers_list_timer_ll);
-        //attempts_left_and_offers_list_timer = v.findViewById(R.id.attempts_left_and_offers_list_timer);
         game_tracking = v.findViewById(R.id.game_tracking);
         time_circle = (ImageView) v.findViewById(R.id.time_circle);
         time_game = (CircularProgressView) v.findViewById(R.id.time_game);
@@ -137,10 +128,13 @@ public class Numbers
     protected void init()
     {
         gameSettings = new NumbersGameSettings(new DefaultBooster(), getArguments().getInt(COUNT_KEY), getArguments().getInt(AMOUNT_KEY));
-        Log.e("NumbersGameSettings","timeGame = " + gameSettings.timeGame + "\tamount = " + gameSettings.amount + "\tcount = " + gameSettings.count);
+        Log.e("NumbersGameSettings","timeGame = " + gameSettings.timeGame
+                + "\tamount = " + gameSettings.amount
+                + "\tcount = " + gameSettings.count
+                + "\ttimeOneOffer = " + gameSettings.timeOneOffer
+                + "\tqualityOfferCount = " + gameSettings.qualityOfferCount);
         offersCount = 0;
         qualityCount = 0;
-        //attempts_left.setVisibility(View.INVISIBLE);
         offers_list_timer.setVisibility(View.INVISIBLE);
         game_tracking.setVisibility(View.INVISIBLE);
         time_frame.setVisibility(View.INVISIBLE);
@@ -184,13 +178,11 @@ public class Numbers
     private void newOffer(String value)
     {
         Offer offer;
-//        String timeSpend;
         int timeSpend = 0;
         boolean quality = true;
         if (checkBeginGame())
         {
             date = new Date().getTime();
-//            timeSpend = "0";
             offer = setSecretFromNewOffer(value);
             if(gameSettings.booster.statuses.timeGameStatus != SettingStatuses.NOT_INTEREST)
             {
@@ -199,7 +191,6 @@ public class Numbers
         }
         else
         {
-//            timeSpend = TimeHelper.getTimeSpend(time.getTime()) + "";
             if(gameSettings.booster.statuses.timeOneOfferStatus != SettingStatuses.NOT_INTEREST)
             {
                 timeSpend = getTimeOneOfferFromGameStatus(gameSettings, TimeHelper.getTimeSpend(time.getTime()));
@@ -222,7 +213,7 @@ public class Numbers
         refreshUIFromOffersCount(offersCount);
         time = new Date();
         resetTimerOneOffer();
-        if (checkWin(offer))
+        if(checkWin(offer))
         {
             endWinGame(true);
         }
@@ -238,6 +229,10 @@ public class Numbers
         {
             endWinGame(false);
         }
+//        if(offer.getValue().equals("000"))
+//        {
+//            endWinGame(true);
+//        }
     }
     private void changeQualityOfferStatusFromQualityCount(int qualityCount)
     {
@@ -784,8 +779,47 @@ public class Numbers
         resultGame.win = true;
         resultGame.amount_offers = offersCount;
         resultGame.game_settings = "";
+        resultGame.gold_earned = calculateGoldEarned();
+        Log.e("ResultGame", "gold_earned - " + resultGame.gold_earned);
         return resultGame;
     }
+
+    private int calculateGoldEarned()
+    {
+        int gold = 0;
+        gold += gameSettings.amount - 3;
+        gold += gameSettings.count/3;
+        if(gameSettings.statuses.timeGameStatus == SettingStatuses.REWARD)
+        {
+            gold += 3;
+        }
+        else if(gameSettings.statuses.timeGameStatus == SettingStatuses.MULCT)
+        {
+            gold -= 3;
+        }
+        if(gameSettings.statuses.timeOneOfferStatus == SettingStatuses.REWARD)
+        {
+            gold += 3;
+        }
+        else if(gameSettings.statuses.timeOneOfferStatus == SettingStatuses.MULCT)
+        {
+            gold -= 3;
+        }
+        if(gameSettings.statuses.qualityOfferCountStatus == SettingStatuses.REWARD)
+        {
+            gold += 3;
+        }
+        else if(gameSettings.statuses.qualityOfferCountStatus == SettingStatuses.MULCT)
+        {
+            gold -= 3;
+        }
+        if(gold < 0)
+        {
+            gold = 0;
+        }
+        return gold;
+    }
+
     private ResultGame endLostGame()
     {
         ResultGame resultGame = new ResultGame();

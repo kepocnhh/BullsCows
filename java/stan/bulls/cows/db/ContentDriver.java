@@ -45,4 +45,14 @@ public class ContentDriver
         content.put(Tables.StatisticsGames.Columns.time_spend, resultGame.time_spend + "");
         return content;
     }
+
+    static public ContentValues getContentValuesGoldEarnedFromGame(ResultGame resultGame, int gameId)
+    {
+        ContentValues content = new ContentValues();
+        content.put(Tables.GoldTransactions.Columns.date, resultGame.date + "");
+        content.put(Tables.GoldTransactions.Columns.earned_type, Tables.GoldTransactions.EarnedTypes.game);
+        content.put(Tables.GoldTransactions.Columns.game_id, gameId);
+        content.put(Tables.GoldTransactions.Columns.gold, resultGame.gold_earned);
+        return content;
+    }
 }

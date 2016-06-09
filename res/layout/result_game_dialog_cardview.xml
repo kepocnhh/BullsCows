@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content">
                     <LinearLayout
                         android:orientation="vertical"
-                        android:gravity="center"
+                        android:gravity="center_horizontal"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
@@ -52,8 +52,8 @@
                             android:textStyle="bold"/>
                     </LinearLayout>
                     <LinearLayout
+                        android:gravity="center_horizontal"
                         android:orientation="vertical"
-                        android:gravity="center"
                         android:layout_weight="1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content">
@@ -63,16 +63,70 @@
                             android:text="@string/time_spend"
                             android:textColor="@color/black"
                             android:textSize="14dp"/>
+                        <LinearLayout
+                            android:gravity="bottom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:src="@drawable/clock_green"
+                                android:adjustViewBounds="true"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                            <TextView
+                                android:layout_marginBottom="-2dp"
+                                android:id="@+id/time_spend"
+                                android:layout_marginLeft="6dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1234"
+                                android:textColor="@color/green"
+                                android:textSize="16dp"
+                                android:textStyle="bold"/>
+                            <TextView
+                                android:layout_marginBottom="-2dp"
+                                android:textSize="12dp"
+                                android:textColor="@color/black"
+                                android:text="@string/seconds"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gold_earned"
+                        android:textColor="@color/black"
+                        android:textSize="14dp"/>
+                    <LinearLayout
+                        android:gravity="bottom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@drawable/coins"
+                            android:adjustViewBounds="true"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
                         <TextView
-                            android:id="@+id/time_spend"
+                            android:id="@+id/gold_earned"
+                            android:layout_marginLeft="6dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="123"
-                            android:textColor="@color/black"
+                            android:textColor="@color/orange"
                             android:textSize="16dp"
                             android:textStyle="bold"/>
                     </LinearLayout>
                 </LinearLayout>
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="0px"/>
             </LinearLayout>
             <FrameLayout
                 android:layout_gravity="right"

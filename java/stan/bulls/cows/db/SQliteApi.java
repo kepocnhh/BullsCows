@@ -10,7 +10,7 @@ public class SQliteApi
     public static DatabaseHelper dbHelper;
     public static volatile SQLiteDatabase sdb;
     public static String DB_NAME = "bullscows";
-    public static int DB_VERSION = 1605072314;
+    public static int DB_VERSION = 1606091933;
 
     public static void createDb(Context context)
     {
@@ -39,6 +39,10 @@ public class SQliteApi
     {
         return sdb.insert(Tables.StatisticsGames.TABLE_NAME, null, content);
     }
+    public static long insertGoldEarnedTrans(ContentValues content)
+    {
+        return sdb.insert(Tables.GoldTransactions.TABLE_NAME, null, content);
+    }
 
     //____________________________CLEAR_TABLE
     public static void clearGameTemp()
@@ -55,6 +59,10 @@ public class SQliteApi
     public static Cursor getStatisticsGames()
     {
         return sdb.query(Tables.StatisticsGames.TABLE_NAME, null, null, null, null, null, null);
+    }
+    public static Cursor getAllGold()
+    {
+        return sdb.query(Tables.GoldTransactions.TABLE_NAME, null, null, null, null, null, null);
     }
 
     // GET MANY BY PARAMS
@@ -73,12 +81,17 @@ public class SQliteApi
 
     // GET ONE
     /* ************************************************************************ */
-//    public static Cursor getOnePostSimpleFromId(String id)
-//    {
-//        Cursor cursor = sdb.query(Tables.PostSimple.TABLE_NAME, null, BaseColumns._ID + " = ?",
-//                new String[]{id}, null, null, null);
-//        return cursor;
-//    }
+    public static Cursor getGameFromDate(String date)
+    {
+//        Cursor cursor = sdb.query(Tables.StatisticsGames.TABLE_NAME, null, Tables.StatisticsGames.Columns.date + " = ?",
+//                new String[]{date}, null, null, null);
+                Cursor cursor = sdb.rawQuery(
+                        "SELECT * "
+                                + "FROM " + Tables.StatisticsGames.TABLE_NAME + " "
+                                + "WHERE " + Tables.StatisticsGames.Columns.date + " = " + date + ";"
+                        , new String[]{});
+        return cursor;
+    }
 
     // CLEAR DB TABLES
     /* ************************************************************************ */
@@ -86,6 +99,7 @@ public class SQliteApi
     {
         db.execSQL("drop table if exists " + Tables.GameTemp.TABLE_NAME);
         db.execSQL("drop table if exists " + Tables.StatisticsGames.TABLE_NAME);
+        db.execSQL("drop table if exists " + Tables.GoldTransactions.TABLE_NAME);
     }
 
     // CREATE DB TABLES
@@ -94,5 +108,6 @@ public class SQliteApi
     {
         db.execSQL(Tables.GameTemp.createTable());
         db.execSQL(Tables.StatisticsGames.createTable());
+        db.execSQL(Tables.GoldTransactions.createTable());
     }
 }
